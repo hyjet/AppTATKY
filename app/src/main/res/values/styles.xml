@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ButtonPrimaryStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:textColor">@color/buttonPrimaryTextColor</item>
+        <item name="android:background">@drawable/button_primary_shape</item>
+    </style>
+
+    <style name="ButtonSecondaryStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:textColor">@color/buttonSecondaryTextColor</item>
+        <item name="android:background">@drawable/button_secondary_shape</item>
+    </style>
+
+
+    <style name="InputStyle">
+        <item name="android:background">@drawable/shape_input</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+    <style name="TextHeader1">
+        <item name="android:textSize">@dimen/TextSizeHeader1</item>
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextHeader1Smaller">
+        <item name="android:textSize">@dimen/TextSizeHeader1Smaller</item>
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextHeader2Primary">
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textSize">@dimen/TextSizeHeader2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextHeader2Secondary">
+        <item name="android:textColor">@color/textSecondaryColor</item>
+        <item name="android:textSize">@dimen/TextSizeHeader2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextHeader3">
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textSize">@dimen/TextSizeHeader3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextHeader4">
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textSize">@dimen/TextSizeHeader4</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextBodyPrimary">
+        <item name="android:textColor">@color/textPrimaryColor</item>
+        <item name="android:textSize">@dimen/TextSizeBody</item>
+    </style>
+    <style name="TextButtonPrimaryStyle">
+        <item name="android:textSize">@dimen/TextSizeBody</item>
+        <item name="android:textColor">@color/textSecondaryColor</item>
+    </style>
+    <style name="TextButtonSecondaryStyle">
+        <item name="android:textSize">@dimen/TextSizeBody</item>
+        <item name="android:textColor">@color/textPrimaryColor</item>
+    </style>
+    <style name="SpinnerStyle">
+        <item name="android:background">@drawable/spinner_primary_shape</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+    <style name="CircleButtonStyle">
+        <item name="android:background">@drawable/shape_circle_button</item>
+    </style>
+</resources>

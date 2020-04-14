@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DonationPage">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/donation_guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/donation_guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <EditText
+        android:id="@+id/donation_edt_item_name"
+        style="@style/InputStyle"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/price"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@id/donation_spin_item_type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Spinner
+        android:id="@+id/donation_spin_item_type"
+        style="@style/SpinnerStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:entries="@array/item_type_donation"
+        android:prompt="@string/item_type_prompt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donation_edt_item_name"
+        app:layout_constraintBottom_toTopOf="@id/donation_tv_item_photo"/>
+
+    <TextView
+        android:id="@+id/donation_tv_item_photo"
+        style="@style/TextBodyPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_photo"
+        android:layout_marginStart="24dp"
+        app:layout_constraintTop_toBottomOf="@id/donation_spin_item_type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/donation_imgv_item_photo"
+        />
+    <ImageView
+        android:id="@+id/donation_imgv_item_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:background="@color/buttonPrimaryColor"
+        app:layout_constraintTop_toBottomOf="@id/donation_tv_item_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/donation_tv_choose"
+        />
+    <TextView
+        android:id="@+id/donation_tv_choose"
+        style="@style/TextBodyPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/donation_imgv_item_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/donation_guideline_top"
+        />
+    <Button
+        android:id="@+id/donation_btn_donation"
+        style="@style/ButtonPrimaryStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/donation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/donation_guideline_bottom" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

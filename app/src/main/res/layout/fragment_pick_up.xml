@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="24dp"
+    android:orientation="vertical"
+    tools:context=".PickUpFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pick_up_rv_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/pick_up_imgv_btn_remove_item"
+                tools:listitem="@layout/item_order"
+                tools:itemCount="3"/>
+
+            <ImageView
+                android:id="@+id/pick_up_imgv_btn_remove_item"
+                style="@style/CircleButtonStyle"
+                android:layout_width="@dimen/CircleButtonSize"
+                android:layout_height="@dimen/CircleButtonSize"
+                android:layout_gravity="center"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/minus"
+                android:tint="@color/gray"
+                android:tintMode="src_atop"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp"
+                android:layout_alignBottom="@id/pick_up_rv_order"/>
+
+            <LinearLayout
+                android:id="@+id/pick_up_btn_add_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick_up_rv_order"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/view_press_state_color_change"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/pick_up_imgv_btn_add_item"
+                    style="@style/CircleButtonStyle"
+                    android:layout_width="@dimen/CircleButtonSize"
+                    android:layout_height="@dimen/CircleButtonSize"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_plus_button"
+                    android:tint="@color/gray"
+                    android:tintMode="src_atop" />
+
+                <TextView
+                    style="@style/TextBodyPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center|start"
+                    android:text="@string/add_item_type" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/pick_up_edt_phone"
+                style="@style/InputStyle"
+                android:layout_width="match_parent"
+                android:layout_below="@id/pick_up_btn_add_item"
+                android:layout_marginTop="24dp"
+                android:hint="@string/phone_number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/pick_up_edt_address"
+                style="@style/InputStyle"
+                android:layout_width="match_parent"
+                android:layout_below="@id/pick_up_edt_phone"
+                android:layout_marginTop="24dp"
+                android:hint="@string/address"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/pick_up_edt_address_description"
+                style="@style/InputStyle"
+                android:layout_width="match_parent"
+                android:layout_below="@id/pick_up_edt_address"
+                android:layout_marginTop="24dp"
+                android:hint="@string/address_description"
+                android:inputType="text" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/pick_up_btn_pick_up"
+        style="@style/ButtonPrimaryStyle"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="24dp"
+        android:text="@string/pick_up" />
+</LinearLayout>

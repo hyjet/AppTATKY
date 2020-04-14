@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="InputHeight">48dp</dimen>
+    <dimen name="TextSizeBody">15dp</dimen>
+    <dimen name="TextSizeHeader1">40dp</dimen>
+    <dimen name="TextSizeHeader1Smaller">36dp</dimen>
+    <dimen name="TextSizeHeader2">20dp</dimen>
+    <dimen name="TextSizeHeader3">18dp</dimen>
+    <dimen name="TextSizeHeader4">16dp</dimen>
+    <dimen name="ImageButtonSize1">40dp</dimen>
+    <dimen name="ImageButtonSize2">40dp</dimen>
+    <dimen name="ImageButtonSize3">64dp</dimen>
+    <dimen name="CircleButtonSize">32dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

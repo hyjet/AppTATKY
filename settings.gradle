@@ -1,0 +1,2 @@
+rootProject.name='AppTA'
+include ':app'

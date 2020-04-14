@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculatePage">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/calculate_guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/calculate_guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"
+        />
+    <Spinner
+        android:id="@+id/calculate_spin_item_type"
+        style="@style/SpinnerStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:entries="@array/item_type_pick_up"
+        android:prompt="@string/item_type_prompt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/calculate_edt_weight"/>
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/calculate_edt_weight"
+        style="@style/InputStyle"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:hint="@string/weight"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/calculate_tv_unit"
+        app:layout_constraintTop_toBottomOf="@id/calculate_spin_item_type"
+        app:layout_constraintBottom_toTopOf="@id/calculate_edt_price"/>
+
+    <TextView
+        android:id="@+id/calculate_tv_unit"
+        style="@style/TextBodyPrimary"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/InputHeight"
+        android:layout_marginStart="24dp"
+        android:gravity="center|left"
+        android:text="@string/kg"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/calculate_edt_weight"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_spin_item_type"
+        app:layout_constraintBottom_toTopOf="@+id/calculate_edt_price"
+        />
+
+    <EditText
+        android:id="@+id/calculate_edt_price"
+        style="@style/InputStyle"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:inputType="number"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/price"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_edt_weight"
+        app:layout_constraintBottom_toTopOf="@id/calculate_guideline_top"/>
+
+    <Button
+        android:id="@+id/calculate_btn_calculate"
+        style="@style/ButtonPrimaryStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/calculate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_guideline_bottom" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

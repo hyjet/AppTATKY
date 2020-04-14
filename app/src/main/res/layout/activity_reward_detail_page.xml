@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RewardDetailPage">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/calculate_guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/calculate_guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <ImageView
+        android:id="@+id/reward_detail_imgv_reward_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@id/reward_detail_tv_outlet_discount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/buttonPrimaryColor" />
+
+    <TextView
+        android:id="@+id/reward_detail_tv_outlet_discount"
+        style="@style/TextHeader1Smaller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/outlet_discount"
+        app:layout_constraintBottom_toTopOf="@id/reward_detail_tv_description_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reward_detail_imgv_reward_image" />
+
+    <TextView
+        android:id="@+id/reward_detail_tv_description_title"
+        style="@style/TextBodyPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/description"
+        app:layout_constraintBottom_toTopOf="@id/reward_detail_tv_description_detail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reward_detail_tv_outlet_discount" />
+
+    <TextView
+        android:id="@+id/reward_detail_tv_description_detail"
+        style="@style/TextBodyPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:lines="8"
+        app:layout_constraintBottom_toTopOf="@id/calculate_guideline_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reward_detail_tv_description_title"
+        tools:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/reward_detail_tv_voucher_code_title"
+        style="@style/TextBodyPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/voucher_code"
+        app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top" />
+
+    <TextView
+        android:id="@+id/reward_detail_tv_voucher_code_content"
+        style="@style/TextHeader1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
+        app:layout_constraintLeft_toRightOf="@id/reward_detail_tv_voucher_code_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top"
+        tools:text="ABCDE" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

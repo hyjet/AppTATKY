@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".HomeFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_home"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/home_guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="309dp" />
+
+        <TextView
+            android:id="@+id/home_tv_point"
+            style="@style/TextHeader2Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/home_imgbtn_withdrawal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10000" />
+
+        <TextView
+            android:id="@+id/home_tv_point_label"
+            style="@style/TextHeader2Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/points"
+            app:layout_constraintBottom_toTopOf="@+id/home_imgbtn_withdrawal"
+            app:layout_constraintLeft_toRightOf="@id/home_tv_point"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/home_imgbtn_withdrawal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/home_linear_layout_menu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/home_imgbtn_history"
+            app:layout_constraintTop_toBottomOf="@id/home_tv_point">
+
+
+            <ImageView
+                android:id="@+id/home_imgbtn_img_withdrawal"
+                android:layout_width="@dimen/ImageButtonSize1"
+                android:layout_height="@dimen/ImageButtonSize1"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_withdraw"
+                android:contentDescription="@string/withdrawal" />
+
+            <TextView
+                style="@style/TextButtonPrimaryStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="@string/withdrawal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_imgbtn_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/home_linear_layout_menu"
+            app:layout_constraintLeft_toRightOf="@id/home_imgbtn_withdrawal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_tv_point">
+
+            <ImageView
+                android:id="@+id/home_imgbtn_img_history"
+                android:layout_width="@dimen/ImageButtonSize1"
+                android:layout_height="@dimen/ImageButtonSize1"
+                android:layout_gravity="center"
+                android:contentDescription="@string/history"
+                android:src="@drawable/icon_history" />
+
+            <TextView
+                style="@style/TextButtonPrimaryStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="@string/history" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_linear_layout_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/shape_menu_bar_home"
+            android:orientation="horizontal"
+            android:padding="24dp"
+            app:layout_constraintBottom_toTopOf="@id/home_guideline1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_imgbtn_history">
+
+            <LinearLayout
+                android:id="@+id/home_imgbtn_reward"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/home_imgbtn_img_reward"
+                    android:layout_width="@dimen/ImageButtonSize2"
+                    android:layout_height="@dimen/ImageButtonSize2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_coupon"
+                    android:contentDescription="@string/reward" />
+
+                <TextView
+                    style="@style/TextButtonSecondaryStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/reward" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/home_imgbtn_calculate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/home_imgbtn_img_calculate"
+                    android:layout_width="@dimen/ImageButtonSize2"
+                    android:layout_height="@dimen/ImageButtonSize2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_calculator"
+                    android:contentDescription="@string/calculate" />
+
+                <TextView
+                    style="@style/TextButtonSecondaryStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/calculate" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/home_imgbtn_donation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/home_imgbtn_img_donation"
+                    android:layout_width="@dimen/ImageButtonSize2"
+                    android:layout_height="@dimen/ImageButtonSize2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_respect"
+                    android:contentDescription="@string/donation" />
+
+                <TextView
+                    style="@style/TextButtonSecondaryStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/donation" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/home_tv_special_promo"
+            style="@style/TextHeader3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/special_promo"
+            app:layout_constraintBottom_toTopOf="@id/home_rv_special_promo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_guideline1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_rv_special_promo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_tv_special_promo"
+            tools:itemCount="4"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_special_promo"
+            tools:spanCount="2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</FrameLayout>

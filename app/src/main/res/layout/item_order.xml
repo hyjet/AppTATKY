@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="24dp"
+    android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/item_order_spinner_item_type"
+        style="@style/SpinnerStyle"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        tools:entries="@array/item_type_pick_up"
+        tools:prompt="@string/item_type_prompt" />
+
+    <EditText
+        android:id="@+id/item_order_edt_amount"
+        style="@style/InputStyle"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_weight="3"
+        android:hint="@string/weight" />
+
+    <TextView
+        style="@style/TextBodyPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_weight="1"
+        android:gravity="center|start"
+        android:text="@string/kg" />
+</LinearLayout>
