@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_pick_up.view.*
 
 
 class PickUpFragment : Fragment(), View.OnClickListener {
-    var count: Int = 1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,9 +23,10 @@ class PickUpFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        OrderAdapter.orderData.clear()
+        OrderAdapter.orderData.add(OrderAdapter.OrderData())
         pick_up_rv_order.layoutManager = LinearLayoutManager(view.context)
-        pick_up_rv_order.adapter = OrderAdapter(count)
+        pick_up_rv_order.adapter = OrderAdapter()
         pick_up_btn_add_item.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.isEnabled = false
@@ -35,16 +35,14 @@ class PickUpFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             pick_up_btn_add_item -> {
-                count += 1
-                pick_up_rv_order.adapter = OrderAdapter(count)
-                Log.d("test",count.toString())
+                OrderAdapter.orderData.add(OrderAdapter.OrderData())
+                pick_up_rv_order.adapter = OrderAdapter()
                 pick_up_imgv_btn_remove_item.isEnabled = true
             }
             pick_up_imgv_btn_remove_item -> {
-                count-=1
-                pick_up_rv_order.adapter = OrderAdapter(count)
-                Log.d("test",count.toString())
-                if(count==1)
+                OrderAdapter.orderData.add(OrderAdapter.OrderData())
+                pick_up_rv_order.adapter = OrderAdapter()
+                if (OrderAdapter.orderData.size == 1)
                     pick_up_imgv_btn_remove_item.isEnabled = false
             }
 
