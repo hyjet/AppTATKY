@@ -41,6 +41,16 @@ class HomePage : AppCompatActivity() {
                         .commit()
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.home_navigation_profile ->{
+                    val fragment = ProfileFragment()
+                    supportActionBar?.show()
+                    home_toolbar.home_toolbar_tv.text = resources.getText(R.string.profile)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_container, fragment, fragment.javaClass.simpleName)
+                        .commit()
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             false
         }

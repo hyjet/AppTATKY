@@ -10,7 +10,7 @@ object SpecialPromoData {
     val listPromo : ArrayList<SpecialPromo>
     get() {
         val list = arrayListOf<SpecialPromo>()
-        for (i in 1..6){
+        for (i in 1..8){
             val promo = SpecialPromo()
             promo.name = promoName
             promo.detail = promoDetail

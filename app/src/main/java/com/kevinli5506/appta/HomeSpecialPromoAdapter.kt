@@ -8,14 +8,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_special_promo.view.*
 
-class HomeSpecialPromoAdapter (val listSpecialPromo :ArrayList<SpecialPromo>): RecyclerView.Adapter<HomeSpecialPromoAdapter.ViewHolder>() {
+class HomeSpecialPromoAdapter (val listSpecialPromo :ArrayList<SpecialPromo>,val limit :Int): RecyclerView.Adapter<HomeSpecialPromoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_special_promo,parent,false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listSpecialPromo.size
+    override fun getItemCount(): Int {
+        if (listSpecialPromo.size<limit)
+            return listSpecialPromo.size
+        else
+            return limit
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.nameSpecialPromo.text=listSpecialPromo[position].name

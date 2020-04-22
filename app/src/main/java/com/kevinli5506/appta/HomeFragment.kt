@@ -23,7 +23,7 @@ private val list: ArrayList<SpecialPromo> = arrayListOf()
         super.onViewCreated(view, savedInstanceState)
         list.addAll(SpecialPromoData.listPromo)
         view.home_rv_special_promo.layoutManager = GridLayoutManager(view.context,2)
-        val specialPromoAdapter = HomeSpecialPromoAdapter(list)
+        val specialPromoAdapter = HomeSpecialPromoAdapter(list,4)
         view.home_rv_special_promo.adapter = specialPromoAdapter
     }
 

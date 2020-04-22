@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_home"
     android:padding="24dp"
-    tools:context=".ProfilePage">
+    tools:context=".ProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/profile_guideline_2"
@@ -45,8 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-
-        android:text="Nama"
+        tools:text="Nama"
         app:layout_constraintBottom_toTopOf="@id/profile_guideline_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -80,7 +79,7 @@
                 android:layout_width="@dimen/ImageButtonSize2"
                 android:layout_height="@dimen/ImageButtonSize2"
                 android:layout_gravity="center"
-                android:background="@drawable/icon_history"
+                android:background="@drawable/icon_edit_profile"
                 android:backgroundTint="@color/imageButtonPrimaryColor"
                 android:backgroundTintMode="src_atop"
                 android:contentDescription="@string/reward" />
@@ -139,7 +138,8 @@
         android:layout_width="@dimen/ImageButtonSize3"
         android:layout_height="@dimen/ImageButtonSize3"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/icon_pickup_truck"
+        android:background="@drawable/icon_email"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@id/profile_img_phone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/profile_tv_email"
@@ -150,7 +150,7 @@
         style="@style/TextBodyPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="abdefg@gmail.com"
+        tools:text="abdefg@gmail.com"
         app:layout_constraintBottom_toTopOf="@id/profile_img_phone"
         app:layout_constraintLeft_toRightOf="@id/profile_img_email"
         app:layout_constraintRight_toRightOf="parent"
@@ -170,7 +170,7 @@
         android:layout_width="@dimen/ImageButtonSize3"
         android:layout_height="@dimen/ImageButtonSize3"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/icon_pickup_truck"
+        android:background="@drawable/icon_phone"
         app:layout_constraintBottom_toBottomOf="@id/profile_guideline_3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/profile_tv_phone"
@@ -181,7 +181,7 @@
         style="@style/TextBodyPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="0812345678"
+        tools:text="0812345678"
         android:textColor="@color/textPrimaryColor"
         app:layout_constraintBottom_toBottomOf="@id/profile_guideline_3"
         app:layout_constraintLeft_toRightOf="@id/profile_img_phone"

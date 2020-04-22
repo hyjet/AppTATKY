@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LaunchPage"/>
+        <activity android:name=".HomePage"/>
+        <activity android:name=".LaunchPage" />
         <activity android:name=".EditProfilePage" />
-        <activity android:name=".ProfilePage" />
         <activity android:name=".RewardDetailPage" />
         <activity android:name=".DonationPage" />
         <activity android:name=".CalculatePage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".HomePage">
+        <activity android:name=".RewardPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
