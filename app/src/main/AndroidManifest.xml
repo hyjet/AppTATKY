@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kevinli5506.appta">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewsDetailPage"></activity>
+        <activity android:name=".RewardPage"/>
+        <activity android:name=".NewsDetailPage" />
         <activity android:name=".HomePage" />
         <activity android:name=".LaunchPage" />
         <activity android:name=".EditProfilePage" />
@@ -18,7 +22,7 @@
         <activity android:name=".CalculatePage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".RewardPage">
+        <activity android:name=".LocationPickerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

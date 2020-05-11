@@ -37,6 +37,9 @@ android {
 
 }
 
+repositories {
+    mavenCentral()
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -61,4 +64,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:5.1.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.1.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-core:5.1.0'
 }
