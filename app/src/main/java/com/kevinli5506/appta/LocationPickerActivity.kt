@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_location_picker.*
+import java.util.*
 
 class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     private val REQUEST_LOCATION_PERMISSION = 1
@@ -32,6 +34,8 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_picker)
+        setSupportActionBar(map_toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -54,8 +58,23 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
 
         enableMyLocation()
-
-
+        mMap.setOnCameraIdleListener {
+            val geoCoder:Geocoder = Geocoder(this, Locale.getDefault())
+            val curposition = mMap.cameraPosition.target
+            val fullAddress = geoCoder.getFromLocation(curposition.latitude,curposition.longitude,1)
+            if (fullAddress.size>0){
+                val address = fullAddress[0].getAddressLine(0)
+                val addresstextarr = address.split(",")
+                map_toolbar_tv.text= addresstextarr[0]
+                Log.d("test",address)
+            }
+            else{
+                map_toolbar_tv.text = "Not Found"
+            }
+        }
+        mMap.setOnCameraMoveListener {
+            map_toolbar_tv.text ="Loading"
+        }
     }
 
 

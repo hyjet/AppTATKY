@@ -36,12 +36,12 @@
         <activity android:name=".HomePage" />
         <activity android:name=".LaunchPage" />
         <activity android:name=".EditProfilePage" />
-        <activity android:name=".RewardDetailPage" />
+        <activity android:name=".LocationPickerActivity" />
         <activity android:name=".DonationPage" />
         <activity android:name=".CalculatePage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".LocationPickerActivity" android:label="@string/title_activity_location_picker" >
+        <activity android:name=".RewardDetailPage" android:label="@string/title_activity_location_picker" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
