@@ -61,4 +61,5 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }

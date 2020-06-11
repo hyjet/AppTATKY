@@ -23,7 +23,7 @@
     <EditText
         android:id="@+id/donation_edt_item_name"
         style="@style/InputStyle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/price"
