@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="10dp"
-    android:shape="rectangle">
-    <stroke
-        android:width="2dp"
-        android:color="@color/borderInputColor" />
-    <corners android:radius="8dp" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:padding="10dp" android:shape="rectangle">
+                    <stroke android:width="2dp" android:color="@color/borderInputColor" />
+                    <corners android:radius="8dp" />
+                </shape>
+            </item>
+            <item android:right="5dp" android:top="5dp" android:bottom="5dp">
+                <bitmap android:gravity="center_vertical|right" android:src="@drawable/spinner_arrow"/>
+            </item>
+        </layer-list>
+    </item>
+
+
+</selector>

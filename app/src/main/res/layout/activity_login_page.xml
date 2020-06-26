@@ -30,35 +30,52 @@
         android:layout_marginTop="24dp"
 
         android:text="@string/login"
-        app:layout_constraintBottom_toTopOf="@id/login_edt_email"
+        app:layout_constraintBottom_toTopOf="@id/login_edt_wrapper_email"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/login_edt_email"
-        style="@style/InputStyle"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_edt_wrapper_email"
         android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="wrap_content"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@id/login_edt_password"
+        app:layout_constraintBottom_toTopOf="@id/login_edt_wrapper_password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_tv_header" />
+        app:layout_constraintTop_toBottomOf="@+id/login_tv_header">
 
-    <EditText
-        android:id="@+id/login_edt_password"
-        style="@style/InputStyle"
+        <EditText
+            android:id="@+id/login_edt_email"
+            style="@style/InputStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_edt_wrapper_password"
         android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@id/login_guideline_top"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_edt_email" />
+        app:layout_constraintTop_toBottomOf="@+id/login_edt_wrapper_email">
+
+        <EditText
+            android:id="@+id/login_edt_password"
+            style="@style/InputStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/login_btn_login"

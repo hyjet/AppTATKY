@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".EditProfilePage">
 
+    <EditText
+        android:id="@+id/edit_profile_edt_name"
+        style="@style/InputStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/name"
+        android:inputType="text" />
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/edit_profile_edt_phone_number"
+        style="@style/InputStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/phone_number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/edit_profile_edt_email"
+        style="@style/InputStyle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/edit_profile_btn_save"
+        style="@style/ButtonPrimaryStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/save"
+        android:layout_marginBottom="24dp"/>
+
+</LinearLayout>

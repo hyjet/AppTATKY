@@ -11,8 +11,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAdapter.ViewHolder>() {
-
+class
+NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAdapter.ViewHolder>() {
+    private lateinit var onItemClickCallBack: OnItemClickCallBack
+    fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
+        this.onItemClickCallBack = onItemClickCallBack
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_news,parent,false)
@@ -47,11 +51,17 @@ class NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAd
             timedif
         }
         holder.timeNews.text = timePast()
+        holder.itemView.setOnClickListener {
+            onItemClickCallBack.onItemClicked(news[holder.adapterPosition])
+        }
     }
     class ViewHolder(itemView :View) :RecyclerView.ViewHolder(itemView) {
         val imgvNews = itemView.item_news_imgv_img
         val titleNews = itemView.item_news_tv_title
         val ratingNews = itemView.item_news_tv_rate
         val timeNews = itemView.item_news_tv_time
+    }
+    interface OnItemClickCallBack {
+        fun onItemClicked(data: News)
     }
 }

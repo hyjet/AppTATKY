@@ -23,6 +23,7 @@
         style="@style/TextHeader4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         tools:text="Diskon Sir Salon" />
 
     <TextView
@@ -32,5 +33,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="3"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         tools:text="Anda berhak mendapatkan diskon 20% dari kami" />
 </LinearLayout>

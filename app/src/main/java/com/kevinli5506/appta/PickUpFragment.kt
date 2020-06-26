@@ -45,6 +45,12 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 if (OrderAdapter.orderData.size == 1)
                     pick_up_imgv_btn_remove_item.isEnabled = false
             }
+            pick_up_btn_pick_up->{
+                val orderList :ArrayList<OrderAdapter.OrderData> = OrderAdapter.orderData
+                val phone = pick_up_edt_phone.text.toString()
+                val address = pick_up_edt_address.text.toString()
+                val addressDescription = pick_up_edt_address_description.text.toString()
+            }
 
         }
 

@@ -29,8 +29,7 @@
                     android:id="@+id/news_detail_imgv_image"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:src="@drawable/sir_salon" />
+                    android:background="@color/colorPrimaryDark" />
 
                 <ImageButton
                     android:id="@+id/news_detail_btn_back_navigation"
@@ -68,7 +67,7 @@
                     android:src="@drawable/icon_star" />
 
                 <TextView
-                    android:id="@+id/item_news_tv_rate"
+                    android:id="@+id/news_detail_tv_rate"
                     style="@style/TextHeader3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,8 +83,10 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:text="@string/rate"
+                    android:clickable="true"
                     android:textColor="@color/link"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:focusable="true" />
 
                 <TextView
                     android:id="@+id/news_detail_tv_date"

@@ -1,12 +1,13 @@
 package com.kevinli5506.appta
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_reward_page.*
 
 class RewardPage : AppCompatActivity() {
-private val list : ArrayList<SpecialPromo> = arrayListOf()
+    private val list: ArrayList<SpecialPromo> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reward_page)
@@ -14,8 +15,16 @@ private val list : ArrayList<SpecialPromo> = arrayListOf()
         supportActionBar?.setDisplayShowTitleEnabled(false)
         reward_toolbar_tv.text = resources.getString(R.string.reward)
         list.addAll(SpecialPromoData.listPromo)
-        reward_rv_reward.layoutManager = GridLayoutManager(this,2)
+        reward_rv_reward.layoutManager = GridLayoutManager(this, 2)
         val specialPromoAdapter = HomeSpecialPromoAdapter(list, Int.MAX_VALUE)
         reward_rv_reward.adapter = specialPromoAdapter
+        specialPromoAdapter.setOnItemClickCallBack(object :
+            HomeSpecialPromoAdapter.OnItemClickCallBack {
+            override fun onItemClicked(data: SpecialPromo) {
+                val intent = Intent(this@RewardPage, RewardDetailPage::class.java)
+                intent.putExtra(RewardDetailPage.EXTRA_REWARD, data)
+                startActivity(intent)
+            }
+        })
     }
 }

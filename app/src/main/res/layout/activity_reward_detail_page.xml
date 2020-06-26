@@ -19,7 +19,37 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/reward_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light"
 
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <ImageButton
+            android:id="@+id/reward_detail_btn_back_navigation"
+            android:layout_width="@dimen/ImageButtonSize1"
+            android:layout_height="@dimen/ImageButtonSize1"
+            android:background="#00000000"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_back_button"
+            android:tint="@color/buttonSecondaryColor" />
+        <TextView
+            style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+            android:id="@+id/reward_detail_toolbar_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:text="@string/reward"
+            android:textAppearance="@android:style/TextAppearance.WindowTitle"
+            />
+    </androidx.appcompat.widget.Toolbar>
     <ImageView
         android:id="@+id/reward_detail_imgv_reward_image"
         android:layout_width="match_parent"
@@ -29,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@id/reward_detail_tv_outlet_discount"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reward_detail_toolbar"
         tools:background="@color/buttonPrimaryColor" />
 
     <TextView

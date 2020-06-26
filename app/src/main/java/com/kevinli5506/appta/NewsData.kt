@@ -6,6 +6,7 @@ import kotlin.collections.ArrayList
 object NewsData {
     private val newsTitle = "Lorem Ipsum"
     private val newsRating = 4f
+    private val newsDescription = "blablablablablbalblablablabla"
     private val newsDate1:Calendar
     get() {
         val time = Calendar.getInstance()
@@ -29,6 +30,7 @@ object NewsData {
             news.rating= newsRating
             news.time = if(i%2==0) newsDate1 else newsDate2
             news.image = newsImage
+            news.description= newsDescription
             arr.add(news)
         }
         return arr

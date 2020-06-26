@@ -1,10 +1,10 @@
 package com.kevinli5506.appta
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import kotlinx.android.synthetic.main.activity_launch_page.*
-import kotlinx.android.synthetic.main.fragment_pick_up.*
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 
 class LoginPage : AppCompatActivity() {
 
@@ -12,5 +12,14 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
 
+    }
+    private fun hideKeyboard() {
+        val view: View? = currentFocus
+        if (view != null) {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                view.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
     }
 }

@@ -6,13 +6,31 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_news_detail_page.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class NewsDetailPage : AppCompatActivity() {
+class NewsDetailPage : AppCompatActivity() ,View.OnClickListener{
     private val list : ArrayList<Comment> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_detail_page)
+        val news = intent.getParcelableExtra<News>(EXTRA_NEWS)
+        Glide.with(this)
+            .load(news.image)
+            .into(news_detail_imgv_image)
+        news_detail_tv_title.setText(news.title)
+        news_detail_tv_rate.setText(news.rating.toString())
+        news_detail_tv_description.setText(news.description)
+        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
+        val date:String = formatter.format(news.time.time).toString()
+        news_detail_tv_date.setText(date)
+
+        news_detail_btn_back_navigation.setOnClickListener(this)
+        news_detail_tv_rate.setOnClickListener(this)
+
         list.addAll(CommentsData.listComments)
         news_detail_rv_comment.layoutManager = LinearLayoutManager(this)
         val commentAdapter = CommentAdapter(list)
@@ -35,6 +53,20 @@ class NewsDetailPage : AppCompatActivity() {
             }
 
         })
+    }
+    companion object{
+        val EXTRA_NEWS ="EXTRA_NEWS"
+    }
+
+    override fun onClick(v: View?) {
+        when(v){
+            news_detail_tv_rate->{
+
+            }
+            news_detail_btn_back_navigation->{
+                finish()
+            }
+        }
     }
 
 }

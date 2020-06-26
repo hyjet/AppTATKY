@@ -1,5 +1,6 @@
 package com.kevinli5506.appta
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,13 @@ class NewsFragment : Fragment() {
         news_rv_news.layoutManager = LinearLayoutManager(view.context)
         val newsAdapter = NewsNewsAdapter(list)
         news_rv_news.adapter = newsAdapter
+        newsAdapter.setOnItemClickCallBack(object :NewsNewsAdapter.OnItemClickCallBack{
+            override fun onItemClicked(data: News) {
+                val intent = Intent(view.context,NewsDetailPage::class.java)
+                intent.putExtra(NewsDetailPage.EXTRA_NEWS,data)
+                startActivity(intent)
+            }
+        })
     }
 
 }
