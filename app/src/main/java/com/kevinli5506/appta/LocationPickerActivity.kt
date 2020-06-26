@@ -2,7 +2,9 @@ package com.kevinli5506.appta
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -30,6 +32,9 @@ import java.util.*
 class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     private val REQUEST_LOCATION_PERMISSION = 1
     private lateinit var mMap: GoogleMap
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+    private var fullAddressName : String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +46,14 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        location_picker_btn_select_location.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra(EXTRA_LATITUDE,latitude)
+            intent.putExtra(EXTRA_LONGITUDE,longitude)
+            intent.putExtra(EXTRA_ADDRESS,fullAddressName)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
+        }
     }
 
     /**
@@ -59,24 +72,26 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
 
         enableMyLocation()
         mMap.setOnCameraIdleListener {
-            val geoCoder:Geocoder = Geocoder(this, Locale.getDefault())
+            val geoCoder: Geocoder = Geocoder(this, Locale.getDefault())
             val curposition = mMap.cameraPosition.target
-            val fullAddress = geoCoder.getFromLocation(curposition.latitude,curposition.longitude,1)
-            if (fullAddress.size>0){
+            val fullAddress =
+                geoCoder.getFromLocation(curposition.latitude, curposition.longitude, 1)
+            if (fullAddress.size > 0) {
                 val address = fullAddress[0].getAddressLine(0)
+                fullAddressName = address
                 val addresstextarr = address.split(",")
-                map_toolbar_tv.text= addresstextarr[0]
-                Log.d("test",address)
-            }
-            else{
+                map_toolbar_tv.text = addresstextarr[0]
+
+            } else {
                 map_toolbar_tv.text = "Not Found"
             }
+            longitude = curposition.longitude
+            latitude = curposition.latitude
         }
         mMap.setOnCameraMoveListener {
-            map_toolbar_tv.text ="Loading"
+            map_toolbar_tv.text = "Loading"
         }
     }
-
 
 
     private fun isPermissionGranted(): Boolean {
@@ -95,6 +110,13 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION
             )
         }
+    }
+
+    companion object {
+        val REQUEST_LOCATION_PICKER_CODE = 1
+        val EXTRA_LONGITUDE = "EXTRA_LONGITUDE"
+        val EXTRA_LATITUDE = "EXTRA_LATITUDE"
+        val EXTRA_ADDRESS = "EXTRA_ADDRESS"
     }
 
 }

@@ -42,6 +42,7 @@
             android:src="@drawable/mapbox_marker_icon_default" />
 
         <Button
+            android:id="@+id/location_picker_btn_select_location"
             style="@style/ButtonPrimaryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

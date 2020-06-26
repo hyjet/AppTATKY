@@ -1,5 +1,7 @@
 package com.kevinli5506.appta
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,10 +32,15 @@ class PickUpFragment : Fragment(), View.OnClickListener {
         pick_up_btn_add_item.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.isEnabled = false
+        pick_up_edt_address.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
+            pick_up_edt_address->{
+                val intent = Intent(context,LocationPickerActivity::class.java)
+                startActivityForResult(intent,LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE)
+            }
             pick_up_btn_add_item -> {
                 OrderAdapter.orderData.add(OrderAdapter.OrderData())
                 pick_up_rv_order.adapter = OrderAdapter()
@@ -52,6 +59,19 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 val addressDescription = pick_up_edt_address_description.text.toString()
             }
 
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE){
+            if(resultCode==Activity.RESULT_OK){
+                val address = data!!.getStringExtra(LocationPickerActivity.EXTRA_ADDRESS)
+                val longitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LONGITUDE,0.0)
+                val latitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LATITUDE,0.0)
+                pick_up_edt_address.setText(address)
+            }
         }
 
     }

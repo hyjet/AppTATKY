@@ -34,19 +34,16 @@
             android:value="@integer/google_play_services_version" />
         <activity android:name=".RewardPage"/>
         <activity android:name=".NewsDetailPage" />
-        <activity android:name=".HomePage" />
         <activity android:name=".NewsRatingActivity"/>
-        <activity android:name=".NewsDetailPage" />
         <activity android:name=".DonationPage" />
         <activity android:name=".LaunchPage" />
         <activity android:name=".EditProfilePage" />
         <activity android:name=".RewardDetailPage" />
         <activity android:name=".LocationPickerActivity" />
-        <activity android:name=".DonationPage" />
         <activity android:name=".CalculatePage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".RewardPage">
+        <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
