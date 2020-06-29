@@ -202,7 +202,7 @@
                     android:layout_gravity="center|bottom"
                     android:clickable="false"
                     android:gravity="center"
-                    android:text="@string/donation" />
+                    android:text="@string/event" />
             </LinearLayout>
 
 

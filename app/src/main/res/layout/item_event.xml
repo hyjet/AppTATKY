@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/item_special_promo_img_promo"
+        android:id="@+id/item_event_img_promo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/shape_special_promo"
@@ -18,7 +18,7 @@
         tools:src="@drawable/sir_salon" />
 
     <TextView
-        android:id="@+id/item_special_promo_tv_name"
+        android:id="@+id/item_event_tv_name"
         style="@style/TextHeader4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         tools:text="Diskon Sir Salon" />
 
     <TextView
-        android:id="@+id/item_special_promo_tv_detail"
+        android:id="@+id/item_event_tv_detail"
         style="@style/TextBodyPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,4 +36,5 @@
         android:ellipsize="end"
         android:maxLines="3"
         tools:text="Anda berhak mendapatkan diskon 20% dari kami" />
+
 </LinearLayout>
