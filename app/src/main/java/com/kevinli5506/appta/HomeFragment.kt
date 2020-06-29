@@ -27,13 +27,16 @@ private val list: ArrayList<SpecialPromo> = arrayListOf()
         super.onViewCreated(view, savedInstanceState)
         list.addAll(SpecialPromoData.listPromo)
         view.home_rv_special_promo.layoutManager = GridLayoutManager(view.context,2)
-        val specialPromoAdapter = HomeSpecialPromoAdapter(list,4)
+        val specialPromoAdapter = SpecialPromoAdapter(list,8)
         val df = DecimalFormat("#,###")
         view.home_tv_point.text = df.format(UserData.point)
         view.home_rv_special_promo.adapter = specialPromoAdapter
         view.home_imgbtn_withdrawal.setOnClickListener(this)
         view.home_imgbtn_history.setOnClickListener(this)
-        specialPromoAdapter.setOnItemClickCallBack(object :HomeSpecialPromoAdapter.OnItemClickCallBack{
+        view.home_imgbtn_reward.setOnClickListener(this)
+        view.home_imgbtn_donation.setOnClickListener(this)
+        view.home_imgbtn_calculate.setOnClickListener(this)
+        specialPromoAdapter.setOnItemClickCallBack(object :SpecialPromoAdapter.OnItemClickCallBack{
             override fun onItemClicked(data: SpecialPromo) {
                 val intent = Intent(view.context,RewardDetailPage::class.java)
                 intent.putExtra(RewardDetailPage.EXTRA_REWARD,data)
@@ -45,10 +48,12 @@ private val list: ArrayList<SpecialPromo> = arrayListOf()
     override fun onClick(v: View?) {
         when(v){
             home_imgbtn_withdrawal->{
-
+                val intent = Intent(context,WithdrawPage::class.java)
+                startActivity(intent)
             }
             home_imgbtn_history->{
-
+                val intent = Intent(context,HistoryPage::class.java)
+                startActivity(intent)
             }
             home_imgbtn_reward->{
                 val intent = Intent(context,RewardPage::class.java)

@@ -16,10 +16,10 @@ class RewardPage : AppCompatActivity() {
         reward_toolbar_tv.text = resources.getString(R.string.reward)
         list.addAll(SpecialPromoData.listPromo)
         reward_rv_reward.layoutManager = GridLayoutManager(this, 2)
-        val specialPromoAdapter = HomeSpecialPromoAdapter(list, Int.MAX_VALUE)
+        val specialPromoAdapter = SpecialPromoAdapter(list, Int.MAX_VALUE)
         reward_rv_reward.adapter = specialPromoAdapter
         specialPromoAdapter.setOnItemClickCallBack(object :
-            HomeSpecialPromoAdapter.OnItemClickCallBack {
+            SpecialPromoAdapter.OnItemClickCallBack {
             override fun onItemClicked(data: SpecialPromo) {
                 val intent = Intent(this@RewardPage, RewardDetailPage::class.java)
                 intent.putExtra(RewardDetailPage.EXTRA_REWARD, data)

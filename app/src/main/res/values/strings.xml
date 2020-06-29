@@ -10,7 +10,7 @@
     <string name="phone_number">No Telepon</string>
     <string name="withdrawal">Penarikan</string>
     <string name="history">Riwayat</string>
-    <string name="reward">Hadiah</string>
+    <string name="reward">Rewards</string>
     <string name="donation">Donasi</string>
     <string name="item_type_prompt">Jenis Barang</string>
     <string name="kg">kg</string>
@@ -55,4 +55,16 @@
     <string name="save">Simpan</string>
     <string name="rp">Rp</string>
     <string name="item_name">Nama Barang</string>
+    <string name="claim">Klaim</string>
+    <string name="voucher_price">Harga Voucher</string>
+    <string name="full_name">Nama Lengkap</string>
+    <string name="bank_name">Nama Bank</string>
+    <string name="account_number">Nomor Rekening</string>
+    <string name="minimal_rp_50_000">Minimal Rp 50.000</string>
+    <string name="choose_nominal">Pilih Nominal</string>
+    <string name="_100_000">+100.000</string>
+    <string name="_50_000">+50.000</string>
+    <string name="submit">Mengajukan</string>
+    <string name="withdraw_in_process_notif">Pengajuan sedang diproses, silahkan tunggu untuk kabar selanjutnya</string>
+    <string name="pick_up_order">Orderan Pick Up</string>
 </resources>

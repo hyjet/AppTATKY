@@ -7,5 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class SpecialPromo(
     var name: String = "",
     var detail: String = "",
-    var image: Int = 0
-):Parcelable
+    var image: Int = 0,
+    var code: String = "",
+    var price: Int = 0
+) : Parcelable

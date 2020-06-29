@@ -47,7 +47,7 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 pick_up_imgv_btn_remove_item.isEnabled = true
             }
             pick_up_imgv_btn_remove_item -> {
-                OrderAdapter.orderData.add(OrderAdapter.OrderData())
+                OrderAdapter.orderData.removeAt(OrderAdapter.orderData.size-1)
                 pick_up_rv_order.adapter = OrderAdapter()
                 if (OrderAdapter.orderData.size == 1)
                     pick_up_imgv_btn_remove_item.isEnabled = false
@@ -58,9 +58,7 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 val address = pick_up_edt_address.text.toString()
                 val addressDescription = pick_up_edt_address_description.text.toString()
             }
-
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

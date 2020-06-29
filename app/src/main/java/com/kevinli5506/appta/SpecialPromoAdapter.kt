@@ -3,14 +3,12 @@ package com.kevinli5506.appta
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_special_promo.view.*
 
-class HomeSpecialPromoAdapter(val listSpecialPromo: ArrayList<SpecialPromo>, val limit: Int) :
-    RecyclerView.Adapter<HomeSpecialPromoAdapter.ViewHolder>() {
+class SpecialPromoAdapter(val listSpecialPromo: ArrayList<SpecialPromo>, val limit: Int) :
+    RecyclerView.Adapter<SpecialPromoAdapter.ViewHolder>() {
     private lateinit var onItemClickCallBack: OnItemClickCallBack
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack

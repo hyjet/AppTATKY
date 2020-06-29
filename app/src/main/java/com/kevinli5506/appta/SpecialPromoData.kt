@@ -5,7 +5,9 @@ import android.graphics.Color
 object SpecialPromoData {
     private val promoName = "Diskon Sir Salon"
     private val promoDetail = "Anda Berhak Mendapatkan Diskon 20% dari kami"
+    private val promoCode = "ABCDE"
     private val promoImage = R.drawable.sir_salon
+    private val promoprice = 10000
 
     val listPromo : ArrayList<SpecialPromo>
     get() {
@@ -15,6 +17,9 @@ object SpecialPromoData {
             promo.name = promoName
             promo.detail = promoDetail
             promo.image = promoImage
+            promo.code = promoCode
+            promo.price = promoprice
+
             list.add(promo)
         }
         return list
