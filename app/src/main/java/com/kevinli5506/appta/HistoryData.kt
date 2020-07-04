@@ -1,5 +1,6 @@
 package com.kevinli5506.appta
 
+import com.kevinli5506.appta.Model.History
 import java.util.*
 
 object HistoryData {
@@ -17,7 +18,11 @@ object HistoryData {
         get(){
             val arr = arrayListOf<History>()
             for (i in 1..5){
-                val history = History(historyCode, historyDetail, historyDate)
+                val history = History(
+                    historyCode,
+                    historyDetail,
+                    historyDate
+                )
                 arr.add(history)
             }
             return arr

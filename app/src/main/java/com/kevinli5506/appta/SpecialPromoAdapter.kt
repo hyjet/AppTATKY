@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kevinli5506.appta.Model.SpecialPromo
 import kotlinx.android.synthetic.main.item_special_promo.view.*
 
-class SpecialPromoAdapter(val listSpecialPromo: ArrayList<SpecialPromo>, val limit: Int) :
+class SpecialPromoAdapter(val listSpecialPromo: List<SpecialPromo>, val limit: Int) :
     RecyclerView.Adapter<SpecialPromoAdapter.ViewHolder>() {
     private lateinit var onItemClickCallBack: OnItemClickCallBack
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {

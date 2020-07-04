@@ -1,11 +1,11 @@
 package com.kevinli5506.appta
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kevinli5506.appta.Model.News
 import kotlinx.android.synthetic.main.item_news.view.*
 import java.text.SimpleDateFormat
 import java.util.*

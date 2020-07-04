@@ -25,6 +25,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_toEndOf="@id/item_news_imgv_img">
@@ -37,6 +38,8 @@
             style="@style/TextHeader2Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
             tools:text="Lorem ipsum" />
         <Space
             android:layout_width="1dp"

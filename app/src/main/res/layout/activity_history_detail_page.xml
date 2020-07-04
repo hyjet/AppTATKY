@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HistoryDetailPage">
+    tools:context=".View.HistoryDetailPage">
 
     <TextView
         android:id="@+id/history_detail_tv_title"

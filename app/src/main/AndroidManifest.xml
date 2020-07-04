@@ -9,18 +9,17 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EventPage"></activity>
-        <activity android:name=".HistoryDetailPage" />
-        <activity android:name=".HistoryPage" />
-        <activity android:name=".WithdrawPage" />
+        <activity android:name=".View.SignUpPage"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,18 +35,22 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".RewardPage" />
-        <activity android:name=".NewsDetailPage" />
-        <activity android:name=".NewsRatingActivity" />
-        <activity android:name=".DonationPage" />
-        <activity android:name=".LaunchPage" />
-        <activity android:name=".EditProfilePage" />
-        <activity android:name=".RewardDetailPage" />
+        <activity android:name=".View.EventDetailPage" />
+        <activity android:name=".View.EventPage" />
+        <activity android:name=".View.HistoryDetailPage" />
+        <activity android:name=".View.HistoryPage" />
+        <activity android:name=".View.WithdrawPage" />
+        <activity android:name=".View.RewardPage" />
+        <activity android:name=".View.NewsDetailPage" />
+        <activity android:name=".View.NewsRatingActivity" />
+        <activity android:name=".View.DonationPage" />
+        <activity android:name=".View.HomePage" />
+        <activity android:name=".View.EditProfilePage" />
+        <activity android:name=".View.RewardDetailPage" />
         <activity android:name=".LocationPickerActivity" />
-        <activity android:name=".CalculatePage" />
-        <activity android:name=".RegisterPage" />
-        <activity android:name=".LoginPage" />
-        <activity android:name=".HomePage">
+        <activity android:name=".View.CalculatePage" />
+        <activity android:name=".View.LoginPage" />
+        <activity android:name=".View.LaunchPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kevinli5506.appta.Model.History
 import kotlinx.android.synthetic.main.item_history.view.*
 import java.text.SimpleDateFormat
 import java.util.*

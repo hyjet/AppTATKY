@@ -1,5 +1,7 @@
 package com.kevinli5506.appta
 
+import com.kevinli5506.appta.Model.Comment
+
 object CommentsData {
     private val name :String = "Someone"
     private val content :String = "This is Comment"

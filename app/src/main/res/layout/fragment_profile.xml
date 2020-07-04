@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_home"
     android:padding="24dp"
-    tools:context=".ProfileFragment">
+    tools:context=".View.ProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/profile_guideline_2"

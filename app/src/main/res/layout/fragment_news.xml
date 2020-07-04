@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    tools:context=".NewsFragment">
+    tools:context=".View.NewsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_rv_news"
