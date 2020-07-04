@@ -1,15 +1,17 @@
 package com.kevinli5506.appta.Model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
 data class News(
-    var title: String = "",
-    var rating: Float = 0f,
-    var time: Calendar = Calendar.getInstance(),
-    var image: Int = 0,
-    var description: String = ""
+    @SerializedName("id") var id:Int =0,
+    @SerializedName("title") var title: String = "",
+    @SerializedName("rate")var rating: Float = 0f,
+    @SerializedName("updated_at")var time: Calendar = Calendar.getInstance(),
+    @SerializedName("images")var image: Int = 0,
+    @SerializedName("body")var description: String = ""
 ) : Parcelable
