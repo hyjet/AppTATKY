@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.Model.SpecialPromo
 import com.kevinli5506.appta.R
+import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_reward_detail_page.*
 
 class RewardDetailPage : AppCompatActivity() ,View.OnClickListener{
@@ -16,8 +17,13 @@ class RewardDetailPage : AppCompatActivity() ,View.OnClickListener{
         setContentView(R.layout.activity_reward_detail_page)
         val claimed = false  //Todo : make a object
         val specialPromo = intent.getParcelableExtra<SpecialPromo>(EXTRA_REWARD)
+        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_VOUCHER_URL}${specialPromo.imageFile}"
         Glide.with(this)
-            .load(specialPromo.image)
+            .load(imageUrl)
+            .centerCrop()
+            .error(R.drawable.image_broken)
+            .fallback(R.drawable.image_null)
+            .placeholder(R.drawable.image_loading)
             .into(reward_detail_imgv_reward_image)
         reward_detail_tv_description_detail.text = specialPromo.detail
         reward_detail_tv_outlet_discount.text = specialPromo.name

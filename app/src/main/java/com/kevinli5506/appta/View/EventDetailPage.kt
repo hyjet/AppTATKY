@@ -7,6 +7,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.Model.EventDonation
 import com.kevinli5506.appta.R
+import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_event_detail_page.*
 
 class EventDetailPage : AppCompatActivity() ,View.OnClickListener{
@@ -16,8 +17,14 @@ class EventDetailPage : AppCompatActivity() ,View.OnClickListener{
         setContentView(R.layout.activity_event_detail_page)
 
         val event = intent.getParcelableExtra<EventDonation>(EXTRA_EVENT)
+
+        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_EVENTS_URL}${event.imageFile}"
         Glide.with(this)
-            .load(event.image)
+            .load(imageUrl)
+            .centerCrop()
+            .error(R.drawable.image_broken)
+            .fallback(R.drawable.image_null)
+            .placeholder(R.drawable.image_loading)
             .into(event_detail_imgv_event_image)
         event_detail_tv_description_detail.text = event.description
         event_detail_tv_event_name.text = event.name

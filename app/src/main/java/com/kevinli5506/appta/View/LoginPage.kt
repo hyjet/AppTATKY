@@ -69,7 +69,7 @@ class LoginPage : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                         else{
-                            Log.d("tes2","Code = ${response?.code().toString()}, ${email}")
+                            Log.d("tes2","Code = ${response?.code().toString()}. msg =${response?.message()}")
                         }
 
                     }

@@ -9,13 +9,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.item_order.view.*
 
-class OrderAdapter() :
+class OrderAdapter(val itemTypes:ArrayList<String>) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
-    class OrderData(
-        var typeOder: Int = 0,
-        var amount: String = ""
+    data class OrderData(
+        @SerializedName("category_id") var typeOder: Int = 0,
+        @SerializedName("weight") var amount: String = ""
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,12 +30,10 @@ class OrderAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemTypeList =
-            holder.itemView.context.resources.getStringArray(R.array.item_type_pick_up)
         val arrayAdapter = ArrayAdapter(
             holder.itemView.context,
             android.R.layout.simple_spinner_item,
-            itemTypeList
+            itemTypes
         )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         holder.orderType.adapter = arrayAdapter

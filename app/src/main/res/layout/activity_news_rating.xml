@@ -57,7 +57,7 @@
             android:src="@drawable/icon_star" />
 
         <TextView
-            android:id="@+id/item_news_tv_rate"
+            android:id="@+id/news_rating_tv_rate"
             style="@style/TextHeader3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

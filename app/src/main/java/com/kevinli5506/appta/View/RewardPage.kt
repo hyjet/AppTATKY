@@ -36,32 +36,38 @@ class RewardPage : AppCompatActivity() {
                 call: Call<CommonResponseModel<List<SpecialPromo>>>?,
                 t: Throwable?
             ) {
-                Log.d("tes", "No Res")
+                Log.d("tes2", t?.message)
             }
 
             override fun onResponse(
                 call: Call<CommonResponseModel<List<SpecialPromo>>>,
                 response: Response<CommonResponseModel<List<SpecialPromo>>>
             ) {
-                Log.d("tes", "Res 200")
-                val rewardResponse = response.body()
-                if(rewardResponse.statusCode==200){
-                    val list = rewardResponse.data
-                    val specialPromoAdapter =
-                        SpecialPromoAdapter(
-                            list,
-                            Int.MAX_VALUE
-                        )
-                    reward_rv_reward.adapter = specialPromoAdapter
-                    specialPromoAdapter.setOnItemClickCallBack(object :
-                        SpecialPromoAdapter.OnItemClickCallBack {
-                        override fun onItemClicked(data: SpecialPromo) {
-                            val intent = Intent(this@RewardPage, RewardDetailPage::class.java)
-                            intent.putExtra(RewardDetailPage.EXTRA_REWARD, data)
-                            startActivity(intent)
-                        }
-                    })
+                if(response.code()==200){
+                    Log.d("tes2", "Res 200")
+                    val rewardResponse = response.body()
+                    if (rewardResponse.statusCode == 200) {
+                        val list = rewardResponse.data
+                        val specialPromoAdapter =
+                            SpecialPromoAdapter(
+                                list,
+                                Int.MAX_VALUE
+                            )
+                        reward_rv_reward.adapter = specialPromoAdapter
+                        specialPromoAdapter.setOnItemClickCallBack(object :
+                            SpecialPromoAdapter.OnItemClickCallBack {
+                            override fun onItemClicked(data: SpecialPromo) {
+                                val intent = Intent(this@RewardPage, RewardDetailPage::class.java)
+                                intent.putExtra(RewardDetailPage.EXTRA_REWARD, data)
+                                startActivity(intent)
+                            }
+                        })
+                    }
                 }
+                else{
+                    Log.d("test2","Code = ${response?.code().toString()}")
+                }
+
 
 
             }

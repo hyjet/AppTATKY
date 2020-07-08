@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.Model.SpecialPromo
+import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.item_special_promo.view.*
 
 class SpecialPromoAdapter(val listSpecialPromo: List<SpecialPromo>, val limit: Int) :
@@ -35,8 +36,13 @@ class SpecialPromoAdapter(val listSpecialPromo: List<SpecialPromo>, val limit: I
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.nameSpecialPromo.text = listSpecialPromo[position].name
         holder.detailSpecialPromo.text = listSpecialPromo[position].detail
+        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_VOUCHER_URL}${listSpecialPromo[position].imageFile}"
         Glide.with(holder.itemView.context)
-            .load(listSpecialPromo[position].image)
+            .load(imageUrl)
+            .centerCrop()
+            .error(R.drawable.image_broken)
+            .fallback(R.drawable.image_null)
+            .placeholder(R.drawable.image_loading)
             .into(holder.imgvSpecialPromo)
         holder.itemView.setOnClickListener {
             onItemClickCallBack.onItemClicked(listSpecialPromo[holder.adapterPosition])

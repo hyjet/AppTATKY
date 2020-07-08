@@ -77,16 +77,17 @@
                     tools:text="0.0" />
 
                 <TextView
+                    android:id="@+id/news_detail_btn_rate"
                     style="@style/TextHeader3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
-                    android:text="@string/rate"
                     android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/rate"
                     android:textColor="@color/link"
-                    android:textStyle="normal"
-                    android:focusable="true" />
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/news_detail_tv_date"
@@ -171,7 +172,7 @@
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_send"
-            android:visibility="visible"
+            android:visibility="gone"
 
             />
     </LinearLayout>

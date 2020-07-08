@@ -9,7 +9,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.kevinli5506.appta.Model.Comment
 import kotlinx.android.synthetic.main.item_comment.view.*
 
-class CommentAdapter(val comments : ArrayList<Comment>):RecyclerView.Adapter<CommentAdapter.ViewHolder>(){
+class CommentAdapter(val comments : List<Comment>):RecyclerView.Adapter<CommentAdapter.ViewHolder>(){
 
 
 

@@ -14,10 +14,9 @@ class HistoryDetailPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_detail_page)
         val history = intent.getParcelableExtra<History>(EXTRA_HISTORY)
-        history_detail_tv_title.text = history.code
-        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
-        val date:String = formatter.format(history.date.time).toString()
-        history_detail_tv_date.text = date
+        history_detail_tv_title.text = history.title
+
+        history_detail_tv_date.text = history.dateString
         history_detail_tv_detail.text = history.detail
     }
 

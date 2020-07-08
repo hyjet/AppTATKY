@@ -21,6 +21,7 @@ object ApiClient {
         return apiService
     }
     private fun okhttpClient(context: Context): OkHttpClient {
+
         val logging = HttpLoggingInterceptor(object :HttpLoggingInterceptor.Logger{
             override fun log(message: String?) {
                 Log.d("header",message)

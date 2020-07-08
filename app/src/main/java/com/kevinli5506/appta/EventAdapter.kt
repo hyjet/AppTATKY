@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.Model.EventDonation
+import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.item_event.view.*
 
-class EventAdapter(val listEvent:ArrayList<EventDonation>, val limit:Int): RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(val listEvent:List<EventDonation>, val limit:Int): RecyclerView.Adapter<EventAdapter.ViewHolder>() {
     private lateinit var onItemClickCallBack: OnItemClickCallBack
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
@@ -40,8 +41,13 @@ class EventAdapter(val listEvent:ArrayList<EventDonation>, val limit:Int): Recyc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvEventName.text = listEvent[position].name
         holder.tvEventDetail.text = listEvent[position].description
+        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_EVENTS_URL}${listEvent[position].imageFile}"
         Glide.with(holder.itemView.context)
-            .load(listEvent[position].image)
+            .load(imageUrl)
+            .centerCrop()
+            .error(R.drawable.image_broken)
+            .fallback(R.drawable.image_null)
+            .placeholder(R.drawable.image_loading)
             .into(holder.imgvEvent)
         holder.itemView.setOnClickListener{
             onItemClickCallBack.onItemClicked(listEvent[holder.adapterPosition])

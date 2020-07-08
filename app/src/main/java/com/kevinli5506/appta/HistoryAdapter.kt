@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HistoryAdapter(val histories: ArrayList<History>) :
+class HistoryAdapter(val histories: List<History>) :
     RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     private lateinit var onItemClickCallBack: OnItemClickCallBack
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
@@ -38,10 +38,8 @@ class HistoryAdapter(val histories: ArrayList<History>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
-        val date: String = formatter.format(histories[position].date.time).toString()
-        holder.tvHistoryCode.text = histories[position].code
-        holder.tvHistoryDate.text = date
+        holder.tvHistoryCode.text = histories[position].title
+        holder.tvHistoryDate.text = histories[position].dateString
         holder.itemView.setOnClickListener {
             onItemClickCallBack.onItemClicked(histories[holder.adapterPosition])
         }

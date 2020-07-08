@@ -69,4 +69,5 @@
     <string name="pick_up_order">Orderan Pick Up</string>
     <string name="event">Event</string>
     <string name="event_name">Nama Event</string>
+    <string name="item_amount">Jumlah Barang</string>
 </resources>

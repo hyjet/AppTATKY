@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.Model.News
+import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.item_news.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class
-NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAdapter.ViewHolder>() {
+NewsNewsAdapter(val news:List<News>) :RecyclerView.Adapter<NewsNewsAdapter.ViewHolder>() {
     private lateinit var onItemClickCallBack: OnItemClickCallBack
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
@@ -28,14 +29,23 @@ NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAdapter.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_NEWS_URL}${news[position].imageFile}"
         Glide.with(holder.itemView.context)
-            .load(news[position].image)
+            .load(imageUrl)
+            .centerCrop()
+            .error(R.drawable.image_broken)
+            .fallback(R.drawable.image_null)
+            .placeholder(R.drawable.image_loading)
             .into(holder.imgvNews)
         holder.titleNews.text = news[position].title
         holder.ratingNews.text=news[position].rating.toString()
+        val time:Calendar = Calendar.getInstance()
+        val StDformatter = SimpleDateFormat("yyyy-mm-dd HH:mm:ss",Locale.ENGLISH)
+        val date:Date =StDformatter.parse(news[position].time)
+        time.time = date
         val timePast = {
             val now = Calendar.getInstance()
-            val dif:Int = ((now.timeInMillis - news[position].time.timeInMillis)/1000).toInt()
+            val dif:Int = ((now.timeInMillis - time.timeInMillis)/1000).toInt()
             val minute = 60
             val hour = 3600
             val day = 3600*24
@@ -46,7 +56,7 @@ NewsNewsAdapter(val news:ArrayList<News>) :RecyclerView.Adapter<NewsNewsAdapter.
                 dif<hour -> "${(dif/minute)} ${if(dif/minute==1) "minute" else "minutes"} ago"
                 dif<day -> "${(dif/hour)} ${if(dif/hour==1) "hour" else "hours"} ago"
                 dif<week -> {if (dif/(day)==1) "yesterday" else "${dif/(day)} days ago"}
-                else ->formatter.format(news[position].time.time).toString()
+                else ->formatter.format(time.time).toString()
             }
             timedif
         }

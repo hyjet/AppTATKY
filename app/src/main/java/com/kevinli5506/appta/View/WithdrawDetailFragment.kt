@@ -1,14 +1,21 @@
 package com.kevinli5506.appta.View
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.kevinli5506.appta.Model.CommonResponseModel
+import com.kevinli5506.appta.Model.PostResponse
 import com.kevinli5506.appta.R
+import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.*
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -51,13 +58,40 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
                 builder.setTitle("Klaim")
                 builder.setMessage("Apakah anda yakin akan melakukan transaksi ini?")
                 builder.setPositiveButton("Yes"){_, _ ->
-                    val fragment =
+                    /*val fragment =
                         WithdrawOnProcessFragment()
                     activity!!.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.withdraw_container, fragment, fragment.javaClass.simpleName)
                         .commit()
-                    //Todo : change submitted to true
+                    //Todo : change submitted to true*/
+                    val fullName = withdraw_edt_name.text.toString()
+                    val bankName = withdraw_edt_bank_name.text.toString()
+                    val account = withdraw_edt_account_number.text.toString()
+                    val amount = withdraw_edt_amount.text.toString().toInt()
+                    val apiClient = ApiClient.getApiService(context!!)
+                    apiClient.postWithdraw(fullName,account,bankName,amount).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
+                        override fun onFailure(
+                            call: Call<CommonResponseModel<PostResponse>>?,
+                            t: Throwable?
+                        ) {
+                            Log.d("tes2", t?.message)
+                        }
+
+                        override fun onResponse(
+                            call: Call<CommonResponseModel<PostResponse>>?,
+                            response: Response<CommonResponseModel<PostResponse>>?
+                        ) {
+                            if (response?.code() == 200) {
+                                val editProfResponse = response.body()
+                                Log.d("tes2","Code : ${editProfResponse.data.message}, message : ${editProfResponse.data.message}")
+
+                            } else {
+                                Log.d("tes2", "Code = ${response?.code().toString()}")
+                            }
+                        }
+
+                    })
                 }
                 builder.setNegativeButton("No"){_, _ ->  }
                 builder.show()
