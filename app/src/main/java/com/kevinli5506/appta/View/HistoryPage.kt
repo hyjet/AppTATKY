@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.HistoryAdapter
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.History
@@ -16,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class HistoryPage : AppCompatActivity() {
+class HistoryPage : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_page)
@@ -41,8 +42,7 @@ class HistoryPage : AppCompatActivity() {
                     Log.d("tes2", "Res 200")
                     val historyResponse = response.body()
                     if (historyResponse.statusCode == 200) {
-                        val list = historyResponse.data
-                        Collections.reverse(list)
+                        val list = historyResponse.data.reversed()
                         val historyAdapter = HistoryAdapter(list)
                         history_rview_history.adapter = historyAdapter
                         historyAdapter.setOnItemClickCallBack(object :

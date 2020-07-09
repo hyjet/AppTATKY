@@ -16,6 +16,10 @@ object Constants {
     const val POST_DONATION_URL ="auth/user/donation"
     const val POST_ORDER_URL ="auth/user/order"
     const val POST_WITHDRAW_URL ="auth/user/withdrawal"
+    const val POST_SIGN_UP_URL ="auth/signup"
+    const val POST_SIGN_OUT_URL ="auth/user/logout"
+    const val POST_REDEEM_VOUCHER = "auth/user/voucher/redeem"
+
 
     const val PUT_EDIT_PROFILE_URL ="auth/user/edit-profile"
 

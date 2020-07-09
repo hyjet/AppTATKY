@@ -130,10 +130,11 @@
 
     <TextView
         android:id="@+id/reward_detail_tv_voucher_code_content"
-        style="@style/TextHeader1"
+        style="@style/TextHeader3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
@@ -157,10 +158,11 @@
 
     <TextView
         android:id="@+id/reward_detail_tv_voucher_price_content"
-        style="@style/TextHeader1"
+        style="@style/TextHeader3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
         app:layout_constraintLeft_toRightOf="@id/reward_detail_tv_voucher_price_title"

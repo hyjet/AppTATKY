@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class SpecialPromo(
-    @SerializedName("id") val id: String = "",
+    @SerializedName("id") val id: Int = 0,
     @SerializedName("name") var name: String = "",
     @SerializedName("description") var detail: String = "",
     @SerializedName("images") var imageFile: String = "",

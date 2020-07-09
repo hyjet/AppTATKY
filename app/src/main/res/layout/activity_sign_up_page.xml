@@ -19,50 +19,75 @@
         android:text="@string/register" />
 
 
-    <EditText
-        android:id="@+id/signup_edt_name"
-        style="@style/InputStyle"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/name"
-        android:inputType="textEmailAddress"
-        android:paddingTop="8dp" />
+        android:layout_height="wrap_content"
+        android:hint="@string/name">
+
+        <EditText
+            android:id="@+id/signup_edt_name"
+            style="@style/InputStylePadded"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/name"
+            android:inputType="textEmailAddress"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
-        android:id="@+id/signup_edt_phone"
-        style="@style/InputStyle"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:paddingTop="8dp" />
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_number">
 
-    <EditText
-        android:id="@+id/signup_edt_email"
-        style="@style/InputStyle"
-        android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:paddingTop="8dp" />
+        <EditText
+            android:id="@+id/signup_edt_phone"
+            style="@style/InputStylePadded"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/signup_edt_password"
-        style="@style/InputStyle"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingTop="8dp" />
+        android:layout_height="wrap_content"
+        android:hint="@string/password">
+
+        <EditText
+            android:id="@+id/signup_edt_password"
+            style="@style/InputStylePadded"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email">
+
+        <EditText
+            android:id="@+id/signup_edt_email"
+            style="@style/InputStylePadded"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingTop="8dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Space
         android:layout_width="match_parent"

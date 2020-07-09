@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,7 @@ import retrofit2.Response
 
 
 class PickUpFragment : Fragment(), View.OnClickListener {
-    val itemTypes:ArrayList<String> = arrayListOf()
+    val itemTypes: ArrayList<String> = arrayListOf()
     var longitude = 0.0
     var latitude = 0.0
     override fun onCreateView(
@@ -46,8 +47,23 @@ class PickUpFragment : Fragment(), View.OnClickListener {
 
         pick_up_btn_add_item.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.setOnClickListener(this)
+        pick_up_btn_pick_up.setOnClickListener(this)
         pick_up_imgv_btn_remove_item.isEnabled = false
-        pick_up_edt_address.setOnClickListener(this)
+        pick_up_edt_address.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+
+                val intent = Intent(
+                    context,
+                    LocationPickerActivity::class.java
+                )
+                startActivityForResult(
+                    intent,
+                    LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE
+                )
+            }
+
+            true
+        }
 
     }
 
@@ -59,7 +75,7 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 call: Call<CommonResponseModel<List<RecycleItem>>>?,
                 t: Throwable?
             ) {
-                Log.d("tes",t?.message)
+                Log.d("tes", t?.message)
             }
 
             override fun onResponse(
@@ -86,13 +102,6 @@ class PickUpFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            pick_up_edt_address->{
-                val intent = Intent(context,
-                    LocationPickerActivity::class.java)
-                startActivityForResult(intent,
-                    LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE
-                )
-            }
             pick_up_btn_add_item -> {
                 OrderAdapter.orderData.add(
                     OrderAdapter.OrderData()
@@ -102,56 +111,68 @@ class PickUpFragment : Fragment(), View.OnClickListener {
             }
             pick_up_imgv_btn_remove_item -> {
                 OrderAdapter.orderData.removeAt(
-                    OrderAdapter.orderData.size-1)
+                    OrderAdapter.orderData.size - 1
+                )
                 pick_up_rv_order.adapter = OrderAdapter(itemTypes)
                 if (OrderAdapter.orderData.size == 1)
                     pick_up_imgv_btn_remove_item.isEnabled = false
             }
-            pick_up_btn_pick_up->{
-                val orderList :ArrayList<OrderAdapter.OrderData> =
+            pick_up_btn_pick_up -> {
+                val orderList: ArrayList<OrderAdapter.OrderData> =
                     OrderAdapter.orderData
+                Log.d("tes2","tapped")
                 val phone = pick_up_edt_phone.text.toString()
                 val address = pick_up_edt_address.text.toString()
                 val addressDescription = pick_up_edt_address_description.text.toString()
                 val apiClient = ApiClient.getApiService(context!!) //Todo : Check context
-                val orderRequest = OrderRequest(longitude,latitude,address,addressDescription,phone,orderList)
-                apiClient.postOrder(orderRequest).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
-                    override fun onFailure(
-                        call: Call<CommonResponseModel<PostResponse>>?,
-                        t: Throwable?
-                    ) {
-                        Log.d("tes2",t?.message)
-                    }
-
-                    override fun onResponse(
-                        call: Call<CommonResponseModel<PostResponse>>?,
-                        response: Response<CommonResponseModel<PostResponse>>?
-                    ) {
-                        if(response?.code()==200){
-                            val orderResponse = response.body()
-                            Log.d("tes2","Code = ${orderResponse.statusCode}, msg = ${orderResponse.data.message}")
+                val orderRequest =
+                    OrderRequest(longitude, latitude, address, addressDescription, phone, orderList)
+                apiClient.postOrder(orderRequest)
+                    .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                        override fun onFailure(
+                            call: Call<CommonResponseModel<PostResponse>>?,
+                            t: Throwable?
+                        ) {
+                            Log.d("tes2", t?.message)
                         }
-                        else{
-                            Log.d("test2", "Code = ${response?.code().toString()}")
-                        }
-                    }
 
-                })
+                        override fun onResponse(
+                            call: Call<CommonResponseModel<PostResponse>>?,
+                            response: Response<CommonResponseModel<PostResponse>>?
+                        ) {
+                            if(response?.code()==200){
+                                val postResponse = response.body()
+                                if (postResponse.statusCode==200){
+                                    val message = postResponse.data.message
+                                    Log.d("tes2",message)
+                                }
+                                else{
+                                    val errorMessage = postResponse.data.error?.get(0)
+                                    Log.d("tes2",errorMessage)
+                                }
+                            }
+                            else {
+                                Log.d("tes2", "Code = ${response?.code().toString()}")
+                            }
+                        }
+
+                    })
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE){
-            if(resultCode==Activity.RESULT_OK){
+        if (requestCode == LocationPickerActivity.REQUEST_LOCATION_PICKER_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
                 val address = data!!.getStringExtra(LocationPickerActivity.EXTRA_ADDRESS)
-                longitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LONGITUDE,0.0)
-                latitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LATITUDE,0.0)
+                longitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LONGITUDE, 0.0)
+                latitude = data.getDoubleExtra(LocationPickerActivity.EXTRA_LATITUDE, 0.0)
                 pick_up_edt_address.setText(address)
             }
         }
 
     }
+
 
 }

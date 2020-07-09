@@ -70,4 +70,5 @@
     <string name="event">Event</string>
     <string name="event_name">Nama Event</string>
     <string name="item_amount">Jumlah Barang</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

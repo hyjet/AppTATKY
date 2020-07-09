@@ -2,13 +2,14 @@ package com.kevinli5506.appta.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.History
 import com.kevinli5506.appta.R
 import kotlinx.android.synthetic.main.activity_history_detail_page.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryDetailPage : AppCompatActivity() {
+class HistoryDetailPage : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

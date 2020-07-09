@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.News
 import com.kevinli5506.appta.Model.PostResponse
@@ -16,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsRatingActivity : AppCompatActivity(), View.OnClickListener {
+class NewsRatingActivity : BaseActivity(), View.OnClickListener {
     lateinit var news: News
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +60,18 @@ class NewsRatingActivity : AppCompatActivity(), View.OnClickListener {
                         response: Response<CommonResponseModel<PostResponse>>?
                     ) {
                         if(response?.code()==200){
-                            val rateResponse = response.body()
-                            Log.d("tes2",rateResponse.data.message)
+                            val postResponse = response.body()
+                            if (postResponse.statusCode==200){
+                                val message = postResponse.data.message
+                                Log.d("tes2",message)
+                            }
+                            else{
+                                val errorMessage = postResponse.data.error?.get(0)
+                                Log.d("tes2",errorMessage)
+                            }
+                        }
+                        else {
+                            Log.d("tes2", "Code = ${response?.code().toString()}")
                         }
                     }
 

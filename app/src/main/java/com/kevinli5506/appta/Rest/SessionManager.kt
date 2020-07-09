@@ -15,4 +15,9 @@ class SessionManager (context: Context){
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
     }
+    fun deleteAuthToken(){
+        val editor = prefs.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

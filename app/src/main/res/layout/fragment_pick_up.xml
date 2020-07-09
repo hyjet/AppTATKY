@@ -86,8 +86,10 @@
                 android:layout_width="match_parent"
                 android:layout_below="@id/pick_up_edt_phone"
                 android:layout_marginTop="24dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:hint="@string/address"
-                android:inputType="text" />
+                android:inputType="none" />
 
             <EditText
                 android:id="@+id/pick_up_edt_address_description"

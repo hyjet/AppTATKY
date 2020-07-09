@@ -55,7 +55,7 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
             }
             withdraw_btn_submit->{
                 val builder = AlertDialog.Builder(context!!)
-                builder.setTitle("Klaim")
+                builder.setTitle("Witdrawal")
                 builder.setMessage("Apakah anda yakin akan melakukan transaksi ini?")
                 builder.setPositiveButton("Yes"){_, _ ->
                     /*val fragment =
@@ -82,11 +82,18 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
                             call: Call<CommonResponseModel<PostResponse>>?,
                             response: Response<CommonResponseModel<PostResponse>>?
                         ) {
-                            if (response?.code() == 200) {
-                                val editProfResponse = response.body()
-                                Log.d("tes2","Code : ${editProfResponse.data.message}, message : ${editProfResponse.data.message}")
-
-                            } else {
+                            if(response?.code()==200){
+                                val postResponse = response.body()
+                                if (postResponse.statusCode==200){
+                                    val message = postResponse.data.message
+                                    Log.d("tes2",message)
+                                }
+                                else{
+                                    val errorMessage = postResponse.data.error?.get(0)
+                                    Log.d("tes2",errorMessage)
+                                }
+                            }
+                            else {
                                 Log.d("tes2", "Code = ${response?.code().toString()}")
                             }
                         }

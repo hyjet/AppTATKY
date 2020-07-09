@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.RecycleItem
 import com.kevinli5506.appta.R
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CalculatePage : AppCompatActivity(), View.OnClickListener,
+class CalculatePage : BaseActivity(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
     var recyleItemList :ArrayList<RecycleItem> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +52,7 @@ class CalculatePage : AppCompatActivity(), View.OnClickListener,
                     if (recycleItemResponse.statusCode == 200) {
                         val list = recycleItemResponse.data
                         recyleItemList.addAll(list)
-                        var typeList: ArrayList<String> = arrayListOf()
+                        val typeList: ArrayList<String> = arrayListOf()
                         for (i in (0 until list.size)) {
                             typeList.add(list[i].itemType)
                         }

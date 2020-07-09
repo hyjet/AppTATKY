@@ -3,6 +3,9 @@ package com.kevinli5506.appta.Rest
 import android.graphics.drawable.Drawable
 import com.kevinli5506.appta.Model.*
 import com.kevinli5506.appta.OrderAdapter
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
@@ -24,6 +27,12 @@ interface ApiService {
         @Field("rate") rate: Int
     ): Call<CommonResponseModel<PostResponse>>
 
+    @POST(Constants.POST_REDEEM_VOUCHER)
+    @FormUrlEncoded
+    fun postRedeemVoucher(
+        @Field("voucher_id") id:Int
+    ):Call<CommonResponseModel<PostResponse>>
+
     @POST(Constants.POST_COMMENT_URL)
     @FormUrlEncoded
     fun postComment(
@@ -31,12 +40,12 @@ interface ApiService {
         @Field("body") body: String
     ): Call<CommonResponseModel<PostResponse>>
 
+    @Multipart
     @POST(Constants.POST_DONATION_URL)
-    @FormUrlEncoded
     fun postDonation(
-        @Field("event_id") event_id: Int,
-        @Field("amounts") amount: Int,
-        @Field("images") image: Drawable//Todo:Correct type
+        @Part("event_id") event_id: Int ,
+        @Part("amounts") amount: Int,
+        @Part image: MultipartBody.Part
     ): Call<CommonResponseModel<PostResponse>>
 
     @POST(Constants.POST_ORDER_URL)
@@ -53,12 +62,24 @@ interface ApiService {
         @Field("nominal") amount: Int
     ): Call<CommonResponseModel<PostResponse>>
 
+    @POST(Constants.POST_SIGN_UP_URL)
+    @FormUrlEncoded
+    fun postSignup(
+        @Field("name") name:String,
+        @Field("email") email:String,
+        @Field("password") password: String,
+        @Field("phone_number") phone_number:String
+    ):Call<CommonResponseModel<LoginResponse>>
+
+    @POST(Constants.POST_SIGN_OUT_URL)
+    fun postSignOut():Call<CommonResponseModel<PostResponse>>
+
+
+
     @PUT(Constants.PUT_EDIT_PROFILE_URL)
     @FormUrlEncoded
     fun putEditProfile(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("phone_number") phone: String
+        @FieldMap editProfileRequest :Map<String,String>
     ): Call<CommonResponseModel<PutResponse>>
 
     @GET(Constants.VOUCHER_URL)
@@ -66,6 +87,9 @@ interface ApiService {
 
     @GET(Constants.EVENT_URL)
     fun getEvents(): Call<CommonResponseModel<List<EventDonation>>>
+
+    @GET("${Constants.VOUCHER_URL}/{voucherID}")
+    fun getVoucherRedeemStatus(@Path("voucherID") path: String): Call<CommonResponseModel<SpecialPromoRedeemStatus>>
 
     @GET(Constants.HISTORY_URL)
     fun getHistories(): Call<CommonResponseModel<List<History>>>

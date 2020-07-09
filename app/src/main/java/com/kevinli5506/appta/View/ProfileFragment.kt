@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.amulyakhare.textdrawable.TextDrawable
 import com.kevinli5506.appta.Model.CommonResponseModel
+import com.kevinli5506.appta.Model.PostResponse
 import com.kevinli5506.appta.Model.User
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
+import com.kevinli5506.appta.Rest.SessionManager
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +39,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         profile_imgbtn_edit_profile.setOnClickListener(this)
         profile_imgbtn_history.setOnClickListener(this)
-
+        profile_btn_sign_out.setOnClickListener(this)
         refresh()
     }
 
@@ -65,8 +68,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                         val email = user.email
                         val phone = user.phone
                         val spaceIndex = name.indexOf(" ")
-                        val abbrive = "${name[0]}${name[spaceIndex + 1]}"
-
+                        var abbrive = "${name[0]}"
+                        if (spaceIndex >= 0) {
+                            abbrive = abbrive+ name[spaceIndex+1]
+                        }
                         val drawableName: TextDrawable = TextDrawable.builder()
                             .beginConfig()
                             .width(64)
@@ -103,6 +108,53 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     HistoryPage::class.java
                 )
                 startActivity(intent)
+            }
+            profile_btn_sign_out -> {
+                val builder = AlertDialog.Builder(context!!)
+                builder.setTitle("Exit")
+                builder.setMessage("Apakah anda yakin akan sign out dari akun ini?")
+                builder.setPositiveButton("Yes") { _, _ ->
+                    val apiClient = ApiClient.getApiService(context!!)
+                    apiClient.postSignOut()
+                        .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                            override fun onFailure(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                t: Throwable?
+                            ) {
+                                Log.d("tes2", t?.message)
+                            }
+
+                            override fun onResponse(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                response: Response<CommonResponseModel<PostResponse>>?
+                            ) {
+                                if (response?.code() == 200) {
+                                    val postResponse = response.body()
+                                    if (postResponse.statusCode == 200) {
+                                        val message = postResponse.data.message
+                                        Log.d("tes2", message)
+                                        val sessionManager = SessionManager(context!!)
+                                        sessionManager.deleteAuthToken()
+                                        val intent = Intent(context, LaunchPage::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        startActivity(intent)
+                                    } else {
+                                        val errorMessage = postResponse.data.error?.get(0)
+                                        Log.d("tes2", errorMessage)
+                                    }
+                                } else {
+                                    Log.d("tes2", "Code = ${response?.code().toString()}")
+                                }
+                            }
+
+                        })
+                }
+                builder.setNegativeButton("No") { _, _ ->
+                }
+                builder.show()
+
             }
         }
     }

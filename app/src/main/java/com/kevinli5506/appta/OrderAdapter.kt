@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.item_order.view.*
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.item_order.view.*
 class OrderAdapter(val itemTypes:ArrayList<String>) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
     data class OrderData(
-        @SerializedName("category_id") var typeOder: Int = 0,
+        @SerializedName("category_id") var typeOrder: Int = 1,
         @SerializedName("weight") var amount: String = ""
     )
 
@@ -37,7 +36,7 @@ class OrderAdapter(val itemTypes:ArrayList<String>) :
         )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         holder.orderType.adapter = arrayAdapter
-        holder.orderType.setSelection(orderData[position].typeOder)
+        holder.orderType.setSelection(orderData[position].typeOrder-1)
         holder.orderType.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -49,7 +48,7 @@ class OrderAdapter(val itemTypes:ArrayList<String>) :
                 a: Int,
                 id: Long
             ) {
-                orderData[position].typeOder = a
+                orderData[position].typeOrder = a+1
             }
 
         }

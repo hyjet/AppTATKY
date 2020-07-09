@@ -46,7 +46,7 @@
 
         <EditText
             android:id="@+id/login_edt_email"
-            style="@style/InputStyle"
+            style="@style/InputStylePadded"
             android:layout_width="match_parent"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
@@ -67,7 +67,7 @@
 
         <EditText
             android:id="@+id/login_edt_password"
-            style="@style/InputStyle"
+            style="@style/InputStylePadded"
             android:layout_width="match_parent"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"

@@ -21,10 +21,20 @@
         <item name="android:textColor">@color/buttonSecondaryTextColor</item>
         <item name="android:background">@drawable/button_secondary_shape</item>
     </style>
-
+    <style name="ButtonWarnStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:textColor">@color/buttonPrimaryTextColor</item>
+        <item name="android:background">@drawable/button_warn_shape</item>
+    </style>
 
     <style name="InputStyle">
         <item name="android:background">@drawable/shape_input</item>
+        <item name="android:layout_height">@dimen/InputHeight</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+    <style name="InputStylePadded">
+        <item name="android:background">@drawable/shape_input_padded</item>
         <item name="android:layout_height">@dimen/InputHeight</item>
         <item name="android:paddingStart">16dp</item>
     </style>

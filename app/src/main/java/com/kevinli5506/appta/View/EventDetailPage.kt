@@ -5,20 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.EventDonation
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_event_detail_page.*
 
-class EventDetailPage : AppCompatActivity() ,View.OnClickListener{
-
+class EventDetailPage : BaseActivity(), View.OnClickListener {
+    lateinit var event:EventDonation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail_page)
 
-        val event = intent.getParcelableExtra<EventDonation>(EXTRA_EVENT)
+        event = intent.getParcelableExtra(EXTRA_EVENT)
 
-        val imageUrl ="${Constants.BASE_STORAGE_URL}${Constants.STORAGE_EVENTS_URL}${event.imageFile}"
+        val imageUrl =
+            "${Constants.BASE_STORAGE_URL}${Constants.STORAGE_EVENTS_URL}${event.imageFile}"
         Glide.with(this)
             .load(imageUrl)
             .centerCrop()
@@ -31,20 +33,27 @@ class EventDetailPage : AppCompatActivity() ,View.OnClickListener{
         event_detail_btn_back_navigation.setOnClickListener(this)
         event_detail_btn_donate.setOnClickListener(this)
     }
-    companion object{
-        val EXTRA_EVENT = "EXTRA_EVENT"
-    }
+
+
 
     override fun onClick(v: View?) {
-        when(v){
-            event_detail_btn_donate->{
-                val intent = Intent(this,
-                    DonationPage::class.java)
+        when (v) {
+            event_detail_btn_donate -> {
+                val intent = Intent(
+                    this,
+                    DonationPage::class.java
+                )
+                intent.putExtra(EXTRA_EVENT_ID,event.id)
                 startActivity(intent)
             }
-            event_detail_btn_back_navigation->{
+            event_detail_btn_back_navigation -> {
                 finish()
             }
         }
     }
+    companion object {
+        val EXTRA_EVENT = "EXTRA_EVENT"
+        val EXTRA_EVENT_ID = "EXTRA_EVENT_ID"
+    }
+
 }

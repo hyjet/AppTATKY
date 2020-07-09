@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.EventAdapter
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.EventDonation
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventPage : AppCompatActivity() {
+class EventPage : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EventDonation(
+    @SerializedName("id") var id:Int=0,
     @SerializedName("name") var name: String = "",
     @SerializedName("description")var description: String = "",
     @SerializedName("images")var imageFile: String = ""

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.SpecialPromo
 import com.kevinli5506.appta.R
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RewardPage : AppCompatActivity() {
+class RewardPage : BaseActivity() {
     private lateinit var apiClient: ApiClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +66,7 @@ class RewardPage : AppCompatActivity() {
                     }
                 }
                 else{
-                    Log.d("test2","Code = ${response?.code().toString()}")
+                    Log.d("test2","Code = ${response.code().toString()}")
                 }
 
 

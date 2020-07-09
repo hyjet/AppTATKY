@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.CommentAdapter
 import com.kevinli5506.appta.Model.Comment
 import com.kevinli5506.appta.Model.PostResponse
@@ -23,7 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsDetailPage : AppCompatActivity(), View.OnClickListener {
+class NewsDetailPage : BaseActivity(), View.OnClickListener {
     lateinit var news: News
     lateinit var apiClient: ApiService
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,12 +161,18 @@ class NewsDetailPage : AppCompatActivity(), View.OnClickListener {
                         response: Response<CommonResponseModel<PostResponse>>?
                     ) {
                         if(response?.code()==200){
-                            val rateResponse = response.body()
-                            Log.d("tes2",rateResponse.data.message)
+                            val postResponse = response.body()
+                            if (postResponse.statusCode==200){
+                                val message = postResponse.data.message
+                                Log.d("tes2",message)
+                            }
+                            else{
+                                val errorMessage = postResponse.data.error?.get(0)
+                                Log.d("tes2",errorMessage)
+                            }
                         }
-                        else{
-                            Log.d("tes2",response?.code().toString())
-                            Log.d("tes2",response?.message())
+                        else {
+                            Log.d("tes2", "Code = ${response?.code().toString()}")
                         }
                     }
 
