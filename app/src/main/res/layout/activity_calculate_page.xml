@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".View.CalculatePage">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/calculate_guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/calculate_guideline_bottom"
@@ -20,25 +14,43 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
+    <TextView
+        android:id="@+id/calculate_tv_header"
+        style="@style/TextHeader2Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/calculate_header"
+        app:layout_constraintBottom_toTopOf="@id/calculate_spin_item_type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Spinner
         android:id="@+id/calculate_spin_item_type"
         style="@style/SpinnerStyle"
         android:layout_width="match_parent"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:entries="@array/item_type_pick_up"
         android:prompt="@string/item_type_prompt"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@id/calculate_edt_weight"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/calculate_tv_header" />
 
     <EditText
         android:id="@+id/calculate_edt_weight"
         style="@style/InputStyle"
         android:layout_width="0dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/weight"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@id/calculate_edt_price"
@@ -52,10 +64,10 @@
         style="@style/TextBodyPrimary"
         android:layout_width="0dp"
         android:layout_height="@dimen/InputHeight"
-        android:layout_marginEnd="24dp"
-        android:gravity="center|right"
+        android:layout_marginEnd="16dp"
+        android:gravity="center|end"
         android:text="@string/kg"
-        app:layout_constraintBottom_toTopOf="@+id/calculate_edt_price"
+android:layout_marginTop="24dp"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@id/calculate_edt_weight"
         app:layout_constraintRight_toRightOf="parent"
@@ -67,9 +79,10 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/InputHeight"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center|start"
         android:text="@string/rp"
-        app:layout_constraintBottom_toTopOf="@+id/calculate_guideline_top"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/calculate_edt_price"
@@ -79,11 +92,12 @@
         android:id="@+id/calculate_edt_price"
         style="@style/InputStyle"
         android:layout_width="0dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:focusable="false"
         android:hint="@string/price"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@id/calculate_guideline_top"
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintLeft_toRightOf="@id/calculate_tv_currency"
         app:layout_constraintRight_toRightOf="parent"

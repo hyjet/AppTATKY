@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".View.EventPage">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/event_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/Theme.AppCompat.Light"
-        >
-        <TextView
-            android:id="@+id/event_page_toolbar_tv"
-            style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            tools:text="Hello"
-            android:textAppearance="@android:style/TextAppearance.WindowTitle"/>
-    </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_rv_event"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/event_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-</LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/Theme.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/event_page_toolbar_tv"
+                style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:textAppearance="@android:style/TextAppearance.WindowTitle"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:text="Hello" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_rv_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

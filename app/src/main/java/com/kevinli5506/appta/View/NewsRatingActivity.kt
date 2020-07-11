@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -53,6 +54,8 @@ class NewsRatingActivity : BaseActivity(), View.OnClickListener {
                         t: Throwable?
                     ) {
                         Log.d("tes2",t?.message)
+                        val toast = Toast.makeText(this@NewsRatingActivity,t?.message, Toast.LENGTH_SHORT)
+                        toast.show()
                     }
 
                     override fun onResponse(
@@ -64,6 +67,9 @@ class NewsRatingActivity : BaseActivity(), View.OnClickListener {
                             if (postResponse.statusCode==200){
                                 val message = postResponse.data.message
                                 Log.d("tes2",message)
+                                val toast = Toast.makeText(this@NewsRatingActivity,"success", Toast.LENGTH_SHORT)
+                                toast.show()
+                                finish()
                             }
                             else{
                                 val errorMessage = postResponse.data.error?.get(0)
@@ -76,7 +82,7 @@ class NewsRatingActivity : BaseActivity(), View.OnClickListener {
                     }
 
                 })
-                finish()
+
             }
         }
     }

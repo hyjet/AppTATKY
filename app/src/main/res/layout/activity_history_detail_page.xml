@@ -6,7 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".View.HistoryDetailPage">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/history_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light">
 
+        <TextView
+            android:id="@+id/history_detail_toolbar_tv"
+            style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textAppearance="@android:style/TextAppearance.WindowTitle"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:text="@string/history_detail" />
+    </androidx.appcompat.widget.Toolbar>
     <TextView
         android:id="@+id/history_detail_tv_title"
         style="@style/TextHeader2Primary"

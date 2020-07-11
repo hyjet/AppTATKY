@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -13,6 +14,7 @@ import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.activity_edit_profile_page.*
 import kotlinx.android.synthetic.main.activity_home_page.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +37,8 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
         apiClient.getUser().enqueue(object : Callback<CommonResponseModel<List<User>>> {
             override fun onFailure(call: Call<CommonResponseModel<List<User>>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
+                val toast = Toast.makeText(this@EditProfilePage,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(
@@ -89,6 +93,8 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
                             t: Throwable?
                         ) {
                             Log.d("tes2", t?.message)
+                            val toast = Toast.makeText(this@EditProfilePage,t?.message,Toast.LENGTH_SHORT)
+                            toast.show()
                         }
 
                         override fun onResponse(
@@ -100,21 +106,30 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
                                 if (postResponse.statusCode==200){
                                     val message = postResponse.data.message
                                     Log.d("tes2",message)
+                                    val snackbar = Snackbar.make(edit_profile_root_layout,"Edit SuccessFul",Snackbar.LENGTH_SHORT)
+                                    snackbar.show()
+                                    finish()
                                 }
-                                else{
-                                    val errorMessage = postResponse.data.error?.get(0)
-                                    Log.d("tes2",errorMessage)
-                                }
+
                             }
                             else {
-                                Log.d("tes2", "Code = ${response?.code().toString()}")
+                                try {
+                                    val jObjError =
+                                        JSONObject(response!!.errorBody().string())
+                                    Toast.makeText(
+                                        this@EditProfilePage,
+                                        jObjError.getJSONObject("data").getString("error"),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } catch (e: Exception) {
+                                    Toast.makeText(this@EditProfilePage, e.message, Toast.LENGTH_LONG)
+                                        .show()
+                                }
                             }
                         }
 
                     })
-                val snackbar = Snackbar.make(edit_profile_root_layout,"Edit SuccessFul",Snackbar.LENGTH_SHORT)
-                snackbar.show()
-                finish()
+
             }
         }
     }

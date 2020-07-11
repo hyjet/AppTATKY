@@ -71,4 +71,6 @@
     <string name="event_name">Nama Event</string>
     <string name="item_amount">Jumlah Barang</string>
     <string name="sign_out">Sign Out</string>
+    <string name="calculate_header">Silahkan masukkan jenis dan berat barang yang akan anda jual untuk menghitung harga yang akan dibayarkan</string>
+    <string name="history_detail">Detil Riwayat</string>
 </resources>

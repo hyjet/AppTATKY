@@ -23,6 +23,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +38,7 @@ class DonationPage : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donation_page)
-        event_id = intent.getIntExtra(EventDetailPage.EXTRA_EVENT_ID,0)
+        event_id = intent.getIntExtra(EventDetailPage.EXTRA_EVENT_ID, 0)
         donation_tv_choose.setOnClickListener(this)
         donation_btn_donation.setOnClickListener(this)
     }
@@ -66,42 +67,56 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                 if (!pathNotNull.isNullOrEmpty()) {
                     val file = fileHelper.createFile(pathNotNull)
                     val requestBody = fileHelper.createRequestBody(file)
-                    val part = fileHelper.createPart(file,requestBody)
+                    val part = fileHelper.createPart(file, requestBody)
                     val apiClient = ApiClient.getApiService(this)
-                    apiClient.postDonation(event_id,itemAmount,part).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
-                        override fun onFailure(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            t: Throwable?
-                        ) {
-                            Log.d("tes2",t?.message)
-                        }
+                    apiClient.postDonation(event_id, itemAmount, part)
+                        .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                            override fun onFailure(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                t: Throwable?
+                            ) {
 
-                        override fun onResponse(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            response: Response<CommonResponseModel<PostResponse>>?
-                        ) {
-                            if(response?.code()==200){
-                                val postResponse = response.body()
-                                if (postResponse.statusCode==200){
-                                    val message = postResponse.data.message
-                                    Log.d("tes2",message)
-                                }
-                                else{
-                                    val errorMessage = postResponse.data.error?.get(0)
-                                    Log.d("tes2",errorMessage)
+                                Log.d("tes2", t?.message)
+                                val toast = Toast.makeText(
+                                    this@DonationPage,
+                                    t?.message,
+                                    Toast.LENGTH_SHORT
+                                )
+                                toast.show()
+                            }
+
+                            override fun onResponse(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                response: Response<CommonResponseModel<PostResponse>>?
+                            ) {
+                                if (response?.code() == 200) {
+                                    val postResponse = response.body()
+                                    if (postResponse.statusCode == 200) {
+                                        val message = postResponse.data.message
+                                        Log.d("tes2", message)
+                                        finish()
+                                    }
+                                } else {
+                                    try {
+                                        val jObjError =
+                                            JSONObject(response!!.errorBody().string())
+                                        Toast.makeText(
+                                            this@DonationPage,
+                                            jObjError.getJSONObject("data").getString("error"),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    } catch (e: Exception) {
+                                        Toast.makeText(this@DonationPage, e.message, Toast.LENGTH_LONG)
+                                            .show()
+                                    }
                                 }
                             }
-                            else {
-                                Log.d("tes2", "Code = ${response?.code().toString()}, msg = ${response?.message()}")
-                            }
-                        }
 
-                    })
+                        })
+                } else {
+                    Log.d("tes2", "No image selected")
                 }
-                else{
-                    Log.d("tes2","No image selected")
-                }
-                finish()
+
             }
         }
     }

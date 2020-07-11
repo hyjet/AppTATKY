@@ -4,11 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kevinli5506.appta.LocationPickerActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -19,6 +20,7 @@ import com.kevinli5506.appta.OrderAdapter
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.fragment_pick_up.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -76,6 +78,8 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                 t: Throwable?
             ) {
                 Log.d("tes", t?.message)
+                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(
@@ -134,6 +138,8 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                             t: Throwable?
                         ) {
                             Log.d("tes2", t?.message)
+                            val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                            toast.show()
                         }
 
                         override fun onResponse(
@@ -145,14 +151,23 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                                 if (postResponse.statusCode==200){
                                     val message = postResponse.data.message
                                     Log.d("tes2",message)
-                                }
-                                else{
-                                    val errorMessage = postResponse.data.error?.get(0)
-                                    Log.d("tes2",errorMessage)
+                                    val toast = Toast.makeText(context,"Pickup Order Recieved", Toast.LENGTH_SHORT)
+                                    toast.show()
                                 }
                             }
                             else {
-                                Log.d("tes2", "Code = ${response?.code().toString()}")
+                                try {
+                                    val jObjError =
+                                        JSONObject(response!!.errorBody().string())
+                                    Toast.makeText(
+                                        context,
+                                        jObjError.getJSONObject("data").getString("error"),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } catch (e: Exception) {
+                                    Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                                        .show()
+                                }
                             }
                         }
 

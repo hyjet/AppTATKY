@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -46,6 +47,8 @@ class LoginPage : View.OnClickListener, BaseActivity() {
                             t: Throwable?
                         ) {
                             Log.d("tes2", t?.message)
+                            val toast = Toast.makeText(this@LoginPage,t?.message,Toast.LENGTH_SHORT)
+                            toast.show()
                         }
 
                         override fun onResponse(

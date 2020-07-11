@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.PostResponse
@@ -16,12 +17,13 @@ import kotlinx.android.synthetic.main.fragment_withdraw_detail.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
  */
 class WithdrawDetailFragment : Fragment(),View.OnClickListener {
-
+    val df = DecimalFormat("#,###")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,11 +49,12 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
         when(v){
             withdraw_btn_100000->{
                 val current = withdraw_edt_amount.text.toString().toInt()
-                withdraw_edt_amount.setText((current+100000).toString())
+
+                withdraw_edt_amount.setText(df.format (current+100000).toString())
             }
             withdraw_btn_50000->{
                 val current = withdraw_edt_amount.text.toString().toInt()
-                withdraw_edt_amount.setText((current+50000).toString())
+                withdraw_edt_amount.setText(df.format(current+50000).toString())
             }
             withdraw_btn_submit->{
                 val builder = AlertDialog.Builder(context!!)
@@ -76,26 +79,29 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
                             t: Throwable?
                         ) {
                             Log.d("tes2", t?.message)
+                            val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                            toast.show()
                         }
 
                         override fun onResponse(
                             call: Call<CommonResponseModel<PostResponse>>?,
                             response: Response<CommonResponseModel<PostResponse>>?
                         ) {
-                            if(response?.code()==200){
-                                val postResponse = response.body()
-                                if (postResponse.statusCode==200){
+
+                                val postResponse = response?.body()
+                                if (postResponse?.statusCode==200){
                                     val message = postResponse.data.message
                                     Log.d("tes2",message)
+                                    val toast = Toast.makeText(context,"success", Toast.LENGTH_SHORT)
+                                    toast.show()
+                                    activity?.finish()
                                 }
                                 else{
-                                    val errorMessage = postResponse.data.error?.get(0)
+                                    val errorMessage = postResponse?.data?.error?.get(0)
                                     Log.d("tes2",errorMessage)
                                 }
-                            }
-                            else {
-                                Log.d("tes2", "Code = ${response?.code().toString()}")
-                            }
+
+
                         }
 
                     })

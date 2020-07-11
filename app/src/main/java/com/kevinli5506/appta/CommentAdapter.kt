@@ -25,7 +25,7 @@ class CommentAdapter(val comments : List<Comment>):RecyclerView.Adapter<CommentA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val name =comments[position].name
         val spaceIndex = name.indexOf(" ")
-        var abbrive = name
+        var abbrive = name[0].toString()
         if (spaceIndex >= 0) {
             abbrive = abbrive+ name[spaceIndex+1]
         }

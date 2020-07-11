@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.amulyakhare.textdrawable.TextDrawable
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -122,6 +123,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                                 t: Throwable?
                             ) {
                                 Log.d("tes2", t?.message)
+                                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                                toast.show()
                             }
 
                             override fun onResponse(

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.LoginResponse
@@ -42,6 +43,8 @@ class SignUpPage : BaseActivity(), View.OnClickListener {
                             t: Throwable?
                         ) {
                             Log.d("tes2", t?.message)
+                            val toast = Toast.makeText(this@SignUpPage,t?.message, Toast.LENGTH_SHORT)
+                            toast.show()
                         }
 
                         override fun onResponse(

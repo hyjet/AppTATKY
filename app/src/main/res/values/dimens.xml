@@ -2,8 +2,8 @@
 <resources>
     <dimen name="InputHeight">48dp</dimen>
     <dimen name="TextSizeBody">15dp</dimen>
-    <dimen name="TextSizeHeader1">40dp</dimen>
-    <dimen name="TextSizeHeader1Smaller">36dp</dimen>
+    <dimen name="TextSizeHeader1">36dp</dimen>
+    <dimen name="TextSizeHeader1Smaller">28dp</dimen>
     <dimen name="TextSizeHeader2">20dp</dimen>
     <dimen name="TextSizeHeader3">18dp</dimen>
     <dimen name="TextSizeHeader4">16dp</dimen>

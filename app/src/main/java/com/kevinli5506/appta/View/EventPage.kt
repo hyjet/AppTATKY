@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.EventAdapter
@@ -37,6 +38,8 @@ class EventPage : BaseActivity() {
                 t: Throwable?
             ) {
                 Log.d("tes2", t?.message)
+                val toast = Toast.makeText(this@EventPage,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(

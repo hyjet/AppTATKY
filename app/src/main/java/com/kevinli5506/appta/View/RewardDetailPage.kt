@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.BaseActivity
@@ -38,11 +39,12 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
             .fallback(R.drawable.image_null)
             .placeholder(R.drawable.image_loading)
             .into(reward_detail_imgv_reward_image)
-        reward_detail_tv_description_detail.text = specialPromo.detail
+        reward_detail_tv_description_detail.text = createIndentedText(specialPromo.detail,48,0)
         reward_detail_tv_outlet_discount.text = specialPromo.name
         reward_detail_tv_voucher_code_content.text = specialPromo.code
         val df = DecimalFormat("#,###")
-        reward_detail_tv_voucher_price_content.text = df.format(specialPromo.price)
+        val pricetext ="Rp. "+df.format(specialPromo.price)
+        reward_detail_tv_voucher_price_content.text = pricetext
         reward_detail_btn_claim.setOnClickListener(this)
         reward_detail_btn_back_navigation.setOnClickListener(this)
 
@@ -56,6 +58,8 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                     t: Throwable?
                 ) {
                     Log.d("tes2", t?.message)
+                    val toast = Toast.makeText(this@RewardDetailPage,t?.message, Toast.LENGTH_SHORT)
+                    toast.show()
                 }
 
                 override fun onResponse(
@@ -107,6 +111,8 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                                 t: Throwable?
                             ) {
                                 Log.d("tes2", t?.message)
+                                val toast = Toast.makeText(this@RewardDetailPage,t?.message, Toast.LENGTH_SHORT)
+                                toast.show()
                             }
 
                             override fun onResponse(

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.HistoryAdapter
@@ -32,6 +33,8 @@ class HistoryPage : BaseActivity() {
         apiClient.getHistories().enqueue(object : Callback<CommonResponseModel<List<History>>> {
             override fun onFailure(call: Call<CommonResponseModel<List<History>>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
+                val toast = Toast.makeText(this@HistoryPage,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(

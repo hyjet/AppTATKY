@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.News
@@ -49,6 +50,8 @@ class NewsFragment : Fragment() {
         apiClient.getNews().enqueue(object : Callback<CommonResponseModel<List<News>>> {
             override fun onFailure(call: Call<CommonResponseModel<List<News>>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
+                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(

@@ -6,15 +6,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
+import android.location.*
 import android.location.LocationListener
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_location_picker.*
+import java.io.IOException
 import java.util.*
 
 class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -34,7 +35,7 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    private var fullAddressName : String =""
+    private var fullAddressName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +46,36 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        map_sv_location_search.setOnQueryTextListener(object :SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val loc:String = map_sv_location_search.query.toString()
+                var addressList : List<Address> = arrayListOf()
+                if(loc!= null || loc == ""){
+                    val geocoder = Geocoder(this@LocationPickerActivity)
+                    try {
+                        addressList = geocoder.getFromLocationName(loc,1)
+                    }catch (e:IOException){
+                        val toast = Toast.makeText(this@LocationPickerActivity,e.message,Toast.LENGTH_SHORT)
+                        toast.show()
+                    }
+                    val address : Address = addressList[0]
+                    val latLng:LatLng = LatLng(address.latitude,address.longitude)
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10f))
+                }
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
         location_picker_btn_select_location.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(EXTRA_LATITUDE,latitude)
-            intent.putExtra(EXTRA_LONGITUDE,longitude)
-            intent.putExtra(EXTRA_ADDRESS,fullAddressName)
-            setResult(Activity.RESULT_OK,intent)
+            intent.putExtra(EXTRA_LATITUDE, latitude)
+            intent.putExtra(EXTRA_LONGITUDE, longitude)
+            intent.putExtra(EXTRA_ADDRESS, fullAddressName)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
     }
@@ -80,16 +104,19 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
                 val address = fullAddress[0].getAddressLine(0)
                 fullAddressName = address
                 val addresstextarr = address.split(",")
-                map_toolbar_tv.text = addresstextarr[0]
+                map_sv_location_search.setQuery(addresstextarr[0], false)
+                map_sv_location_search.clearFocus()
 
             } else {
-                map_toolbar_tv.text = "Not Found"
+                map_sv_location_search.setQuery("Not Found", false)
+                map_sv_location_search.clearFocus()
             }
             longitude = curposition.longitude
             latitude = curposition.latitude
         }
         mMap.setOnCameraMoveListener {
-            map_toolbar_tv.text = "Loading"
+            map_sv_location_search.setQuery("Loading", false)
+            map_sv_location_search.clearFocus()
         }
     }
 

@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.kevinli5506.appta.BaseActivity
@@ -72,6 +73,8 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                     t: Throwable?
                 ) {
                     Log.d("tes2", t?.message)
+                    val toast = Toast.makeText(this@NewsDetailPage,t?.message, Toast.LENGTH_SHORT)
+                    toast.show()
                 }
 
                 override fun onResponse(
@@ -98,6 +101,8 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                     t: Throwable?
                 ) {
                     Log.d("tes2", t?.message)
+                    val toast = Toast.makeText(this@NewsDetailPage,t?.message, Toast.LENGTH_SHORT)
+                    toast.show()
                 }
 
                 override fun onResponse(
@@ -165,6 +170,9 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                             if (postResponse.statusCode==200){
                                 val message = postResponse.data.message
                                 Log.d("tes2",message)
+                                refresh()
+                                hideSoftKeyboard(this@NewsDetailPage)
+                                news_detail_edt_comment.setText("")
                             }
                             else{
                                 val errorMessage = postResponse.data.error?.get(0)
@@ -177,10 +185,7 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                     }
 
                 })
-                val tmpIntent = intent
-                finish()
-                overridePendingTransition(0,0)
-                startActivity(tmpIntent)
+
             }
         }
     }

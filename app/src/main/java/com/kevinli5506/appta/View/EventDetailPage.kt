@@ -12,7 +12,7 @@ import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_event_detail_page.*
 
 class EventDetailPage : BaseActivity(), View.OnClickListener {
-    lateinit var event:EventDonation
+    lateinit var event: EventDonation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail_page)
@@ -28,12 +28,11 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
             .fallback(R.drawable.image_null)
             .placeholder(R.drawable.image_loading)
             .into(event_detail_imgv_event_image)
-        event_detail_tv_description_detail.text = event.description
+        event_detail_tv_description_detail.text = createIndentedText(event.description,100,0)
         event_detail_tv_event_name.text = event.name
         event_detail_btn_back_navigation.setOnClickListener(this)
         event_detail_btn_donate.setOnClickListener(this)
     }
-
 
 
     override fun onClick(v: View?) {
@@ -43,7 +42,7 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
                     this,
                     DonationPage::class.java
                 )
-                intent.putExtra(EXTRA_EVENT_ID,event.id)
+                intent.putExtra(EXTRA_EVENT_ID, event.id)
                 startActivity(intent)
             }
             event_detail_btn_back_navigation -> {
@@ -51,6 +50,7 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
     companion object {
         val EXTRA_EVENT = "EXTRA_EVENT"
         val EXTRA_EVENT_ID = "EXTRA_EVENT_ID"

@@ -1,7 +1,11 @@
 package com.kevinli5506.appta.Rest
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -33,6 +37,9 @@ object ApiClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(context))
             .addInterceptor(logging)
+            .addInterceptor(NoConnectionInterceptor(context))
             .build()
     }
+
+
 }
