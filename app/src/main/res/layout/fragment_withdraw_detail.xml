@@ -14,13 +14,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:hint="@string/full_name"
+        android:hint="@string/full_name_on_account"
         android:inputType="text" />
 
-    <EditText
+    <Spinner
         android:id="@+id/withdraw_edt_bank_name"
-        style="@style/InputStyle"
+        style="@style/SpinnerStyle"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"

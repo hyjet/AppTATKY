@@ -6,12 +6,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.*
 import android.location.LocationListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
@@ -23,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
@@ -36,6 +41,8 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var fullAddressName: String = ""
+    private lateinit var adapter: ArrayAdapter<String>
+    private var warehouseLatLng: LatLng = LatLng(3.639410, 98.686880)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,21 +53,35 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        map_sv_location_search.setOnQueryTextListener(object :SearchView.OnQueryTextListener {
+
+        map_sv_location_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val loc:String = map_sv_location_search.query.toString()
-                var addressList : List<Address> = arrayListOf()
-                if(loc!= null || loc == ""){
+                val loc = map_sv_location_search.query.toString()
+                var addressList: List<Address> = arrayListOf()
+                if (loc != null || loc == "") {
                     val geocoder = Geocoder(this@LocationPickerActivity)
                     try {
-                        addressList = geocoder.getFromLocationName(loc,1)
-                    }catch (e:IOException){
-                        val toast = Toast.makeText(this@LocationPickerActivity,e.message,Toast.LENGTH_SHORT)
+                        addressList = geocoder.getFromLocationName(loc, 1)
+                    } catch (e: IOException) {
+                        val toast =
+                            Toast.makeText(
+                                this@LocationPickerActivity,
+                                e.message,
+                                Toast.LENGTH_SHORT
+                            )
                         toast.show()
                     }
-                    val address : Address = addressList[0]
-                    val latLng:LatLng = LatLng(address.latitude,address.longitude)
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10f))
+                    if (addressList.size > 0) {
+                        val address: Address = addressList[0]
+                        val latLng: LatLng = LatLng(address.latitude, address.longitude)
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                    } else {
+                        Toast.makeText(
+                            this@LocationPickerActivity,
+                            "Alamat Tidak Ditemukan",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 return false
             }
@@ -70,13 +91,31 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         })
+
         location_picker_btn_select_location.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra(EXTRA_LATITUDE, latitude)
-            intent.putExtra(EXTRA_LONGITUDE, longitude)
-            intent.putExtra(EXTRA_ADDRESS, fullAddressName)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            val results: FloatArray = FloatArray(1)
+            Location.distanceBetween(
+                warehouseLatLng.latitude,
+                warehouseLatLng.longitude,
+                latitude,
+                longitude,
+                results
+            )
+            val result = results[0]
+            if (result <= 30000) {
+                val intent = Intent()
+                intent.putExtra(EXTRA_LATITUDE, latitude)
+                intent.putExtra(EXTRA_LONGITUDE, longitude)
+                intent.putExtra(EXTRA_ADDRESS, fullAddressName)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Maaf, untu saat ini kami hanya menerima order dalam radius 30km dari warehouse (dalam lingkaran biru)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -95,6 +134,19 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
 
         enableMyLocation()
+
+        val circle: CircleOptions = CircleOptions()
+        circle.center(warehouseLatLng)
+        circle.radius(30000.0)
+        circle.strokeColor(Color.CYAN)
+        circle.fillColor(0x55000077)
+        circle.strokeWidth(2f)
+        mMap.addCircle(circle)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(warehouseLatLng)
+        markerOptions.title("WareHouse")
+        mMap.addMarker(markerOptions)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(warehouseLatLng, 15f))
         mMap.setOnCameraIdleListener {
             val geoCoder: Geocoder = Geocoder(this, Locale.getDefault())
             val curposition = mMap.cameraPosition.target
@@ -108,7 +160,7 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
                 map_sv_location_search.clearFocus()
 
             } else {
-                map_sv_location_search.setQuery("Not Found", false)
+                map_sv_location_search.setQuery("Tidak ditemukan", false)
                 map_sv_location_search.clearFocus()
             }
             longitude = curposition.longitude

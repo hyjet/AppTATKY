@@ -18,6 +18,7 @@ import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import com.kevinli5506.appta.Rest.SessionManager
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,10 +51,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun refresh() {
-        val apiClient = ApiClient.getApiService(context!!) //Todo : Check context
+        val apiClient = ApiClient.getApiService(context!!)
         apiClient.getUser().enqueue(object : Callback<CommonResponseModel<List<User>>> {
             override fun onFailure(call: Call<CommonResponseModel<List<User>>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
+                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
             }
 
             override fun onResponse(
@@ -62,7 +65,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             ) {
                 if (response?.code() == 200) {
                     val userResponse = response.body()
-                    if (userResponse.statusCode == 200) {
+                    if (userResponse?.statusCode == 200) {
                         val list = userResponse.data
                         val user: User = list[0]
                         val name = user.name.trim()
@@ -86,7 +89,19 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     }
 
                 } else {
-                    Log.d("test2", "Code = ${response?.code().toString()}")
+                    try {
+                        val jObjError =
+                            JSONObject(response!!.errorBody()?.string())
+                        Toast.makeText(
+                            context,
+                            jObjError.getJSONObject("data").getString("error"),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
                 }
 
             }
@@ -133,7 +148,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                             ) {
                                 if (response?.code() == 200) {
                                     val postResponse = response.body()
-                                    if (postResponse.statusCode == 200) {
+                                    if (postResponse?.statusCode == 200) {
                                         val message = postResponse.data.message
                                         Log.d("tes2", message)
                                         val sessionManager = SessionManager(context!!)
@@ -144,11 +159,22 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         startActivity(intent)
                                     } else {
-                                        val errorMessage = postResponse.data.error?.get(0)
+                                        val errorMessage = postResponse?.data?.error?.get(0)
                                         Log.d("tes2", errorMessage)
                                     }
                                 } else {
-                                    Log.d("tes2", "Code = ${response?.code().toString()}")
+                                    try {
+                                        val jObjError =
+                                            JSONObject(response!!.errorBody()?.string())
+                                        Toast.makeText(
+                                            context,
+                                            jObjError.getJSONObject("data").getString("error"),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    } catch (e: Exception) {
+                                        Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                                            .show()
+                                    }
                                 }
                             }
 

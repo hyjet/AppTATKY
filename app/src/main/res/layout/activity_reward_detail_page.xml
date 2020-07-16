@@ -12,7 +12,7 @@
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/calculate_guideline_top"
+            android:id="@+id/reward_detail_guideline_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -85,18 +85,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/reward_detail_imgv_reward_image" />
 
-
         <TextView
             android:id="@+id/reward_detail_tv_description_detail"
             style="@style/TextBodyPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:minLines="8"
-            app:layout_constraintBottom_toTopOf="@id/calculate_guideline_top"
+            app:layout_constraintBottom_toTopOf="@id/reward_detail_guideline_top"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="24dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/reward_detail_tv_outlet_discount"
             tools:background="@color/colorPrimaryDark" />
@@ -124,7 +123,7 @@
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top" />
+            app:layout_constraintTop_toBottomOf="@id/reward_detail_guideline_top" />
 
         <TextView
             android:id="@+id/reward_detail_tv_voucher_code_content"
@@ -138,7 +137,7 @@
             app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
             app:layout_constraintLeft_toRightOf="@id/reward_detail_tv_voucher_code_title"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top"
+            app:layout_constraintTop_toBottomOf="@id/reward_detail_guideline_top"
             tools:text="ABCDE" />
 
         <TextView
@@ -153,7 +152,7 @@
             android:text="@string/voucher_price"
             app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top" />
+            app:layout_constraintTop_toBottomOf="@id/reward_detail_guideline_top" />
 
         <TextView
             android:id="@+id/reward_detail_tv_voucher_price_content"
@@ -166,7 +165,7 @@
             app:layout_constraintBottom_toTopOf="@id/calculate_guideline_bottom"
             app:layout_constraintLeft_toRightOf="@id/reward_detail_tv_voucher_price_title"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calculate_guideline_top"
+            app:layout_constraintTop_toBottomOf="@id/reward_detail_guideline_top"
             tools:text="10000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

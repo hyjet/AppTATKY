@@ -50,7 +50,7 @@ class RewardPage : BaseActivity() {
                 if(response.code()==200){
                     Log.d("tes2", "Res 200")
                     val rewardResponse = response.body()
-                    if (rewardResponse.statusCode == 200) {
+                    if (rewardResponse?.statusCode == 200) {
                         val list = rewardResponse.data
                         val specialPromoAdapter =
                             SpecialPromoAdapter(

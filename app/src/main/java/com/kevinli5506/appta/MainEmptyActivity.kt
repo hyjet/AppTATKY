@@ -7,10 +7,11 @@ import com.kevinli5506.appta.Rest.SessionManager
 import com.kevinli5506.appta.View.HomePage
 import com.kevinli5506.appta.View.LaunchPage
 
-class MainEmptyActivity : AppCompatActivity() {
+class MainEmptyActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createMoneyNotificationChannel()
 
         val intent :Intent
         val sessionManager =SessionManager(this)
@@ -25,4 +26,6 @@ class MainEmptyActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
+
+
 }

@@ -10,6 +10,8 @@ import com.kevinli5506.appta.Model.EventDonation
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_event_detail_page.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EventDetailPage : BaseActivity(), View.OnClickListener {
     lateinit var event: EventDonation
@@ -28,10 +30,16 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
             .fallback(R.drawable.image_null)
             .placeholder(R.drawable.image_loading)
             .into(event_detail_imgv_event_image)
-        event_detail_tv_description_detail.text = createIndentedText(event.description,100,0)
+        event_detail_tv_description_detail.text = createIndentedText(event.description, 100, 0)
         event_detail_tv_event_name.text = event.name
         event_detail_btn_back_navigation.setOnClickListener(this)
         event_detail_btn_donate.setOnClickListener(this)
+        val StDformatter = SimpleDateFormat("yyyy-mm-dd HH:mm:ss", Locale.ENGLISH)
+        val date: Date =StDformatter.parse(event.untilDateString)
+        val DtSformatter = SimpleDateFormat("dd MMMM YYYY",Locale.ENGLISH)
+        val dateString = DtSformatter.format(date)
+        val untilDateString = "Sampai $dateString"
+        event_detail_tv_until_date.text = untilDateString
     }
 
 
@@ -42,7 +50,7 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
                     this,
                     DonationPage::class.java
                 )
-                intent.putExtra(EXTRA_EVENT_ID, event.id)
+                intent.putExtra(EXTRA_EVENT_ID, event)
                 startActivity(intent)
             }
             event_detail_btn_back_navigation -> {

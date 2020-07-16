@@ -18,6 +18,7 @@ import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.home_imgbtn_withdrawal
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +44,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
         view.home_imgbtn_reward.setOnClickListener(this)
         view.home_imgbtn_donation.setOnClickListener(this)
         view.home_imgbtn_calculate.setOnClickListener(this)
+        view.home_imgbtn_current_order.setOnClickListener(this)
         refresh()
+        view.home_refresh_layout.setOnRefreshListener {
+            refresh()
+            view.home_refresh_layout.isRefreshing = false
+        }
     }
 
     override fun onClick(v: View?) {
@@ -83,10 +89,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
                 startActivity(intent)
             }
+            home_imgbtn_current_order->{
+                val intent = Intent(
+                    context,
+                    OrderListPage::class.java
+                )
+                startActivity(intent)
+            }
         }
     }
 
     private fun refresh() {
+        Log.d("tes2", "Hello")
         val apiClient = ApiClient.getApiService(context!!) //Todo : Check context
         apiClient.getEvents().enqueue(object : Callback<CommonResponseModel<List<EventDonation>>> {
             override fun onFailure(
@@ -94,7 +108,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 t: Throwable?
             ) {
                 Log.d("tes2", t?.message)
-                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
                 toast.show()
             }
 
@@ -105,7 +119,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 if (response?.code() == 200) {
                     Log.d("tes2", "Res 200")
                     val eventResponse = response.body()
-                    if (eventResponse.statusCode == 200) {
+                    if (eventResponse?.statusCode == 200) {
                         val list = eventResponse.data
                         val eventAdapter = EventAdapter(list, 8)
                         home_rv_event.adapter = eventAdapter
@@ -122,7 +136,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         })
                     }
                 } else {
-                    Log.d("test2", "Code = ${response?.code().toString()}")
+                    try {
+                        val jObjError =
+                            JSONObject(response!!.errorBody()?.string())
+                        Toast.makeText(
+                            context,
+                            jObjError.getJSONObject("data").getString("error"),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
                 }
 
             }
@@ -139,13 +164,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ) {
                 if (response?.code() == 200) {
                     val userResponse = response.body()
-                    if (userResponse.statusCode == 200) {
+                    if (userResponse?.statusCode == 200) {
                         val list = userResponse.data
                         val df = DecimalFormat("#,###")
                         home_tv_point.text = df.format(list[0].points)
                     }
 
-                }else {
+                } else {
                     Log.d("test2", "Code = ${response?.code().toString()}")
                 }
 

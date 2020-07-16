@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kevinli5506.appta.BaseActivity
+import com.kevinli5506.appta.ForgetPasswordPage
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.LoginRequest
 import com.kevinli5506.appta.Model.LoginResponse
@@ -16,6 +17,7 @@ import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import com.kevinli5506.appta.Rest.SessionManager
 import kotlinx.android.synthetic.main.activity_login_page.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +33,7 @@ class LoginPage : View.OnClickListener, BaseActivity() {
 
 
         login_btn_login.setOnClickListener(this)
-
+        login_tv_forget_password.setOnClickListener(this)
 
     }
     override fun onClick(v: View?) {
@@ -57,7 +59,7 @@ class LoginPage : View.OnClickListener, BaseActivity() {
                         ) {
                             if (response?.code() == 200) {
                                 val loginResponse = response.body()
-                                if (loginResponse.statusCode == 200) {
+                                if (loginResponse?.statusCode == 200) {
                                     sessionManager.saveAuthToken(loginResponse.data.authToken!!)
                                     val intent = Intent(this@LoginPage, HomePage::class.java)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -67,21 +69,32 @@ class LoginPage : View.OnClickListener, BaseActivity() {
                                 } else {
                                     Log.d(
                                         "tes2",
-                                        "code = : ${loginResponse.statusCode.toString()}, msg = ${loginResponse.data.errorMessage?.get(
+                                        "code = : ${loginResponse?.statusCode.toString()}, msg = ${loginResponse?.data?.errorMessage?.get(
                                             0
                                         )}"
                                     )
                                 }
                             } else {
-                                Log.d(
-                                    "tes2",
-                                    "Code = ${response?.code()
-                                        .toString()}. msg =${response?.message()}"
-                                )
+                                try {
+                                    val jObjError =
+                                        JSONObject(response!!.errorBody()?.string())
+                                    Toast.makeText(
+                                        this@LoginPage,
+                                        jObjError.getJSONObject("data").getString("error"),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } catch (e: Exception) {
+                                    Toast.makeText(this@LoginPage, e.message, Toast.LENGTH_LONG)
+                                        .show()
+                                }
                             }
 
                         }
                     })
+            }
+            login_tv_forget_password->{
+                val intent = Intent(this@LoginPage, ForgetPasswordPage::class.java)
+                startActivity(intent)
             }
         }
 

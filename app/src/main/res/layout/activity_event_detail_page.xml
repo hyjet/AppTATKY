@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_detail_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.EventDetailPage">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -79,6 +81,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/event_detail_imgv_event_image" />
 
+        <TextView
+            android:id="@+id/event_detail_tv_until_date"
+            style="@style/TextHeader4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:gravity="end"
+            app:layout_constraintBottom_toTopOf="@id/event_detail_tv_description_detail"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/event_detail_tv_event_name"
+            tools:text="22 September 2020" />
 
         <TextView
             android:id="@+id/event_detail_tv_description_detail"
@@ -102,11 +116,12 @@
             android:layout_width="match_parent"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/donation"
             android:layout_marginBottom="24dp"
+            android:text="@string/donation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</ScrollView>

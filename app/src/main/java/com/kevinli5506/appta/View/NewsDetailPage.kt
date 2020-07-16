@@ -21,6 +21,7 @@ import com.kevinli5506.appta.Rest.ApiClient
 import com.kevinli5506.appta.Rest.ApiService
 import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_news_detail_page.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +39,10 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
         news_detail_btn_send.setOnClickListener(this)
         apiClient = ApiClient.getApiService(this)
         refresh()
+        news_detail_refresh_layout.setOnRefreshListener {
+            refresh()
+            news_detail_refresh_layout.isRefreshing = false
+        }
 
         news_detail_edt_comment.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -83,7 +88,7 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                 ) {
                     if (response?.code() == 200) {
                         val commentResponse = response.body()
-                        if (commentResponse.statusCode == 200) {
+                        if (commentResponse?.statusCode == 200) {
                             val list = commentResponse.data
                             news_detail_rv_comment.layoutManager =
                                 LinearLayoutManager(this@NewsDetailPage)
@@ -111,7 +116,7 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                 ) {
                     if (response?.code() == 200) {
                         val newsResponse = response.body()
-                        if (newsResponse.statusCode == 200) {
+                        if (newsResponse?.statusCode == 200) {
                             val list = newsResponse.data
                             news = list[0]
                             val imageUrl =
@@ -124,11 +129,30 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                                 .placeholder(R.drawable.image_loading)
                                 .into(news_detail_imgv_image)
                             news_detail_tv_title.setText(news.title)
-                            news_detail_tv_rate.setText(news.rating.toString())
+                            val rate = String.format("%.1f",news.rating)
+                            news_detail_tv_rate.setText(rate)
                             news_detail_tv_description.setText(news.description)
                             news_detail_tv_date.setText(news.time)
                         } else {
-                            Log.d("tes2", "Code = ${response.code().toString()}")
+                            try {
+                                val jObjError =
+                                    JSONObject(response!!.errorBody()?.string())
+                                val arrayError =
+                                    jObjError.getJSONObject("data").getJSONArray("error")
+
+                                Toast.makeText(
+                                    this@NewsDetailPage,
+                                    arrayError.getString(0),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                        this@NewsDetailPage,
+                                        e.message,
+                                        Toast.LENGTH_LONG
+                                    )
+                                    .show()
+                            }
                         }
                     }
                 }
@@ -167,7 +191,7 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                     ) {
                         if(response?.code()==200){
                             val postResponse = response.body()
-                            if (postResponse.statusCode==200){
+                            if (postResponse?.statusCode==200){
                                 val message = postResponse.data.message
                                 Log.d("tes2",message)
                                 refresh()
@@ -175,7 +199,7 @@ class NewsDetailPage : BaseActivity(), View.OnClickListener {
                                 news_detail_edt_comment.setText("")
                             }
                             else{
-                                val errorMessage = postResponse.data.error?.get(0)
+                                val errorMessage = postResponse?.data?.error?.get(0)
                                 Log.d("tes2",errorMessage)
                             }
                         }

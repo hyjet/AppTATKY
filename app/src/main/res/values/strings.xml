@@ -32,6 +32,12 @@
         <item>Jenis 2</item>
         <item>Jenis 3</item>
     </string-array>
+    <string-array name="bank_name">
+        <item>BCA</item>
+        <item>BRI</item>
+        <item>Permata</item>
+    </string-array>
+
     <string name="title_activity_main_page">MainPage</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -57,7 +63,7 @@
     <string name="item_name">Nama Barang</string>
     <string name="claim">Klaim</string>
     <string name="voucher_price">Harga Voucher</string>
-    <string name="full_name">Nama Lengkap</string>
+    <string name="full_name_on_account">Nama Lengkap Pada Rekening</string>
     <string name="bank_name">Nama Bank</string>
     <string name="account_number">Nomor Rekening</string>
     <string name="minimal_rp_50_000">Minimal Rp 50.000</string>
@@ -73,4 +79,18 @@
     <string name="sign_out">Sign Out</string>
     <string name="calculate_header">Silahkan masukkan jenis dan berat barang yang akan anda jual untuk menghitung harga yang akan dibayarkan</string>
     <string name="history_detail">Detil Riwayat</string>
+    <string name="total">Total</string>
+    <string name="no_histories_message">Tidak ada riwayat transaksi, lakuakan transaksi dengan menggunakan tab pick up</string>
+    <string name="forget_password"><u>Lupa Password</u></string>
+    <string name="channel_name">Money Notification Channel</string>
+    <string name="channel_description">This channel is for all notification related to money such as transfer, point get and so on</string>
+    <string name="order_list">Daftar Orderan</string>
+    <string name="no_order_message">Anda belum melakukan orderan, ayo lakukan sekarang melalui tab pick up</string>
+    <string name="current_order">Orderan Sekarang</string>
+    <string name="driver_name">Nama Driver</string>
+    <string name="driver_phone_number">No HP Driver</string>
+    <string name="cancel_order">Batal Pesanan</string>
+    <string name="send">Kirim</string>
+    <string name="email_forget_message">Masukkan email anda, kami akan mengirim email untuk mengganti password</string>
+    <string name="not_decided_picker">Belum ditentukan, harap menunggu sampai jam penentuan picker berikutnya</string>
 </resources>

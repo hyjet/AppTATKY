@@ -68,7 +68,7 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                 ) {
                     if (response?.code() == 200) {
                         val specialPromoRedeemStatusResponse = response.body()
-                        if (specialPromoRedeemStatusResponse.statusCode == 200) {
+                        if (specialPromoRedeemStatusResponse?.statusCode == 200) {
                             val redeem = specialPromoRedeemStatusResponse.data.status
                             claimed = redeem != 0
                             if (claimed) {
@@ -79,7 +79,7 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                                 reward_detail_tv_voucher_price_content.visibility = View.GONE
                             }
                         } else {
-                            val errorMessage = specialPromoRedeemStatusResponse.message
+                            val errorMessage = specialPromoRedeemStatusResponse?.message
                             Log.d("tes2", errorMessage)
                         }
                     } else {
@@ -121,7 +121,7 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                             ) {
                                 if (response?.code() == 200) {
                                     val postResponse = response.body()
-                                    if (postResponse.statusCode == 200) {
+                                    if (postResponse?.statusCode == 200) {
                                         val message = postResponse.data.message
                                         Log.d("tes2", message)
                                         reward_detail_btn_claim.visibility = View.GONE
@@ -133,7 +133,7 @@ class RewardDetailPage : BaseActivity(), View.OnClickListener {
                                         reward_detail_tv_voucher_price_content.visibility =
                                             View.GONE
                                     } else {
-                                        val errorMessage = postResponse.data.error?.get(0)
+                                        val errorMessage = postResponse?.data?.error?.get(0)
                                         Log.d("tes2", errorMessage)
                                     }
                                 } else {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,98 +7,120 @@
     android:orientation="vertical"
     tools:context=".View.SignUpPage">
 
-
-    <TextView
-        android:id="@+id/signup_tv_header"
-        style="@style/TextHeader1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/register" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name">
-
-        <EditText
-            android:id="@+id/signup_edt_name"
-            style="@style/InputStylePadded"
+        <TextView
+            android:id="@+id/signup_tv_header"
+            style="@style/TextHeader1"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/register" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name">
+
+            <EditText
+                android:id="@+id/signup_edt_name"
+                style="@style/InputStylePadded"
+                android:layout_width="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/name"
+                android:inputType="textEmailAddress"
+                android:paddingTop="8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone_number">
+
+            <EditText
+                android:id="@+id/signup_edt_phone"
+                style="@style/InputStylePadded"
+                android:layout_width="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:paddingTop="8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password">
+
+            <EditText
+                android:id="@+id/signup_edt_password"
+                style="@style/InputStylePadded"
+                android:layout_width="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingTop="8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email">
+
+            <EditText
+                android:id="@+id/signup_edt_email"
+                style="@style/InputStylePadded"
+                android:layout_width="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingTop="8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/signup_imgv_identity_photo"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/donation_tv_choose"
+            tools:background="@color/buttonPrimaryColor" />
+
+        <TextView
+            android:id="@+id/signup_tv_choose"
+            style="@style/TextBodyPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/choose" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/signup_btn_signup"
+            style="@style/ButtonPrimaryStyle"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/name"
-            android:inputType="textEmailAddress"
-            android:paddingTop="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone_number">
-
-        <EditText
-            android:id="@+id/signup_edt_phone"
-            style="@style/InputStylePadded"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/phone_number"
-            android:inputType="phone"
-            android:paddingTop="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password">
-
-        <EditText
-            android:id="@+id/signup_edt_password"
-            style="@style/InputStylePadded"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:paddingTop="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email">
-
-        <EditText
-            android:id="@+id/signup_edt_email"
-            style="@style/InputStylePadded"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:paddingTop="8dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/signup_btn_signup"
-        style="@style/ButtonPrimaryStyle"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/register" />
-</LinearLayout>
+            android:layout_marginBottom="24dp"
+            android:text="@string/register" />
+    </LinearLayout>
+</ScrollView>

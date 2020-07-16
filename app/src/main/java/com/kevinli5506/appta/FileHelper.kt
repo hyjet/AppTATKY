@@ -21,8 +21,8 @@ class FileHelper {
         return RequestBody.create(MEDIA_TYPE_IMAGE, file)
     }
 
-    fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
-        return MultipartBody.Part.createFormData("images", file.name, requestBody)
+    fun createPart(file: File, requestBody: RequestBody,path:String): MultipartBody.Part {
+        return MultipartBody.Part.createFormData(path, file.name, requestBody)
     }
 
     fun getPathFromURI(context: Context, uri: Uri): String? {

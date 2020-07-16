@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/news_page_refresh_layout"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     tools:context=".View.NewsFragment">
@@ -12,4 +13,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

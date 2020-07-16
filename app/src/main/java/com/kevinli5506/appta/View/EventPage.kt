@@ -28,6 +28,10 @@ class EventPage : BaseActivity() {
         event_page_toolbar_tv.text = resources.getString(R.string.event)
         event_rv_event.layoutManager = GridLayoutManager(this, 2)
         refresh()
+        event_page_refresh_layout.setOnRefreshListener {
+            refresh()
+
+        }
     }
 
     private fun refresh() {
@@ -48,7 +52,7 @@ class EventPage : BaseActivity() {
             ) {
                 if (response?.code() == 200) {
                     val eventResponse = response.body()
-                    if (eventResponse.statusCode == 200) {
+                    if (eventResponse?.statusCode == 200) {
                         val list = eventResponse.data
                         val eventAdapter = EventAdapter(list, 8)
                         event_rv_event.adapter = eventAdapter
@@ -63,6 +67,7 @@ class EventPage : BaseActivity() {
                                 startActivity(intent)
                             }
                         })
+                        event_page_refresh_layout.isRefreshing = false
                     }
                 } else {
                     Log.d("test2", "Code = ${response?.code().toString()}")

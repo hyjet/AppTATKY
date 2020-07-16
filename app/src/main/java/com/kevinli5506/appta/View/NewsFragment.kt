@@ -36,7 +36,10 @@ class NewsFragment : Fragment() {
         news_rv_news.layoutManager = LinearLayoutManager(view.context)
 
         refresh()
-
+        news_page_refresh_layout.setOnRefreshListener {
+            refresh()
+            news_page_refresh_layout.isRefreshing = false
+        }
 
     }
 
@@ -50,7 +53,7 @@ class NewsFragment : Fragment() {
         apiClient.getNews().enqueue(object : Callback<CommonResponseModel<List<News>>> {
             override fun onFailure(call: Call<CommonResponseModel<List<News>>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
-                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
                 toast.show()
             }
 
@@ -60,7 +63,7 @@ class NewsFragment : Fragment() {
             ) {
                 if (response?.code() == 200) {
                     val newsResponse = response.body()
-                    if (newsResponse.statusCode == 200) {
+                    if (newsResponse?.statusCode == 200) {
                         val list = newsResponse.data
                         val newsAdapter = NewsNewsAdapter(list)
                         news_rv_news.adapter = newsAdapter
@@ -75,8 +78,8 @@ class NewsFragment : Fragment() {
                                 startActivity(intent)
                             }
                         })
-                    } else{
-                        Log.d("tes2","Code = ${response.code().toString()}")
+                    } else {
+                        Log.d("tes2", "Code = ${response.code().toString()}")
                     }
                 }
             }

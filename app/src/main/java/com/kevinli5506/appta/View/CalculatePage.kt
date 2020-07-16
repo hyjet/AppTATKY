@@ -49,7 +49,7 @@ class CalculatePage : BaseActivity(), View.OnClickListener,
                 if (response?.code() == 200) {
                     Log.d("tes2", "Res 200")
                     val recycleItemResponse = response.body()
-                    if (recycleItemResponse.statusCode == 200) {
+                    if (recycleItemResponse?.statusCode == 200) {
                         val list = recycleItemResponse.data
                         recyleItemList.addAll(list)
                         val typeList: ArrayList<String> = arrayListOf()

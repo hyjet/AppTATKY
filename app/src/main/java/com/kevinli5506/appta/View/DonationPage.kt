@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.FileHelper
 import com.kevinli5506.appta.Model.CommonResponseModel
+import com.kevinli5506.appta.Model.EventDonation
 import com.kevinli5506.appta.Model.PostResponse
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
@@ -33,12 +34,12 @@ import java.io.File
 class DonationPage : BaseActivity(), View.OnClickListener {
     var path: String? = null
     val fileHelper = FileHelper()
-    var event_id = 0
-    var donationItemList: ArrayList<String> = arrayListOf()
+    lateinit var event :EventDonation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donation_page)
-        event_id = intent.getIntExtra(EventDetailPage.EXTRA_EVENT_ID, 0)
+        event = intent.getParcelableExtra(EventDetailPage.EXTRA_EVENT_ID)
+        donation_tv_item_type.text = event.productType
         donation_tv_choose.setOnClickListener(this)
         donation_btn_donation.setOnClickListener(this)
     }
@@ -61,15 +62,14 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                 }
             }
             donation_btn_donation -> {
-                val itemName = donation_edt_item_name.text.toString()
                 val itemAmount = donation_edt_item_amount.text.toString().toInt()
                 val pathNotNull = path
                 if (!pathNotNull.isNullOrEmpty()) {
                     val file = fileHelper.createFile(pathNotNull)
                     val requestBody = fileHelper.createRequestBody(file)
-                    val part = fileHelper.createPart(file, requestBody)
+                    val part = fileHelper.createPart(file, requestBody,"images")
                     val apiClient = ApiClient.getApiService(this)
-                    apiClient.postDonation(event_id, itemAmount, part)
+                    apiClient.postDonation(event.id, itemAmount, part)
                         .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
                             override fun onFailure(
                                 call: Call<CommonResponseModel<PostResponse>>?,
@@ -91,7 +91,7 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                             ) {
                                 if (response?.code() == 200) {
                                     val postResponse = response.body()
-                                    if (postResponse.statusCode == 200) {
+                                    if (postResponse?.statusCode == 200) {
                                         val message = postResponse.data.message
                                         Log.d("tes2", message)
                                         finish()
@@ -99,7 +99,7 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                                 } else {
                                     try {
                                         val jObjError =
-                                            JSONObject(response!!.errorBody().string())
+                                            JSONObject(response!!.errorBody()?.string())
                                         Toast.makeText(
                                             this@DonationPage,
                                             jObjError.getJSONObject("data").getString("error"),

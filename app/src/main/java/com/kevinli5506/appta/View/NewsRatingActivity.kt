@@ -14,6 +14,7 @@ import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import com.kevinli5506.appta.Rest.Constants
 import kotlinx.android.synthetic.main.activity_news_rating.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,7 +47,7 @@ class NewsRatingActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             news_rating_btn_rate -> {
-                val rate = news_rating_rate_bar.numStars
+                val rate = news_rating_rate_bar.rating.toInt()
                 val apiInterface = ApiClient.getApiService(this)
                 apiInterface.postRate(news.id,rate).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
                     override fun onFailure(
@@ -64,20 +65,38 @@ class NewsRatingActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         if(response?.code()==200){
                             val postResponse = response.body()
-                            if (postResponse.statusCode==200){
+                            if (postResponse?.statusCode==200){
                                 val message = postResponse.data.message
                                 Log.d("tes2",message)
-                                val toast = Toast.makeText(this@NewsRatingActivity,"success", Toast.LENGTH_SHORT)
+                                val toast = Toast.makeText(this@NewsRatingActivity,message, Toast.LENGTH_SHORT)
                                 toast.show()
                                 finish()
                             }
                             else{
-                                val errorMessage = postResponse.data.error?.get(0)
+                                val errorMessage = postResponse?.data?.error?.get(0)
                                 Log.d("tes2",errorMessage)
                             }
                         }
                         else {
-                            Log.d("tes2", "Code = ${response?.code().toString()}")
+                            try {
+                                val jObjError =
+                                    JSONObject(response!!.errorBody()?.string())
+                                val arrayError =
+                                    jObjError.getJSONObject("data").getJSONArray("error")
+
+                                Toast.makeText(
+                                    this@NewsRatingActivity,
+                                    arrayError.getString(0),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                        this@NewsRatingActivity,
+                                        e.message,
+                                        Toast.LENGTH_LONG
+                                    )
+                                    .show()
+                            }
                         }
                     }
 

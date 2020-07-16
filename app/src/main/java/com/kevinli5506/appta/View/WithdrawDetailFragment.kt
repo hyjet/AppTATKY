@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -14,6 +15,7 @@ import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.*
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.view.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +36,14 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val arrayAdapter = ArrayAdapter(
+            context!!,
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.bank_name)
+        )
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.withdraw_edt_bank_name.adapter= arrayAdapter
         view.withdraw_btn_100000.setOnClickListener(this)
         view.withdraw_btn_50000.setOnClickListener(this)
         view.withdraw_btn_submit.setOnClickListener(this)
@@ -42,18 +52,20 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
             if(view.withdraw_edt_amount.text.toString().equals("")){
                 view.withdraw_edt_amount.setText("0")
             }
-
+            else{
+                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
+                withdraw_edt_amount.setText(df.format (current).toString())
+            }
         }
     }
     override fun onClick(v: View?) {
         when(v){
             withdraw_btn_100000->{
-                val current = withdraw_edt_amount.text.toString().toInt()
-
+                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
                 withdraw_edt_amount.setText(df.format (current+100000).toString())
             }
             withdraw_btn_50000->{
-                val current = withdraw_edt_amount.text.toString().toInt()
+                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
                 withdraw_edt_amount.setText(df.format(current+50000).toString())
             }
             withdraw_btn_submit->{
@@ -69,9 +81,9 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
                         .commit()
                     //Todo : change submitted to true*/
                     val fullName = withdraw_edt_name.text.toString()
-                    val bankName = withdraw_edt_bank_name.text.toString()
+                    val bankName = withdraw_edt_bank_name.selectedItem.toString()
                     val account = withdraw_edt_account_number.text.toString()
-                    val amount = withdraw_edt_amount.text.toString().toInt()
+                    val amount = withdraw_edt_amount.text.toString().replace(",","").toInt()
                     val apiClient = ApiClient.getApiService(context!!)
                     apiClient.postWithdraw(fullName,account,bankName,amount).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
                         override fun onFailure(
@@ -92,13 +104,31 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
                                 if (postResponse?.statusCode==200){
                                     val message = postResponse.data.message
                                     Log.d("tes2",message)
-                                    val toast = Toast.makeText(context,"success", Toast.LENGTH_SHORT)
+                                    val toast = Toast.makeText(context,message, Toast.LENGTH_SHORT)
                                     toast.show()
                                     activity?.finish()
                                 }
                                 else{
-                                    val errorMessage = postResponse?.data?.error?.get(0)
-                                    Log.d("tes2",errorMessage)
+                                    try {
+                                        Log.d("tes2","error")
+                                        val jObjError =
+                                            JSONObject(response!!.errorBody()?.string())
+                                        val arrayError =
+                                            jObjError.getJSONObject("data").getJSONArray("error")
+
+                                        Toast.makeText(
+                                            context,
+                                            arrayError.getString(0),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    } catch (e: Exception) {
+                                        Toast.makeText(
+                                                context,
+                                                e.message,
+                                                Toast.LENGTH_LONG
+                                            )
+                                            .show()
+                                    }
                                 }
 
 

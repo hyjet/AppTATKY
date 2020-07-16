@@ -47,7 +47,7 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
             ) {
                 if (response?.code() == 200) {
                     val userResponse = response.body()
-                    if (userResponse.statusCode == 200) {
+                    if (userResponse?.statusCode == 200) {
                         val list = userResponse.data
                         val user: User = list[0]
                         curName = user.name.trim()
@@ -103,7 +103,7 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
                         ) {
                             if(response?.code()==200){
                                 val postResponse = response.body()
-                                if (postResponse.statusCode==200){
+                                if (postResponse?.statusCode==200){
                                     val message = postResponse.data.message
                                     Log.d("tes2",message)
                                     val snackbar = Snackbar.make(edit_profile_root_layout,"Edit SuccessFul",Snackbar.LENGTH_SHORT)
@@ -115,7 +115,7 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
                             else {
                                 try {
                                     val jObjError =
-                                        JSONObject(response!!.errorBody().string())
+                                        JSONObject(response!!.errorBody()?.string())
                                     Toast.makeText(
                                         this@EditProfilePage,
                                         jObjError.getJSONObject("data").getString("error"),
