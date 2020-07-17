@@ -70,7 +70,7 @@ class CalculatePage : BaseActivity(), View.OnClickListener,
         when (v) {
             calculate_btn_calculate -> {
                 if (!calculate_edt_weight.text.isNullOrEmpty()) {
-                    val weight = calculate_edt_weight.text.toString().toInt()
+                    val weight = calculate_edt_weight.text.toString().toFloat()
                     val price = recyleItemList[calculate_spin_item_type.selectedItemPosition].price
                     val total = weight * price
                     calculate_edt_price.setText(total.toString())

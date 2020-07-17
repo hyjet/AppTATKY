@@ -19,6 +19,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.NotificationResponse
 import com.kevinli5506.appta.Rest.ApiClient
+import com.kevinli5506.appta.Rest.SessionManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
@@ -28,7 +29,11 @@ import io.reactivex.schedulers.Schedulers
 abstract class BaseActivity() : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
-        getNotifData()
+        val sessionMaanager = SessionManager(this)
+        if(sessionMaanager.fetchAuthToken()!=null){
+            //getNotifData()
+        }
+
     }
 
 
@@ -116,7 +121,8 @@ abstract class BaseActivity() : AppCompatActivity() {
     }
 
     fun getNotifData() {
-        getObservable().subscribeWith(getObserver())
+        val d =getObservable().subscribeWith(getObserver())
+        d.dispose()
     }
 
     private fun getObserver(): DisposableObserver<CommonResponseModel<List<NotificationResponse>>> {
@@ -129,6 +135,7 @@ abstract class BaseActivity() : AppCompatActivity() {
                 val data = t.data
                 val notif = data[0]
                 getNotification(1,notif.notification[0].title,notif.notification[0].message)
+
             }
 
             override fun onError(e: Throwable) {
