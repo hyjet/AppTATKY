@@ -13,18 +13,28 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/Theme.AppCompat.Light">
-
+        app:popupTheme="@style/Theme.AppCompat.Light"
+        >
+        <ImageView
+            android:id="@+id/history_detail_btn_back"
+            android:layout_width="@dimen/ImageButtonSize3"
+            android:layout_height="@dimen/ImageButtonSize3"
+            android:tintMode="src_atop"
+            android:tint="#FFFFFF"
+            android:src="@drawable/icon_back_button"/>
         <TextView
-            android:id="@+id/history_detail_toolbar_tv"
             style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
+            android:id="@+id/history_detail_toolbar_tv"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="104dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:textSize="26sp"
+            android:gravity="center"
+            android:textStyle="bold"
             android:text="@string/history_detail"
             android:textAppearance="@android:style/TextAppearance.WindowTitle"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView

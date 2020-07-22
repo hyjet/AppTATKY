@@ -16,7 +16,7 @@
     <string name="kg">kg</string>
     <string name="weight">Berat</string>
     <string name="price">Harga</string>
-    <string name="item_photo">Foto Barang</string>
+    <string name="item_photo">Foto Barang(maksimal 2 Mb)</string>
     <string name="choose"><u>Pilih</u></string>
     <string name="outlet_discount">Diskon Outlet</string>
     <string name="description">Deskripsi</string>
@@ -66,7 +66,7 @@
     <string name="full_name_on_account">Nama Lengkap Pada Rekening</string>
     <string name="bank_name">Nama Bank</string>
     <string name="account_number">Nomor Rekening</string>
-    <string name="minimal_rp_50_000">Minimal Rp 50.000</string>
+    <string name="minimal_rp_20_000">Minimal Rp 20.000</string>
     <string name="choose_nominal">Pilih Nominal</string>
     <string name="_100_000">+100.000</string>
     <string name="_50_000">+50.000</string>
@@ -86,11 +86,17 @@
     <string name="channel_description">This channel is for all notification related to money such as transfer, point get and so on</string>
     <string name="order_list">Daftar Orderan</string>
     <string name="no_order_message">Anda belum melakukan orderan, ayo lakukan sekarang melalui tab pick up</string>
-    <string name="current_order">Orderan Sekarang</string>
+    <string name="activity">Aktivitas</string>
     <string name="driver_name">Nama Driver</string>
     <string name="driver_phone_number">No HP Driver</string>
     <string name="cancel_order">Batal Pesanan</string>
     <string name="send">Kirim</string>
     <string name="email_forget_message">Masukkan email anda, kami akan mengirim email untuk mengganti password</string>
     <string name="not_decided_picker">Belum ditentukan, harap menunggu sampai jam penentuan picker berikutnya</string>
+    <string name="notification">Notifikasi</string>
+    <string name="no_notification_message">Anda tidak memiliki notifikasi</string>
+    <string name="identity_card">KTP</string>
+    <string name="identity_card_photo">Foto KTP</string>
+    <string name="order">Orderan</string>
+    <string name="identity_not_verified">Maaf, Akun anda belum terverifikasi, silahkan tunggu verifikasi dari admin kami</string>
 </resources>

@@ -30,6 +30,7 @@ class OrderListDetailPage : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_order_list_detail_page)
         id = intent.getIntExtra(EXTRAORDERLISTID, 0)
         order_detail_btn_cancel_order.setOnClickListener(this)
+        order_detail_btn_back.setOnClickListener(this)
         order_detail_rview_order_detail.layoutManager = LinearLayoutManager(this)
         refresh()
 
@@ -179,6 +180,10 @@ class OrderListDetailPage : BaseActivity(), View.OnClickListener {
                         }
 
                     })
+            }
+
+            order_detail_btn_back->{
+                finish()
             }
         }
     }

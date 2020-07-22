@@ -79,7 +79,19 @@ interface ApiService {
     @FormUrlEncoded
     fun postForgetPassword(
         @Field("email") email: String
-    ):Call<CommonResponseModel<PostResponse>>
+    ): Call<CommonResponseModel<PostResponse>>
+
+    @POST(Constants.POST_PLAYER_ID)
+    @FormUrlEncoded
+    fun postPlayerId(
+        @Field("player_id") playerID: String
+    ): Call<CommonResponseModel<PostResponse>>
+
+    @POST(Constants.NOTIF_URL)
+    @FormUrlEncoded
+    fun getNotificationDetail(
+        @Field("notif_id") notificationId: String
+    ): Call<List<NotificationResponse>>
 
 
     @PUT(Constants.PUT_EDIT_PROFILE_URL)
@@ -122,8 +134,11 @@ interface ApiService {
     fun getOrderList(): Call<CommonResponseModel<OrderListStatusResponse>>
 
     @GET("${Constants.POST_ORDER_URL}/{orderId}")
-    fun getCancelOrder(@Path("orderId") path:String):Call<CommonResponseModel<PostResponse>>
+    fun getCancelOrder(@Path("orderId") path: String): Call<CommonResponseModel<PostResponse>>
 
     @GET(Constants.NOTIF_URL)
     fun getnotification(): Observable<CommonResponseModel<List<NotificationResponse>>>
+
+    @GET(Constants.NOTIF_URL)
+    fun getAllNotification(): Call<CommonResponseModel<List<NotificationResponse>>>
 }

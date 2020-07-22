@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signup_layout"
         android:orientation="vertical">
 
         <TextView
@@ -91,7 +92,15 @@
                 android:inputType="textEmailAddress"
                 android:paddingTop="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <TextView
+            android:id="@+id/signup_tv_identity_card_label"
+            style="@style/TextHeader3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/identity_card_photo" />
         <ImageView
             android:id="@+id/signup_imgv_identity_photo"
             android:layout_width="300dp"

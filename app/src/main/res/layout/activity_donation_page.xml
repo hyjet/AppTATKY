@@ -41,12 +41,14 @@
         <TextView
             style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
             android:id="@+id/donation_toolbar_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="104dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:textSize="26sp"
+            android:gravity="center"
             android:textStyle="bold"
-            android:text="@string/donation"
+            tools:text="@string/donation"
             android:textAppearance="@android:style/TextAppearance.WindowTitle"
             />
     </androidx.appcompat.widget.Toolbar>

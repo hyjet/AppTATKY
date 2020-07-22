@@ -11,6 +11,11 @@
         android:title="@string/news"
         />
     <item
+        android:id="@+id/home_navigation_order"
+        android:icon="@drawable/box"
+        android:title="@string/order"
+        />
+    <item
         android:id="@+id/home_navigation_pick_up"
         android:icon="@drawable/icon_pickup_truck"
         android:title="@string/pick_up"

@@ -34,13 +34,14 @@ import java.io.File
 class DonationPage : BaseActivity(), View.OnClickListener {
     var path: String? = null
     val fileHelper = FileHelper()
-    lateinit var event :EventDonation
+    lateinit var event: EventDonation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donation_page)
         event = intent.getParcelableExtra(EventDetailPage.EXTRA_EVENT_ID)
         donation_tv_item_type.text = event.productType
         donation_tv_choose.setOnClickListener(this)
+        donation_btn_back_navigation.setOnClickListener(this)
         donation_btn_donation.setOnClickListener(this)
     }
 
@@ -67,7 +68,7 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                 if (!pathNotNull.isNullOrEmpty()) {
                     val file = fileHelper.createFile(pathNotNull)
                     val requestBody = fileHelper.createRequestBody(file)
-                    val part = fileHelper.createPart(file, requestBody,"images")
+                    val part = fileHelper.createPart(file, requestBody, "images")
                     val apiClient = ApiClient.getApiService(this)
                     apiClient.postDonation(event.id, itemAmount, part)
                         .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
@@ -94,6 +95,12 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                                     if (postResponse?.statusCode == 200) {
                                         val message = postResponse.data.message
                                         Log.d("tes2", message)
+                                        val toast = Toast.makeText(
+                                            this@DonationPage,
+                                            message,
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        toast.show()
                                         finish()
                                     }
                                 } else {
@@ -106,7 +113,11 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                                             Toast.LENGTH_LONG
                                         ).show()
                                     } catch (e: Exception) {
-                                        Toast.makeText(this@DonationPage, e.message, Toast.LENGTH_LONG)
+                                        Toast.makeText(
+                                            this@DonationPage,
+                                            e.message,
+                                            Toast.LENGTH_LONG
+                                        )
                                             .show()
                                     }
                                 }
@@ -117,6 +128,9 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                     Log.d("tes2", "No image selected")
                 }
 
+            }
+            donation_btn_back_navigation->{
+                finish()
             }
         }
     }

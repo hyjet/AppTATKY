@@ -19,6 +19,7 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail_page)
 
+
         event = intent.getParcelableExtra(EXTRA_EVENT)
 
         val imageUrl =
@@ -35,8 +36,8 @@ class EventDetailPage : BaseActivity(), View.OnClickListener {
         event_detail_btn_back_navigation.setOnClickListener(this)
         event_detail_btn_donate.setOnClickListener(this)
         val StDformatter = SimpleDateFormat("yyyy-mm-dd HH:mm:ss", Locale.ENGLISH)
-        val date: Date =StDformatter.parse(event.untilDateString)
-        val DtSformatter = SimpleDateFormat("dd MMMM YYYY",Locale.ENGLISH)
+        val date: Date = StDformatter.parse(event.untilDateString)
+        val DtSformatter = SimpleDateFormat("dd MMMM YYYY", Locale.ENGLISH)
         val dateString = DtSformatter.format(date)
         val untilDateString = "Sampai $dateString"
         event_detail_tv_until_date.text = untilDateString

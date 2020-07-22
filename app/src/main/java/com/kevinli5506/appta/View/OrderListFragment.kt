@@ -1,10 +1,12 @@
 package com.kevinli5506.appta.View
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -13,32 +15,37 @@ import com.kevinli5506.appta.Model.OrderListStatusResponse
 import com.kevinli5506.appta.OrderListAdapter
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
-import kotlinx.android.synthetic.main.activity_order_list_page.*
+import kotlinx.android.synthetic.main.fragment_order_list.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OrderListPage : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_list_page)
+class OrderListFragment : Fragment() {
 
-        order_list_rv_list.layoutManager = LinearLayoutManager(this)
-        refresh()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_order_list, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        order_list_rv_list.layoutManager = LinearLayoutManager(context)
+        refresh()
+    }
     override fun onStart() {
         super.onStart()
         refresh()
     }
     private fun refresh() {
-        val apiClient = ApiClient.getApiService(this)
-        apiClient.getOrderList().enqueue(object : Callback<CommonResponseModel<OrderListStatusResponse>> {
+        val apiClient = ApiClient.getApiService(context!!)
+        apiClient.getOrderList().enqueue(object :
+            Callback<CommonResponseModel<OrderListStatusResponse>> {
             override fun onFailure(call: Call<CommonResponseModel<OrderListStatusResponse>>?, t: Throwable?) {
                 Log.d("tes2", t?.message)
-                val toast = Toast.makeText(this@OrderListPage, t?.message, Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
                 toast.show()
             }
 
@@ -64,7 +71,7 @@ class OrderListPage : AppCompatActivity() {
                                 OrderListAdapter.OnItemClickCallBack {
                                 override fun onItemClicked(data: Int) {
                                     val intent =
-                                        Intent(this@OrderListPage, OrderListDetailPage::class.java)
+                                        Intent(context, OrderListDetailPage::class.java)
                                     intent.putExtra(OrderListDetailPage.EXTRAORDERLISTID, data)
                                     startActivity(intent)
                                 }
@@ -83,16 +90,16 @@ class OrderListPage : AppCompatActivity() {
                             jObjError.getJSONObject("data").getJSONArray("error")
 
                         Toast.makeText(
-                            this@OrderListPage,
+                            context,
                             arrayError.getString(0),
                             Toast.LENGTH_LONG
                         ).show()
                     } catch (e: Exception) {
                         Toast.makeText(
-                                this@OrderListPage,
-                                e.message,
-                                Toast.LENGTH_LONG
-                            )
+                            context,
+                            e.message,
+                            Toast.LENGTH_LONG
+                        )
                             .show()
                     }
                 }
@@ -100,4 +107,5 @@ class OrderListPage : AppCompatActivity() {
 
         })
     }
+
 }

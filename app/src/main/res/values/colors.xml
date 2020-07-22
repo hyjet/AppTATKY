@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#375a7f</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="buttonPrimaryColor">#2C3E50</color>
+    <color name="buttonPrimaryColor">#375a7f</color>
     <color name="buttonSecondaryColor">#FFFFFF</color>
     <color name="buttonPrimaryTextColor">#FFFFFF</color>
     <color name="buttonSecondaryTextColor">#000000</color>
@@ -12,7 +12,7 @@
     <color name="borderMenuColor">#A3A3A3</color>
     <color name="textPrimaryColor">#000000</color>
     <color name="textSecondaryColor">#FFFFFF</color>
-    <color name="backgroundPrimary">#37AFDF</color>
+    <color name="backgroundPrimary">#375a7f</color>
     <color name="backgroundSecondary">#FFFFFF</color>
     <color name="imageButtonSecondaryColor">#FFFFFF</color>
     <color name="imageButtonPrimaryColor">#000000</color>

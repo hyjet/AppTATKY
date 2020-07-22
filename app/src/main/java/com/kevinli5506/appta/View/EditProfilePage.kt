@@ -27,6 +27,7 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile_page)
         edit_profile_btn_save.setOnClickListener(this)
+        edit_profile_btn_back.setOnClickListener(this)
         refresh()
 
 
@@ -130,6 +131,9 @@ class EditProfilePage : BaseActivity(), View.OnClickListener {
 
                     })
 
+            }
+            edit_profile_btn_back->{
+                finish()
             }
         }
     }

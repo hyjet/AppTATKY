@@ -24,7 +24,7 @@ import java.text.DecimalFormat
 /**
  * A simple [Fragment] subclass.
  */
-class WithdrawDetailFragment : Fragment(),View.OnClickListener {
+class WithdrawDetailFragment : Fragment(), View.OnClickListener {
     val df = DecimalFormat("#,###")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,103 +43,116 @@ class WithdrawDetailFragment : Fragment(),View.OnClickListener {
             resources.getStringArray(R.array.bank_name)
         )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        view.withdraw_edt_bank_name.adapter= arrayAdapter
+        view.withdraw_edt_bank_name.adapter = arrayAdapter
         view.withdraw_btn_100000.setOnClickListener(this)
         view.withdraw_btn_50000.setOnClickListener(this)
         view.withdraw_btn_submit.setOnClickListener(this)
         view.withdraw_edt_amount.setText("0")
-        view.withdraw_edt_amount.setOnFocusChangeListener{_,_->
-            if(view.withdraw_edt_amount.text.toString().equals("")){
+        view.withdraw_edt_amount.setOnFocusChangeListener { _, _ ->
+            if (view.withdraw_edt_amount.text.toString().equals("")) {
                 view.withdraw_edt_amount.setText("0")
-            }
-            else{
-                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
-                withdraw_edt_amount.setText(df.format (current).toString())
+            } else {
+                val current = withdraw_edt_amount.text.toString().replace(",", "").toInt()
+                withdraw_edt_amount.setText(df.format(current).toString())
             }
         }
     }
+
     override fun onClick(v: View?) {
-        when(v){
-            withdraw_btn_100000->{
-                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
-                withdraw_edt_amount.setText(df.format (current+100000).toString())
+        when (v) {
+            withdraw_btn_100000 -> {
+                val current = withdraw_edt_amount.text.toString().replace(",", "").toInt()
+                withdraw_edt_amount.setText(df.format(current + 100000).toString())
             }
-            withdraw_btn_50000->{
-                val current = withdraw_edt_amount.text.toString().replace(",","").toInt()
-                withdraw_edt_amount.setText(df.format(current+50000).toString())
+            withdraw_btn_50000 -> {
+                val current = withdraw_edt_amount.text.toString().replace(",", "").toInt()
+                withdraw_edt_amount.setText(df.format(current + 50000).toString())
             }
-            withdraw_btn_submit->{
-                val builder = AlertDialog.Builder(context!!)
-                builder.setTitle("Witdrawal")
-                builder.setMessage("Apakah anda yakin akan melakukan transaksi ini?")
-                builder.setPositiveButton("Yes"){_, _ ->
-                    /*val fragment =
-                        WithdrawOnProcessFragment()
-                    activity!!.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.withdraw_container, fragment, fragment.javaClass.simpleName)
-                        .commit()
-                    //Todo : change submitted to true*/
-                    val fullName = withdraw_edt_name.text.toString()
-                    val bankName = withdraw_edt_bank_name.selectedItem.toString()
-                    val account = withdraw_edt_account_number.text.toString()
-                    val amount = withdraw_edt_amount.text.toString().replace(",","").toInt()
-                    val apiClient = ApiClient.getApiService(context!!)
-                    apiClient.postWithdraw(fullName,account,bankName,amount).enqueue(object : Callback<CommonResponseModel<PostResponse>>{
-                        override fun onFailure(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            t: Throwable?
-                        ) {
-                            Log.d("tes2", t?.message)
-                            val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
-                            toast.show()
-                        }
+            withdraw_btn_submit -> {
+                val amount = withdraw_edt_amount.text.toString().replace(",", "").toInt()
+                if (amount < 20000) {
+                    Toast.makeText(
+                        context,
+                        "Minimal penarikan dana adalah Rp. 20000",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val builder = AlertDialog.Builder(context!!)
+                    builder.setTitle("Witdrawal")
+                    builder.setMessage("Apakah anda yakin akan melakukan transaksi ini?")
+                    builder.setPositiveButton("Yes") { _,   _ ->
+                        /*val fragment =
+                            WithdrawOnProcessFragment()
+                        activity!!.supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.withdraw_container, fragment, fragment.javaClass.simpleName)
+                            .commit()
+                        //Todo : change submitted to true*/
+                        val fullName = withdraw_edt_name.text.toString()
+                        val bankName = withdraw_edt_bank_name.selectedItem.toString()
+                        val account = withdraw_edt_account_number.text.toString()
 
-                        override fun onResponse(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            response: Response<CommonResponseModel<PostResponse>>?
-                        ) {
-
-                                val postResponse = response?.body()
-                                if (postResponse?.statusCode==200){
-                                    val message = postResponse.data.message
-                                    Log.d("tes2",message)
-                                    val toast = Toast.makeText(context,message, Toast.LENGTH_SHORT)
+                        val apiClient = ApiClient.getApiService(context!!)
+                        apiClient.postWithdraw(fullName, account, bankName, amount)
+                            .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                                override fun onFailure(
+                                    call: Call<CommonResponseModel<PostResponse>>?,
+                                    t: Throwable?
+                                ) {
+                                    Log.d("tes2", t?.message)
+                                    val toast =
+                                        Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
                                     toast.show()
-                                    activity?.finish()
                                 }
-                                else{
-                                    try {
-                                        Log.d("tes2","error")
-                                        val jObjError =
-                                            JSONObject(response!!.errorBody()?.string())
-                                        val arrayError =
-                                            jObjError.getJSONObject("data").getJSONArray("error")
 
-                                        Toast.makeText(
-                                            context,
-                                            arrayError.getString(0),
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    } catch (e: Exception) {
-                                        Toast.makeText(
+                                override fun onResponse(
+                                    call: Call<CommonResponseModel<PostResponse>>?,
+                                    response: Response<CommonResponseModel<PostResponse>>?
+                                ) {
+
+                                    val postResponse = response?.body()
+                                    if (postResponse?.statusCode == 200) {
+                                        val message = postResponse.data.message
+                                        Log.d("tes2", message)
+                                        val toast =
+                                            Toast.makeText(context, message, Toast.LENGTH_SHORT)
+                                        toast.show()
+                                        activity?.finish()
+                                    } else {
+                                        try {
+                                            Log.d("tes2", "error")
+                                            val jObjError =
+                                                JSONObject(response!!.errorBody()?.string())
+                                            val arrayError =
+                                                jObjError.getJSONObject("data")
+                                                    .getJSONArray("error")
+
+                                            Toast.makeText(
+                                                context,
+                                                arrayError.getString(0),
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } catch (e: Exception) {
+                                            Toast.makeText(
                                                 context,
                                                 e.message,
                                                 Toast.LENGTH_LONG
                                             )
-                                            .show()
+                                                .show()
+                                        }
                                     }
+
+
                                 }
 
+                            })
+                    }
+                    builder.setNegativeButton("No") { _, _ -> }
+                    builder.show()
 
-                        }
-
-                    })
                 }
-                builder.setNegativeButton("No"){_, _ ->  }
-                builder.show()
-
             }
+
         }
     }
 

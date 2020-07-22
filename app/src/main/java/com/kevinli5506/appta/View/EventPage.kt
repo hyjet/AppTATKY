@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kevinli5506.appta.BaseActivity
@@ -17,15 +18,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventPage : BaseActivity() {
+class EventPage : BaseActivity(),View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_list_page)
-
-        setSupportActionBar(event_toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        event_page_toolbar_tv.text = resources.getString(R.string.event)
+        even_btn_back.setOnClickListener(this)
         event_rv_event.layoutManager = GridLayoutManager(this, 2)
         refresh()
         event_page_refresh_layout.setOnRefreshListener {
@@ -76,5 +74,13 @@ class EventPage : BaseActivity() {
             }
 
         })
+    }
+
+    override fun onClick(v: View?) {
+        when(v){
+            even_btn_back->{
+                finish()
+            }
+        }
     }
 }

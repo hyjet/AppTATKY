@@ -44,7 +44,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         view.home_imgbtn_reward.setOnClickListener(this)
         view.home_imgbtn_donation.setOnClickListener(this)
         view.home_imgbtn_calculate.setOnClickListener(this)
-        view.home_imgbtn_current_order.setOnClickListener(this)
+
+        view.home_imgbtn_notification.setOnClickListener(this)
         refresh()
         view.home_refresh_layout.setOnRefreshListener {
             refresh()
@@ -89,10 +90,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
                 startActivity(intent)
             }
-            home_imgbtn_current_order->{
+            home_imgbtn_notification->{
                 val intent = Intent(
                     context,
-                    OrderListPage::class.java
+                    NotificationListPage::class.java
                 )
                 startActivity(intent)
             }
@@ -100,7 +101,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun refresh() {
-        Log.d("tes2", "Hello")
         val apiClient = ApiClient.getApiService(context!!) //Todo : Check context
         apiClient.getEvents().enqueue(object : Callback<CommonResponseModel<List<EventDonation>>> {
             override fun onFailure(

@@ -42,7 +42,7 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
     private var longitude: Double = 0.0
     private var fullAddressName: String = ""
     private lateinit var adapter: ArrayAdapter<String>
-    private var warehouseLatLng: LatLng = LatLng(3.639410, 98.686880)
+    private var warehouseLatLng: LatLng = LatLng(3.58789686, 98.69059861)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,19 +102,27 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
                 results
             )
             val result = results[0]
-            if (result <= 30000) {
+            if (result > 30000) {
+                Toast.makeText(
+                    this,
+                    "Maaf, untuk saat ini kami hanya menerima order dalam radius 30km dari warehouse (dalam lingkaran biru)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else if(map_sv_location_search.query.toString().equals("Indonesia")){
+                Toast.makeText(
+                    this,
+                    "Harap memilih lokasi yang memiliki alamat",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
                 val intent = Intent()
                 intent.putExtra(EXTRA_LATITUDE, latitude)
                 intent.putExtra(EXTRA_LONGITUDE, longitude)
                 intent.putExtra(EXTRA_ADDRESS, fullAddressName)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Maaf, untu saat ini kami hanya menerima order dalam radius 30km dari warehouse (dalam lingkaran biru)",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
@@ -182,6 +190,16 @@ class LocationPickerActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                finish()
+            }
             mMap.isMyLocationEnabled = true
         } else {
             ActivityCompat.requestPermissions(

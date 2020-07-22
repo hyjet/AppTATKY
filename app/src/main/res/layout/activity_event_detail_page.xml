@@ -45,13 +45,15 @@
             <TextView
                 android:id="@+id/event_detail_toolbar_tv"
                 style="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="104dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="@string/event"
-                android:textAppearance="@android:style/TextAppearance.WindowTitle"
                 android:textSize="26sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:textStyle="bold"
+                tools:text="@string/event"
+                android:textAppearance="@android:style/TextAppearance.WindowTitle" />
         </androidx.appcompat.widget.Toolbar>
 
         <ImageView

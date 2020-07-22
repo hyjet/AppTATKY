@@ -13,18 +13,22 @@ import com.kevinli5506.appta.Model.History
 import com.kevinli5506.appta.Model.OrderDetail
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
+import kotlinx.android.synthetic.main.activity_event_list_page.*
 import kotlinx.android.synthetic.main.activity_history_detail_page.*
+import kotlinx.android.synthetic.main.activity_history_page.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryDetailPage : BaseActivity() {
+class HistoryDetailPage : BaseActivity(),View.OnClickListener {
     var historyId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_detail_page)
+        history_detail_btn_back.setOnClickListener(this)
+
         historyId = intent.getIntExtra(EXTRA_HISTORY, 0)
         history_detail_detail_layout.visibility = View.GONE
         refresh()
@@ -76,5 +80,13 @@ class HistoryDetailPage : BaseActivity() {
 
     companion object {
         val EXTRA_HISTORY = "EXTRA_HISTORY"
+    }
+
+    override fun onClick(v: View?) {
+        when(v){
+            history_detail_btn_back->{
+                finish()
+            }
+        }
     }
 }

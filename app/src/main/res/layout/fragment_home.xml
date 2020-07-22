@@ -50,8 +50,24 @@
                     android:text="@string/points"
                     app:layout_constraintBottom_toTopOf="@+id/home_imgbtn_withdrawal"
                     app:layout_constraintLeft_toRightOf="@id/home_tv_point"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/home_imgbtn_notification"
                     app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/home_imgbtn_notification"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tintMode="src_atop"
+                    android:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:layout_marginEnd="40dp"
+
+                    android:focusable="true"
+                    app:layout_constraintBottom_toTopOf="@+id/home_imgbtn_withdrawal"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/notification"
+                    />
 
                 <LinearLayout
                     android:id="@+id/home_imgbtn_withdrawal"
@@ -63,7 +79,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_tv_point_label"
                     app:layout_constraintBottom_toTopOf="@id/home_linear_layout_menu"
-                    app:layout_constraintRight_toLeftOf="@id/home_imgbtn_current_order">
+                    app:layout_constraintRight_toLeftOf="@id/home_imgbtn_history">
 
 
                     <ImageView
@@ -84,37 +100,6 @@
                         android:text="@string/withdrawal" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/home_imgbtn_current_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginEnd="16dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/home_linear_layout_menu"
-                    app:layout_constraintLeft_toRightOf="@id/home_imgbtn_withdrawal"
-                    app:layout_constraintRight_toLeftOf="@id/home_imgbtn_history"
-                    app:layout_constraintTop_toBottomOf="@id/home_tv_point">
-
-                    <ImageView
-                        android:id="@+id/home_imgbtn_img_current_order"
-                        android:layout_width="@dimen/ImageButtonSize1"
-                        android:layout_height="@dimen/ImageButtonSize1"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/current_order"
-                        android:src="@drawable/icon_history" />
-
-                    <TextView
-                        style="@style/TextButtonPrimaryStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|bottom"
-                        android:clickable="false"
-                        android:gravity="center"
-
-                        android:text="@string/current_order" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/home_imgbtn_history"
@@ -124,7 +109,7 @@
                     android:focusable="true"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toTopOf="@+id/home_linear_layout_menu"
-                    app:layout_constraintLeft_toRightOf="@id/home_imgbtn_current_order"
+                    app:layout_constraintLeft_toRightOf="@id/home_imgbtn_withdrawal"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_tv_point">
 

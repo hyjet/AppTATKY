@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.IdentityNotVerifiedFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/TextHeader3"
+        android:text="@string/identity_not_verified"
+        android:gravity="center"/>
+    <Button
+        android:id="@+id/not_verified_btn_sign_out"
+        style="@style/ButtonWarnStyle"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
+        android:text="@string/sign_out"
+        android:textStyle="bold" />
+</FrameLayout>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".View.LaunchPage">
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/launch_guideline"
         android:layout_width="wrap_content"

@@ -124,76 +124,92 @@ class PickUpFragment : Fragment(), View.OnClickListener {
             pick_up_btn_pick_up -> {
                 pick_up_layout.isEnabled = false
                 val orderList: ArrayList<OrderAdapter.OrderData> = OrderAdapter.orderData
-                val phone = pick_up_edt_phone.text.toString()
-                val address = pick_up_edt_address.text.toString()
-                val addressDescription = pick_up_edt_address_description.text.toString()
-                val apiClient = ApiClient.getApiService(context!!)
-                val orderRequest =
-                    OrderRequest(longitude, latitude, address, addressDescription, phone, orderList)
-                apiClient.postOrder(orderRequest)
-                    .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
-                        override fun onFailure(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            t: Throwable?
-                        ) {
-                            Log.d("tes2", t?.message)
-                            val toast = Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
-                            toast.show()
-                            pick_up_layout.isEnabled = true
-                        }
-
-                        override fun onResponse(
-                            call: Call<CommonResponseModel<PostResponse>>?,
-                            response: Response<CommonResponseModel<PostResponse>>?
-                        ) {
-                            if (response?.code() == 200) {
-                                val postResponse = response.body()
-                                if (postResponse?.statusCode == 200) {
-                                    val message = postResponse.data.message
-                                    Log.d("tes2", message)
-                                    val toast = Toast.makeText(
-                                        context,
-                                        "Pickup Order Recieved",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    toast.show()
-                                    val thread = Thread {
-                                        try {
-                                            Thread.sleep(2000L)
-                                            val intent = Intent(context, HomePage::class.java)
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                            startActivity(intent)
-                                        } catch (e: java.lang.Exception) {
-                                            val toast2 = Toast.makeText(
-                                                context,
-                                                e.message,
-                                                Toast.LENGTH_SHORT
-                                            )
-                                            toast2.show()
-                                        }
-                                    }
-                                    thread.start()
-                                }
-                            } else {
-                                try {
-                                    val jObjError =
-                                        JSONObject(response!!.errorBody()?.string())
-                                    Toast.makeText(
-                                        context,
-                                        jObjError.getJSONObject("data").getString("error"),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-
-                                } catch (e: Exception) {
-                                    Toast.makeText(context, e.message, Toast.LENGTH_LONG)
-                                        .show()
-                                }
+                var total = 0f
+                for (i in 0 until (orderList.size)) {
+                    total += orderList[i].amount.toFloat()
+                }
+                if (total >= 3) {
+                    val phone = pick_up_edt_phone.text.toString()
+                    val address = pick_up_edt_address.text.toString()
+                    val addressDescription = pick_up_edt_address_description.text.toString()
+                    val apiClient = ApiClient.getApiService(context!!)
+                    val orderRequest =
+                        OrderRequest(
+                            longitude,
+                            latitude,
+                            address,
+                            addressDescription,
+                            phone,
+                            orderList
+                        )
+                    apiClient.postOrder(orderRequest)
+                        .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                            override fun onFailure(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                t: Throwable?
+                            ) {
+                                Log.d("tes2", t?.message)
+                                val toast = Toast.makeText(context, t?.message, Toast.LENGTH_SHORT)
+                                toast.show()
                                 pick_up_layout.isEnabled = true
                             }
-                        }
 
-                    })
+                            override fun onResponse(
+                                call: Call<CommonResponseModel<PostResponse>>?,
+                                response: Response<CommonResponseModel<PostResponse>>?
+                            ) {
+                                if (response?.code() == 200) {
+                                    val postResponse = response.body()
+                                    if (postResponse?.statusCode == 200) {
+                                        val message = postResponse.data.message
+                                        Log.d("tes2", message)
+                                        val toast = Toast.makeText(
+                                            context,
+                                            "Pickup Order Recieved",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        toast.show()
+                                        val thread = Thread {
+                                            try {
+                                                Thread.sleep(2000L)
+                                                val intent = Intent(context, HomePage::class.java)
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                                startActivity(intent)
+                                            } catch (e: java.lang.Exception) {
+                                                val toast2 = Toast.makeText(
+                                                    context,
+                                                    e.message,
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                toast2.show()
+                                            }
+                                        }
+                                        thread.start()
+                                    }
+                                } else {
+                                    try {
+                                        val jObjError =
+                                            JSONObject(response!!.errorBody()?.string())
+                                        Toast.makeText(
+                                            context,
+                                            jObjError.getJSONObject("data").getString("error"),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+
+                                    } catch (e: Exception) {
+                                        Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                                            .show()
+                                    }
+                                    pick_up_layout.isEnabled = true
+                                }
+                            }
+
+                        })
+                }
+                else{
+                    Toast.makeText(context,"Maaf, kami hanya menerima pesanan minimal 3 kg",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

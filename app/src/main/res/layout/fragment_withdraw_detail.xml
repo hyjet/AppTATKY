@@ -80,7 +80,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:hint="@string/minimal_rp_50_000"
+        android:hint="@string/minimal_rp_20_000"
         android:inputType="number" />
 
     <Space

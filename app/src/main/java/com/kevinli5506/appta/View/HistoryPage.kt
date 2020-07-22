@@ -20,11 +20,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class HistoryPage : BaseActivity() {
+class HistoryPage : BaseActivity(),View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_page)
 
+        history_btn_back.setOnClickListener(this)
         history_rview_history.layoutManager = LinearLayoutManager(this)
         refresh()
         history_refresh_layout.setOnRefreshListener {
@@ -94,5 +95,13 @@ class HistoryPage : BaseActivity() {
             }
 
         })
+    }
+
+    override fun onClick(v: View?) {
+        when(v){
+            history_btn_back->{
+                finish()
+            }
+        }
     }
 }
