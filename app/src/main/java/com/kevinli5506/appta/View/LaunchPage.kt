@@ -16,6 +16,7 @@ class LaunchPage : BaseActivity(),View.OnClickListener {
         setContentView(R.layout.activity_launch_page)
         launch_btn_login.setOnClickListener(this)
         launch_btn_signup.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
@@ -44,5 +45,8 @@ class LaunchPage : BaseActivity(),View.OnClickListener {
         } else {
             super.onBackPressed()
         }
+    }
+    companion object{
+        public var message = false
     }
 }

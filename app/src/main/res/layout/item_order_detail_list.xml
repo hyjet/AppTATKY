@@ -22,6 +22,8 @@
                 style="@style/TextHeader3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
                 tools:text="Jl. Medan No 2" />
 
             <TextView
@@ -42,10 +44,18 @@
             tools:text="17 Agustus 2020" />
     </LinearLayout>
 
-    <View
+    <TextView
+        android:id="@+id/item_order_list_progress"
+        style="@style/TextHeader3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        tools:text="diterima" />
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="16dp"
         android:background="@color/gray" />
 
 </LinearLayout>

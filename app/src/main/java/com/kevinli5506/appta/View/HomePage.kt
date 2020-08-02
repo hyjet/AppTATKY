@@ -82,80 +82,24 @@ class HomePage : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        val apiClient = ApiClient.getApiService(this)
-        apiClient.getUser().enqueue(object : Callback<CommonResponseModel<List<User>>> {
-            override fun onFailure(call: Call<CommonResponseModel<List<User>>>?, t: Throwable?) {
-                Log.d("tes2", t?.message)
-                Toast.makeText(
-                    this@HomePage,
-                    t?.message,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            override fun onResponse(
-                call: Call<CommonResponseModel<List<User>>>?,
-                response: Response<CommonResponseModel<List<User>>>?
-            ) {
-                if (response?.code() == 200) {
-                    val userResponse = response.body()
-                    if (userResponse?.statusCode == 200) {
-                        val list = userResponse.data
-
-                        verified = list[0].verified == 1
-                        if (verified) {
-                            if (savedInstanceState == null) {
-                                val fragment = HomeFragment()
-                                home_toolbar.home_toolbar_tv.text = resources.getText(R.string.home)
-                                supportFragmentManager
-                                    .beginTransaction()
-                                    .replace(R.id.home_container, fragment, fragment.javaClass.simpleName)
-                                    .commit()
-                            }
-                            setSupportActionBar(home_toolbar)
-                            supportActionBar?.hide()
-                            supportActionBar?.setDisplayShowTitleEnabled(false)
-                            home_bottom_navigation.setOnNavigationItemSelectedListener(
-                                mOnNavigationItemSelectedListener
-                            )
-                        } else {
-                            if (savedInstanceState == null) {
-                                val fragment =
-                                    IdentityNotVerifiedFragment()
-                                supportFragmentManager
-                                    .beginTransaction()
-                                    .replace(R.id.home_container, fragment, fragment.javaClass.simpleName)
-                                    .commit()
-                            }
-                            setSupportActionBar(home_toolbar)
-                            supportActionBar?.hide()
-                            supportActionBar?.setDisplayShowTitleEnabled(false)
-                            home_bottom_navigation.visibility = View.GONE
-                        }
-                    }
-
-                } else {
-                    try {
-                        val jObjError =
-                            JSONObject(response!!.errorBody()?.string())
-                        Toast.makeText(
-                            this@HomePage,
-                            jObjError.getJSONObject("data").getString("error"),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this@HomePage,
-                            e.message,
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
-                }
-
-            }
-
-        })
+        if (savedInstanceState == null) {
+            val fragment = HomeFragment()
+            home_toolbar.home_toolbar_tv.text = resources.getText(R.string.home)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.home_container,
+                    fragment,
+                    fragment.javaClass.simpleName
+                )
+                .commit()
+        }
+        setSupportActionBar(home_toolbar)
+        supportActionBar?.hide()
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        home_bottom_navigation.setOnNavigationItemSelectedListener(
+            mOnNavigationItemSelectedListener
+        )
 
 
     }

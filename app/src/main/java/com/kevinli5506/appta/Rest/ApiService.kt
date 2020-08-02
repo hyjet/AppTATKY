@@ -62,14 +62,12 @@ interface ApiService {
 
     @Multipart
     @POST(Constants.POST_SIGN_UP_URL)
-
     fun postSignup(
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody,
-        @Part("phone_number") phone_number: RequestBody,
-        //@Part("identity_number") identity_number:Int,
-        @Part identity_card: MultipartBody.Part
+        @Part("phone_number") phone_number: RequestBody
+        //@Part("identity_number") identity_number:Int
     ): Call<CommonResponseModel<LoginResponse>>
 
     @POST(Constants.POST_SIGN_OUT_URL)
@@ -93,6 +91,11 @@ interface ApiService {
         @Field("notif_id") notificationId: String
     ): Call<List<NotificationResponse>>
 
+    @Multipart
+    @POST(Constants.POST_UPDATE_IDENTITY_CARD)
+    fun postUpdateIdentityCard(
+        @Part image: MultipartBody.Part
+    ): Call<CommonResponseModel<PostResponse>>
 
     @PUT(Constants.PUT_EDIT_PROFILE_URL)
     @FormUrlEncoded

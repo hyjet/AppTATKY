@@ -97,8 +97,39 @@
                     android:gravity="center"
                     android:text="@string/edit_profile" />
             </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray"
+                android:id="@+id/profile_line"/>
+            <LinearLayout
+                android:id="@+id/profile_imgbtn_udpate_identity_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/profile_imgbtn_img_update_identity_card"
+                    android:layout_width="@dimen/ImageButtonSize2"
+                    android:layout_height="@dimen/ImageButtonSize2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_edit_profile"
+                    android:backgroundTint="@color/imageButtonPrimaryColor"
+                    android:backgroundTintMode="src_atop"
+                    android:contentDescription="@string/reward" />
 
+                <TextView
+                    style="@style/TextButtonSecondaryStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/update_identity_card" />
+            </LinearLayout>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"

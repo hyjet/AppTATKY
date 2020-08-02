@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kevinli5506.appta.EventAdapter
 import com.kevinli5506.appta.Model.CommonResponseModel
@@ -56,11 +57,46 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             home_imgbtn_withdrawal -> {
-                val intent = Intent(
-                    context,
-                    WithdrawPage::class.java
-                )
-                startActivity(intent)
+                val apiClient = ApiClient.getApiService(context!!)
+                apiClient.getUser().enqueue(object : Callback<CommonResponseModel<List<User>>> {
+                    override fun onFailure(call: Call<CommonResponseModel<List<User>>>?, t: Throwable?) {
+                        Log.d("tes2", t?.message)
+                    }
+
+                    override fun onResponse(
+                        call: Call<CommonResponseModel<List<User>>>?,
+                        response: Response<CommonResponseModel<List<User>>>?
+                    ) {
+                        if (response?.code() == 200) {
+                            val userResponse = response.body()
+                            if (userResponse?.statusCode == 200) {
+                                val list = userResponse.data
+                                val verified = list[0].verified
+                                if (verified == 0 || verified == null) {
+                                    val builder =
+                                        AlertDialog.Builder(context!!)
+                                    builder.setTitle("Maaf")
+                                    builder.setMessage("Sebelum anda bisa melakukan penarikan dana, harap upload KTP anda dari menu profile dan menunggu verifikasi dari admin kami dalam kurun waktu 24 jam\n\nJika anda tidak ingin mengupload KTP, anda bisa menukarkan point anda dengan voucher")
+                                    builder.setPositiveButton("OK") { _, _ ->
+                                    }
+                                    builder.show()
+                                }
+                                else{
+                                    val intent = Intent(
+                                        context,
+                                        WithdrawPage::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                            }
+
+                        } else {
+                            Log.d("test2", "Code = ${response?.code().toString()}")
+                        }
+
+                    }
+
+                })
             }
             home_imgbtn_history -> {
                 val intent = Intent(
@@ -168,6 +204,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         val list = userResponse.data
                         val df = DecimalFormat("#,###")
                         home_tv_point.text = df.format(list[0].points)
+                        val verified = list[0].verified
+                        if ((verified == 0 || verified == null) && !LaunchPage.message) {
+                            val builder =
+                                AlertDialog.Builder(context!!)
+                            builder.setTitle("Konfirmasi Pelanggan")
+                            builder.setMessage("Sebelum anda bisa melakukan penarikan dana, upload KTP anda dari menu profile")
+                            builder.setPositiveButton("OK") { _, _ ->
+                            }
+                            builder.show()
+                            LaunchPage.message = true
+                        }
                     }
 
                 } else {

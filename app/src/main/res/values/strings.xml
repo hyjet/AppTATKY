@@ -68,14 +68,14 @@
     <string name="account_number">Nomor Rekening</string>
     <string name="minimal_rp_20_000">Minimal Rp 20.000</string>
     <string name="choose_nominal">Pilih Nominal</string>
-    <string name="_100_000">+100.000</string>
-    <string name="_50_000">+50.000</string>
+    <string name="_100_000">100.000</string>
+    <string name="_50_000">50.000</string>
     <string name="submit">Mengajukan</string>
     <string name="withdraw_in_process_notif">Pengajuan sedang diproses, silahkan tunggu untuk kabar selanjutnya</string>
     <string name="pick_up_order">Orderan Pick Up</string>
     <string name="event">Event</string>
     <string name="event_name">Nama Event</string>
-    <string name="item_amount">Jumlah Barang</string>
+    <string name="item_amount">Deskripsi Barang</string>
     <string name="sign_out">Sign Out</string>
     <string name="calculate_header">Silahkan masukkan jenis dan berat barang yang akan anda jual untuk menghitung harga yang akan dibayarkan</string>
     <string name="history_detail">Detil Riwayat</string>
@@ -99,4 +99,9 @@
     <string name="identity_card_photo">Foto KTP</string>
     <string name="order">Orderan</string>
     <string name="identity_not_verified">Maaf, Akun anda belum terverifikasi, silahkan tunggu verifikasi dari admin kami</string>
+    <string name="_200_000">200.000</string>
+    <string name="_20_000">20.000</string>
+    <string name="identity_card_picture_path">Path Gambar KTP</string>
+    <string name="choose_identity_card_image">Pilih gambar KTP</string>
+    <string name="update_identity_card">Perbarui KTP</string>
 </resources>

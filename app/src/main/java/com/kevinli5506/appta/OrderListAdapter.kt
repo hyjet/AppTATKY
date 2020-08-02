@@ -25,6 +25,7 @@ class OrderListAdapter(val list: List<OrderListResponse>) :
         val tvOrderDetailLocation = itemView.item_order_list_location
         val tvOrderDetailTypeAmount = itemView.item_order_list_item_type
         val tvOrderDetailDate = itemView.item_order_list_date
+        val tvOrderDetailProgress = itemView.item_order_list_progress
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,5 +50,6 @@ class OrderListAdapter(val list: List<OrderListResponse>) :
         holder.itemView.setOnClickListener{
             onItemClickCallBack.onItemClicked(holder.adapterPosition)
         }
+        holder.tvOrderDetailProgress.text=list[position].status
     }
 }

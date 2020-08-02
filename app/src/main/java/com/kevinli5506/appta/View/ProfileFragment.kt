@@ -43,6 +43,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         profile_imgbtn_edit_profile.setOnClickListener(this)
         profile_imgbtn_history.setOnClickListener(this)
         profile_btn_sign_out.setOnClickListener(this)
+        profile_imgbtn_img_update_identity_card.setOnClickListener(this)
         refresh()
     }
 
@@ -72,6 +73,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                         val name = user.name.trim()
                         val email = user.email
                         val phone = user.phone
+                        val verified = user.verified
                         val spaceIndex = name.indexOf(" ")
                         var abbrive = "${name[0]}"
                         if (spaceIndex >= 0) {
@@ -87,6 +89,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                         profile_tv_email.text = email
                         profile_tv_name.text = name
                         profile_tv_phone.text = phone
+                        if(verified==1){
+                            profile_imgbtn_img_update_identity_card.isEnabled=false
+                            profile_line.isEnabled=false
+                        }
                     }
 
                 } else {
@@ -112,6 +118,13 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
+            profile_imgbtn_img_update_identity_card -> {
+                val intent = Intent(
+                    context,
+                    UploadIdentityCardPage::class.java
+                )
+                startActivity(intent)
+            }
             profile_imgbtn_edit_profile -> {
                 val intent = Intent(
                     context,

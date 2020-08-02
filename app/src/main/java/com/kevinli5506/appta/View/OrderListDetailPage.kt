@@ -62,8 +62,15 @@ class OrderListDetailPage : BaseActivity(), View.OnClickListener {
                             val generatedList = oresponse.generatedOrder.reversed()
                             val notGeneratedList = oresponse.notGeneratedOrder.reversed()
                             val allList: ArrayList<OrderListResponse> = arrayListOf()
-                            allList.addAll(notGeneratedList)
-                            allList.addAll(generatedList)
+                            for(i in notGeneratedList){
+                                i.status="Orderan diterima"
+                                allList.add(i)
+                            }
+                            for(i in generatedList){
+                                i.status="Orderan sedang diproses"
+                                allList.add(i)
+                            }
+
                             orderId = allList[id].id
                             if (allList[id].picker_name != null) {
                                 val spaceIndex = allList[id].picker_name.indexOf(" ")

@@ -165,7 +165,7 @@ class PickUpFragment : Fragment(), View.OnClickListener {
                                         Log.d("tes2", message)
                                         val toast = Toast.makeText(
                                             context,
-                                            "Pickup Order Recieved",
+                                            "Orderan pick up berhasil",
                                             Toast.LENGTH_SHORT
                                         )
                                         toast.show()

@@ -23,7 +23,7 @@ object Constants {
     const val POST_REDEEM_VOUCHER = "auth/user/voucher/redeem"
     const val POST_FORGET_PASSWORD = "auth/password/email"
     const val POST_PLAYER_ID = "auth/user/onesignal/playerId"
-
+    const val POST_UPDATE_IDENTITY_CARD = "auth/user/update-ktp"
 
     const val PUT_EDIT_PROFILE_URL ="auth/user/edit-profile"
 

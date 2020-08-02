@@ -22,11 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.NotificationDetailPage"></activity>
+        <activity android:name=".View.UploadIdentityCardPage"></activity>
+        <activity android:name=".View.NotificationDetailPage" />
         <activity android:name=".View.NotificationListPage" />
         <activity android:name=".ForgetPasswordPage" />
         <activity android:name=".View.OrderListDetailPage" />
-
         <activity android:name=".View.LaunchPage" />
         <activity android:name=".View.SignUpPage" />
         <!--

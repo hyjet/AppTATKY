@@ -1,5 +1,6 @@
 package com.kevinli5506.appta.View
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,10 +10,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.amulyakhare.textdrawable.TextDrawable
 import com.kevinli5506.appta.Model.CommonResponseModel
 import com.kevinli5506.appta.Model.PostResponse
+import com.kevinli5506.appta.Model.User
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.*
 import kotlinx.android.synthetic.main.fragment_withdraw_detail.view.*
 import org.json.JSONObject
@@ -47,6 +51,7 @@ class WithdrawDetailFragment : Fragment(), View.OnClickListener {
         view.withdraw_btn_100000.setOnClickListener(this)
         view.withdraw_btn_50000.setOnClickListener(this)
         view.withdraw_btn_submit.setOnClickListener(this)
+        view.withdraw_btn_200000.setOnClickListener(this)
         view.withdraw_edt_amount.setText("0")
         view.withdraw_edt_amount.setOnFocusChangeListener { _, _ ->
             if (view.withdraw_edt_amount.text.toString().equals("")) {
@@ -56,17 +61,62 @@ class WithdrawDetailFragment : Fragment(), View.OnClickListener {
                 withdraw_edt_amount.setText(df.format(current).toString())
             }
         }
+        refresh()
+    }
+
+    private fun refresh() {
+        val apiClient = ApiClient.getApiService(context!!)
+        apiClient.getUser().enqueue(object : Callback<CommonResponseModel<List<User>>> {
+            override fun onFailure(call: Call<CommonResponseModel<List<User>>>?, t: Throwable?) {
+                Log.d("tes2", t?.message)
+                val toast = Toast.makeText(context,t?.message, Toast.LENGTH_SHORT)
+                toast.show()
+            }
+
+            override fun onResponse(
+                call: Call<CommonResponseModel<List<User>>>?,
+                response: Response<CommonResponseModel<List<User>>>?
+            ) {
+                if (response?.code() == 200) {
+                    val userResponse = response.body()
+                    if (userResponse?.statusCode == 200) {
+                        val list = userResponse.data
+                        val user: User = list[0]
+                        val name = user.name
+                        withdraw_edt_name.setText(name)
+                    }
+
+                } else {
+                    try {
+                        val jObjError =
+                            JSONObject(response!!.errorBody()?.string())
+                        Toast.makeText(
+                            context,
+                            jObjError.getJSONObject("data").getString("error"),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+
+            }
+
+        })
     }
 
     override fun onClick(v: View?) {
         when (v) {
+            withdraw_btn_200000 -> {
+                withdraw_edt_amount.setText(df.format( 200000).toString())
+            }
             withdraw_btn_100000 -> {
-                val current = withdraw_edt_amount.text.toString().replace(",", "").toInt()
-                withdraw_edt_amount.setText(df.format(current + 100000).toString())
+                withdraw_edt_amount.setText(df.format( 100000).toString())
             }
             withdraw_btn_50000 -> {
-                val current = withdraw_edt_amount.text.toString().replace(",", "").toInt()
-                withdraw_edt_amount.setText(df.format(current + 50000).toString())
+                withdraw_edt_amount.setText(df.format(50000).toString())
             }
             withdraw_btn_submit -> {
                 val amount = withdraw_edt_amount.text.toString().replace(",", "").toInt()
@@ -80,7 +130,7 @@ class WithdrawDetailFragment : Fragment(), View.OnClickListener {
                     val builder = AlertDialog.Builder(context!!)
                     builder.setTitle("Witdrawal")
                     builder.setMessage("Apakah anda yakin akan melakukan transaksi ini?")
-                    builder.setPositiveButton("Yes") { _,   _ ->
+                    builder.setPositiveButton("Ya") { _,   _ ->
                         /*val fragment =
                             WithdrawOnProcessFragment()
                         activity!!.supportFragmentManager
@@ -147,7 +197,7 @@ class WithdrawDetailFragment : Fragment(), View.OnClickListener {
 
                             })
                     }
-                    builder.setNegativeButton("No") { _, _ -> }
+                    builder.setNegativeButton("Tidak") { _, _ -> }
                     builder.show()
 
                 }

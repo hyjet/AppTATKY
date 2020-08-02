@@ -4,50 +4,40 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.FileHelper
 import com.kevinli5506.appta.Model.CommonResponseModel
-import com.kevinli5506.appta.Model.EventDonation
 import com.kevinli5506.appta.Model.PostResponse
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import kotlinx.android.synthetic.main.activity_donation_page.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
+import kotlinx.android.synthetic.main.activity_upload_identity_card_page.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
+class UploadIdentityCardPage : AppCompatActivity(), View.OnClickListener {
 
-class DonationPage : BaseActivity(), View.OnClickListener {
     var path: String? = null
     val fileHelper = FileHelper()
-    lateinit var event: EventDonation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_donation_page)
-        event = intent.getParcelableExtra(EventDetailPage.EXTRA_EVENT_ID)
-        donation_tv_item_type.setText(event.productType)
-        donation_tv_choose.setOnClickListener(this)
-        donation_btn_back_navigation.setOnClickListener(this)
-        donation_btn_donation.setOnClickListener(this)
+        setContentView(R.layout.activity_upload_identity_card_page)
+
+        upload_identity_card_btn_choose.setOnClickListener(this)
+        upload_identity_card_btn_send.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            donation_tv_choose -> {
+            upload_identity_card_btn_choose -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                         val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -62,41 +52,39 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                     pickImage()
                 }
             }
-            donation_btn_donation -> {
-                val itemAmount = donation_edt_item_amount.text.toString().toInt()
+            upload_identity_card_btn_send -> {
                 val pathNotNull = path
                 if (!pathNotNull.isNullOrEmpty()) {
                     val file = fileHelper.createFile(pathNotNull)
                     val requestBody = fileHelper.createRequestBody(file)
-                    val part = fileHelper.createPart(file, requestBody, "images")
+                    val part = fileHelper.createPart(file, requestBody, "identity_card")
                     val apiClient = ApiClient.getApiService(this)
-                    apiClient.postDonation(event.id, itemAmount, part)
-                        .enqueue(object : Callback<CommonResponseModel<PostResponse>> {
+                    apiClient.postUpdateIdentityCard(part)
+                        .enqueue(object : Callback<CommonResponseModel<PostResponse>>{
                             override fun onFailure(
-                                call: Call<CommonResponseModel<PostResponse>>?,
-                                t: Throwable?
+                                call: Call<CommonResponseModel<PostResponse>>,
+                                t: Throwable
                             ) {
-
-                                Log.d("tes2", t?.message)
+                                Log.d("tes2", t.message)
                                 val toast = Toast.makeText(
-                                    this@DonationPage,
-                                    t?.message,
+                                    this@UploadIdentityCardPage,
+                                    t.message,
                                     Toast.LENGTH_SHORT
                                 )
                                 toast.show()
                             }
 
                             override fun onResponse(
-                                call: Call<CommonResponseModel<PostResponse>>?,
-                                response: Response<CommonResponseModel<PostResponse>>?
+                                call: Call<CommonResponseModel<PostResponse>>,
+                                response: Response<CommonResponseModel<PostResponse>>
                             ) {
-                                if (response?.code() == 200) {
+                                if (response.code() == 200) {
                                     val postResponse = response.body()
                                     if (postResponse?.statusCode == 200) {
                                         val message = postResponse.data.message
                                         Log.d("tes2", message)
                                         val toast = Toast.makeText(
-                                            this@DonationPage,
+                                            this@UploadIdentityCardPage,
                                             message,
                                             Toast.LENGTH_SHORT
                                         )
@@ -106,15 +94,15 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                                 } else {
                                     try {
                                         val jObjError =
-                                            JSONObject(response!!.errorBody()?.string())
+                                            JSONObject(response.errorBody()?.string())
                                         Toast.makeText(
-                                            this@DonationPage,
+                                            this@UploadIdentityCardPage,
                                             jObjError.getJSONObject("data").getString("error"),
                                             Toast.LENGTH_LONG
                                         ).show()
                                     } catch (e: Exception) {
                                         Toast.makeText(
-                                            this@DonationPage,
+                                            this@UploadIdentityCardPage,
                                             e.message,
                                             Toast.LENGTH_LONG
                                         )
@@ -124,13 +112,15 @@ class DonationPage : BaseActivity(), View.OnClickListener {
                             }
 
                         })
-                } else {
-                    Log.d("tes2", "No image selected")
                 }
-
-            }
-            donation_btn_back_navigation->{
-                finish()
+                else{
+                    Toast.makeText(
+                        this@UploadIdentityCardPage,
+                        "Harap Pilih Gambar KTP Anda",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
             }
         }
     }
@@ -142,11 +132,6 @@ class DonationPage : BaseActivity(), View.OnClickListener {
             intent,
             IMAGE_PICK_CODE
         )
-    }
-
-    companion object {
-        private val IMAGE_PICK_CODE = 1000
-        private val PERMISSION_CODE = 1001
     }
 
     override fun onRequestPermissionsResult(
@@ -164,13 +149,19 @@ class DonationPage : BaseActivity(), View.OnClickListener {
         }
     }
 
+    companion object {
+        private val IMAGE_PICK_CODE = 2000
+        private val PERMISSION_CODE = 2001
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val imageUri = data?.data
-            donation_imgv_item_photo.setImageURI(imageUri)
+            upload_identity_card_imgv_identity_card.setImageURI(imageUri)
             if (imageUri != null) {
                 path = fileHelper.getPathFromURI(this, imageUri)
+                upload_identity_card_edt_path.setText(path)
             }
         }
     }

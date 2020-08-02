@@ -10,6 +10,7 @@
     <EditText
         android:id="@+id/withdraw_edt_name"
         style="@style/InputStyle"
+        android:enabled="false"
         android:layout_width="match_parent"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
@@ -54,15 +55,32 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/withdraw_btn_100000"
+            android:id="@+id/withdraw_btn_200000"
             style="@style/ButtonSecondaryStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:text="@string/_200_000" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/withdraw_btn_100000"
+            style="@style/ButtonSecondaryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/_100_000" />
-
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
         <Button
             android:id="@+id/withdraw_btn_50000"
             style="@style/ButtonSecondaryStyle"

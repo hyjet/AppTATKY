@@ -13,7 +13,8 @@ data class OrderListResponse(
     @SerializedName("id") val id:Int=0,
     @SerializedName("picker_name") val picker_name:String="",
     @SerializedName("phone_number") val picker_phone:String="",
-    @SerializedName("orderproducts") val orderproducts : List<OrderProducts>
+    @SerializedName("orderproducts") val orderproducts : List<OrderProducts>,
+    var status:String
 
 
 )

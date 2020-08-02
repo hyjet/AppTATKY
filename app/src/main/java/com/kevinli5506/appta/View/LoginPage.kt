@@ -2,18 +2,18 @@ package com.kevinli5506.appta.View
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.amulyakhare.textdrawable.TextDrawable
 import com.kevinli5506.appta.BaseActivity
 import com.kevinli5506.appta.ForgetPasswordPage
-import com.kevinli5506.appta.Model.CommonResponseModel
-import com.kevinli5506.appta.Model.LoginRequest
-import com.kevinli5506.appta.Model.LoginResponse
-import com.kevinli5506.appta.Model.PostResponse
+import com.kevinli5506.appta.Model.*
 import com.kevinli5506.appta.R
 import com.kevinli5506.appta.Rest.ApiClient
 import com.kevinli5506.appta.Rest.SessionManager
@@ -21,6 +21,7 @@ import com.onesignal.OSSubscriptionObserver
 import com.onesignal.OSSubscriptionStateChanges
 import com.onesignal.OneSignal
 import kotlinx.android.synthetic.main.activity_login_page.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +70,7 @@ class LoginPage : View.OnClickListener, BaseActivity(), OSSubscriptionObserver {
                                 if (loginResponse?.statusCode == 200) {
                                     sessionManager.saveAuthToken(loginResponse.data.authToken!!)
                                     OneSignal.setSubscription(true)
-                                    if(!playerId.equals("")){
+                                    if (!playerId.equals("")) {
                                         postLogin.postPlayerId(playerId).enqueue(object :
                                             Callback<CommonResponseModel<PostResponse>> {
                                             override fun onFailure(
@@ -90,7 +91,7 @@ class LoginPage : View.OnClickListener, BaseActivity(), OSSubscriptionObserver {
                                                 call: Call<CommonResponseModel<PostResponse>>,
                                                 response: Response<CommonResponseModel<PostResponse>>
                                             ) {
-                                                Log.d("tes2",response.message())
+                                                Log.d("tes2", response.message())
                                             }
                                         })
                                     }
@@ -100,6 +101,7 @@ class LoginPage : View.OnClickListener, BaseActivity(), OSSubscriptionObserver {
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     startActivity(intent)
+
                                 } else {
                                     Log.d(
                                         "tes2",

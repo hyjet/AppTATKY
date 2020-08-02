@@ -63,8 +63,14 @@ class OrderListFragment : Fragment() {
                         if (generatedList.isNotEmpty() || notGeneratedList.isNotEmpty()) {
                             order_list_tv_empty_message.visibility = View.GONE
                             val allList :ArrayList<OrderListResponse> = arrayListOf()
-                            allList.addAll(notGeneratedList)
-                            allList.addAll(generatedList)
+                            for(i in notGeneratedList){
+                                i.status="Orderan diterima"
+                                allList.add(i)
+                            }
+                            for(i in generatedList){
+                                i.status="Orderan sedang diproses"
+                                allList.add(i)
+                            }
                             val historyAdapter = OrderListAdapter(allList)
                             order_list_rv_list.adapter = historyAdapter
                             historyAdapter.setOnItemClickCallBack(object :
